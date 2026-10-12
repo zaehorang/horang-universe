@@ -8,3 +8,4 @@
 - 2026-10-12 · fix · 앵커 장면 오류 전에 EXPLORER 와 ambient 를 초기화하도록 순서 조정 · 없음
 - 2026-10-12 · fix · 자동 이름 400 굵기와 짙은 층 색 변수 적용, 질감 주석에 hatch 추가 · 없음
 - 2026-10-12 · feature · 엔진 예약 body 클래스 `in-event`(사건 재생 중) 추가. 이 동안 길 표시 칩을 visibility 로 숨겨 확대 장면의 지도 라벨과 겹치지 않고 키보드 포커스도 받지 않게 함 · 없음
+- 2026-10-12 · feature · `.tag-dark` 에 SVG(g > rect/text) 규칙 추가 — 짙은 IP 표를 세계가 fill 없이 그린다 · k8s-harbor(기존 fill 지정과 호환), eks-security(이관 시 사용)
