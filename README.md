@@ -4,7 +4,7 @@
 네트워크는 우편 도시, 쿠버네티스는 항구, 데이터베이스는 도서관처럼 각 주제가 하나의 세계이고,
 세계들은 지역으로 묶여 허브 지도 위에 놓인다. 세계 사이에는 문이 있어 한 요청의 여정을 끝까지 따라갈 수 있다.
 
-- 공개 주소: `https://zaehorang.github.io/horang-universe/` (Phase 1 완료 시 활성화)
+- 공개 주소: https://zaehorang.github.io/horang-universe/
 - 데스크톱 브라우저 전용
 
 ## 로컬에서 열기

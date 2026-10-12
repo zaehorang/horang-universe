@@ -7,15 +7,15 @@
 
 | Phase | 이름 | 목표 | 상태 |
 |---|---|---|---|
-| 0 | 스캐폴딩 | 폴더·문서·규칙·등록부 스키마 | doing |
-| 1 | 뼈대 | 엔진 손질 · 도구 · 허브 초안 · Pages 첫 배포 | doing |
-| 2 | 이관 | 기존 세계 다섯을 하나씩 들여오고 문·사전·검색 켜기 | todo |
+| 0 | 스캐폴딩 | 폴더·문서·규칙·등록부 스키마 | done |
+| 1 | 뼈대 | 엔진 손질 · 도구 · 허브 초안 · Pages 첫 배포 | done |
+| 2 | 이관 | 기존 세계 다섯을 하나씩 들여오고 문·사전·검색 켜기 | doing |
 | 3 | 흡수와 정리 | 구형 세계 흡수 · SKALA 정리 | todo |
 | 4 | 확장 | 대륙 간 사건 · 만약에 토글 · 역반영 | todo |
 
 ---
 
-## Phase 0 · 스캐폴딩 — doing
+## Phase 0 · 스캐폴딩 — done
 
 **완료 기준**: 새 세션이 `docs/README.md` 부터 읽어 Phase 1 을 재논의 없이 시작할 수 있다.
 
@@ -29,9 +29,9 @@
 - [x] 디자인 자문 → `docs/design.md`, 등록부 톤 반영
 - [x] 규칙 정본 `AGENTS.md` 하나로 통일, `CLAUDE.md` 는 `@AGENTS.md` 한 줄
 - [x] LICENSE
-- [ ] `git init` 과 첫 커밋 (사용자 요청 시)
+- [x] `git init` 과 첫 커밋 (f575663)
 
-## Phase 1 · 뼈대 — doing
+## Phase 1 · 뼈대 — done
 
 **완료 기준**: 공개 주소에 지역 셋만 보이는 허브가 뜬다. Actions 검사가 통과한다. universe 스킬로 빈 세계 하나를 등록·검사·삭제하는 연습이 된다. 임시 세계(서로 다른 kind 사건 3개)를 만들어 헤드리스 Chrome 에서 `EXPLORER.startEvent` 로 전 사건·전 장면, 유효·무효 `#ev=&b=` 앵커, ATLAS 없는 index 를 확인하고 삭제한다.
 
@@ -83,11 +83,11 @@ Pretendard 1.3.9 dynamic-subset 500·700·800 굵기와 WOFF2 276개는 사용�
 
 ### 1-F 배포
 - [x] `.github/workflows/pages.yml`: main push → check_all → upload-pages-artifact → deploy-pages
-- [ ] `gh repo create zaehorang/horang-universe --public` (사용자 승인 시점)
-- [ ] Pages 소스를 Actions 로 설정
-- [ ] 첫 배포 확인, README 의 주소 활성화
+- [x] `gh repo create zaehorang/horang-universe --public` (2026-10-12, 커밋 f575663)
+- [x] Pages 소스를 Actions 로 설정
+- [x] 첫 배포 확인 (Actions run 38224580300 success, 공개 주소 200, atlas 지역 3 · 세계 0), README 의 주소 활성화
 
-## Phase 2 · 이관 — todo
+## Phase 2 · 이관 — doing
 
 **완료 기준**: 세계 다섯이 `verified` 로 허브에 보이고, 선언된 문 셋이 양방향(여섯 방향)으로 동작하고, 검색이 사전을 읽는다.
 
@@ -103,7 +103,7 @@ Pretendard 1.3.9 dynamic-subset 500·700·800 굵기와 WOFF2 276개는 사용�
 - `docs/migration.md` 세계별 표: 자기 행만 갱신.
 
 - [ ] 2-1 `network-layers` — 절차 검증. 막힌 곳은 체크리스트에 반영
-- [ ] 2-2 `db-library` — `pay-app` · `guest-app` 벌 확정
+- [x] 2-2 `db-library` — `pay-app` · `guest-app` 벌 확정
 - [ ] 2-3 `k8s-harbor` — 먼저 `eks-security` 를 draft 로 생성하고 `ingress` actor 를 둔 뒤 `gate → eks-security:ingress` 문을 등록
 - [ ] 2-4 `eks-security` — 내용 이관 후 문 둘 활성. **문 기능 첫 실사용 시험**
 - [ ] 2-5 `http-https` — 작업 마무리 확인 후. 문 `shop → network-layers:server`

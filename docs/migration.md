@@ -23,7 +23,7 @@ SKALA 쪽 폴더 삭제와 CLAUDE.md 수정은 사용자 승인 뒤에만.
 | 순서 | 세계 | 지역 | 손님 actor | 값 벌 | 문 | 메모 |
 |---|---|---|---|---|---|---|
 | 1 | `network-layers` | network | `client` | `shop-web`(도메인 예외) | → `http-https:shop` 반대편으로 자동 | 가장 작고 NOTES 있음. 절차 검증용. 도메인은 `my-shop.example` 유지(D22). 디자인: skyGrad 아랫단을 풀색 `#a9d6a0` 으로(땅이 지역색), `.events` 470px·2열 덮어쓰기 제거(엔진 규칙으로 승격) |
-| 2 | `db-library` | data | `client` | `pay-app` · `guest-app` | 없음(공항 쪽에서 들어옴) | mina·joon·my-pay 유지(D23). 결제 서비스 벌 정의가 이때 확정. 디자인: world.js 의 `api.bg.setAttribute(fill)` 리터럴 제거, 바탕 `#e3e8df`, `--world-texture:url(#tex-paper)` |
+| 2 | `db-library` | data | `client` | `pay-app` · `guest-app` | 없음(공항 쪽에서 들어옴) | **verified (2026-10-12)**. mina·joon·my-pay 유지(D23). 결제 벌 확정: `pay-app` 에 `appName` · `dbHost` · `dbUser` 추가, psql 줄머리까지 `PAY.db` 로 통일. 디자인: `api.bg.setAttribute(fill)` 리터럴 제거, 바탕 `#e3e8df`, `--world-texture:url(#tex-paper)`, `.lbl` 크기 삭제. 사건 유형 normal·recovery 둘(셋 미만, D27 경고만) |
 | 3 | `k8s-harbor` | ops | `guest` | `shop-web` · `guest-browser` | `gate` → `eks-security:ingress` | `shop.example.com` → `my-shop.example.com`. 173곳 my-shop 은 이미 일치. 디자인: seaGrad → `--world-bg/-deep`, `.iptag` 는 엔진 `.tag-dark` 로 승격 후 제거, `--world-texture:url(#tex-waves)` |
 | 4 | `eks-security` | ops | `user` | `shop-web` · `guest-browser` | `rds` → `db-library:gate` | 인물 23개로 최대. 도메인 통일. 디자인: **바탕 `#d9e8ef` → `#cfdde3` 콘크리트**(하늘색과 겹쳐 지역이 뒤바뀌어 보임), 바다 요소 없이 항만으로 읽히는지 확인(안 되면 가장자리 바다 띠), `.iptag` 제거 |
 | 5 | `http-https` | network | `browser` | `shop-web` · `guest-browser` | `shop` → `network-layers:server` | 엔진 한 버전 뒤(UI 문구 기능 없음). 세계 작업 마무리 뒤 이관. world.css 셀렉터가 가장 많아 변수 전환 충돌 확인. 디자인: `#bg` 리터럴 → 변수, `.idx .warnt .certx` 의 빨강 → `--danger`, `--world-texture:url(#tex-dots)`. 봉인 금색·메모 주황은 의미색이라 유지 |

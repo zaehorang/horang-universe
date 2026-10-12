@@ -14,6 +14,7 @@ window.SHARED = {
       note: "우편 도시·항구·공항이 같은 가게를 본다. network-layers 만 my-shop.example 예외(D22)." },
     "pay-app":  { name: "my-pay 결제소", real: "my-pay (결제 서비스)",
       domain: "pay.example.com", db: "my_pay", table: "wallets",
+      appName: "my-pay-app", dbHost: "db.example.com", dbUser: "pay_user",
       note: "도서관의 손님이 쓰는 서비스. 주문 가게가 결제를 부탁하는 관계(D23)." }
   },
 

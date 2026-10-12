@@ -1,0 +1,9 @@
+/* 데이터베이스 도서관 전용 스타일 · data 지역의 종이 바탕 */
+:root{
+  --world-bg:#e3e8df;
+  --world-bg-deep:#cdd3c8;
+  --world-texture:url(#tex-paper);
+}
+.book polygon{stroke:rgba(0,0,0,.18);stroke-width:.8}
+.bk{font:700 9px var(--mono);fill:#7f1d1d}
+.door{font:700 10px var(--mono);fill:#fff}

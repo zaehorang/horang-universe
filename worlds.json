@@ -46,5 +46,7 @@
     "seaDeep": "#3f8fab",
     "shore": "#efe2c0"
   },
-  "worlds": []
+  "worlds": [
+    { "id": "db-library", "region": "data", "pos": [1230, 510], "status": "verified", "since": "2026-10-12" }
+  ]
 }

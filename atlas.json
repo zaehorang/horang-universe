@@ -45,6 +45,66 @@
       "texture": "paper"
     }
   ],
-  "worlds": [],
+  "worlds": [
+    {
+      "id": "db-library",
+      "region": "data",
+      "pos": [
+        1230,
+        510
+      ],
+      "status": "verified",
+      "since": "2026-10-12",
+      "title": "데이터베이스 도서관",
+      "subtitle": "SQL 한 줄이 디스크까지 — PostgreSQL로 보는 DB의 큰 흐름",
+      "logo": "▤",
+      "roof": "#7f1d1d",
+      "regionName": "데이터 구역",
+      "concepts": [
+        "postgresql",
+        "sql",
+        "query-planner",
+        "btree",
+        "shared-buffers",
+        "transaction",
+        "wal",
+        "mvcc",
+        "row-level-lock",
+        "checkpoint",
+        "crash-recovery"
+      ],
+      "events": [
+        {
+          "id": "select",
+          "title": "① 책 찾기",
+          "kind": "normal",
+          "beats": 6
+        },
+        {
+          "id": "update",
+          "title": "② 책 고치기",
+          "kind": "normal",
+          "beats": 5
+        },
+        {
+          "id": "race",
+          "title": "③ 두 사람이 동시에",
+          "kind": "normal",
+          "beats": 5
+        },
+        {
+          "id": "crash",
+          "title": "④ 정전 후 복구",
+          "kind": "recovery",
+          "beats": 5
+        }
+      ],
+      "guest": "client",
+      "values": [
+        "pay-app",
+        "guest-app"
+      ]
+    }
+  ],
   "doors": []
 }
