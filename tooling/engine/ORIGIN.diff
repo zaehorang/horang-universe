@@ -374,8 +374,8 @@
 +/* 공통 읽기 장치 */
 +.tag-dark{background:var(--dark2);color:var(--name-official-dark);border-radius:var(--radius-s);padding:3px 7px;font:700 12px var(--mono)}
 +/* SVG 안에서 같은 모양: g.tag-dark > rect / text. 세계 world.js 가 fill 을 직접 줄 필요 없음 */
-+g.tag-dark rect{fill:var(--dark2)}
-+g.tag-dark text{fill:var(--name-official-dark);font:700 12px var(--mono)}
++:where(g.tag-dark) rect{fill:var(--dark2)}
++:where(g.tag-dark) text{fill:var(--name-official-dark);font:700 12px var(--mono)}
 +.events.many{width:min(470px,calc(100vw - 40px))}.events.many #evList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.events.many .ev{margin:0;min-width:0}
 +.route-chip{position:fixed;top:82px;left:20px;z-index:10;background:var(--glass);padding:8px 12px;border-radius:var(--radius-s);box-shadow:var(--shadow-1);font-size:12px;color:var(--ink);transition:opacity .3s,visibility .3s}
 +/* 사건 재생 중에는 확대된 지도 라벨을 가리지 않도록 길 표시 칩을 숨긴다. visibility 로 키보드 포커스에서도 뺀다 */
