@@ -222,7 +222,132 @@
         "shop-web",
         "guest-browser"
       ]
+    },
+    {
+      "id": "eks-security",
+      "region": "ops",
+      "pos": [
+        900,
+        300
+      ],
+      "status": "verified",
+      "title": "EKS 보안 공항",
+      "subtitle": "EKS 보안 구성을 공항으로 그렸어요",
+      "logo": "✈",
+      "roof": "#4f7aa6",
+      "regionName": "운영 항만",
+      "concepts": [
+        "eks",
+        "vpc",
+        "dns",
+        "route53",
+        "alb",
+        "tls",
+        "waf",
+        "ingress",
+        "pod",
+        "mtls",
+        "security-group",
+        "rds",
+        "iam",
+        "irsa",
+        "secrets-manager",
+        "cloudtrail",
+        "ecr",
+        "pod-security-admission",
+        "network-policy"
+      ],
+      "events": [
+        {
+          "id": "request",
+          "title": "손님 요청 하나",
+          "kind": "normal",
+          "beats": 7
+        },
+        {
+          "id": "secret",
+          "title": "가게가 금고 열기",
+          "kind": "normal",
+          "beats": 5
+        },
+        {
+          "id": "breach",
+          "title": "침입 시도 막기",
+          "kind": "attack",
+          "beats": 6
+        },
+        {
+          "id": "deploy",
+          "title": "새 버전 배포하기",
+          "kind": "normal",
+          "beats": 6
+        }
+      ],
+      "guest": "user",
+      "values": [
+        "shop-web",
+        "guest-browser"
+      ]
     }
   ],
-  "doors": []
+  "doors": [
+    {
+      "from": {
+        "world": "k8s-harbor",
+        "actor": "gate"
+      },
+      "to": {
+        "world": "eks-security",
+        "actor": "ingress",
+        "event": null,
+        "name": "EKS 보안 공항"
+      },
+      "why": "같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요",
+      "tone": "#7cc6d8"
+    },
+    {
+      "from": {
+        "world": "eks-security",
+        "actor": "rds"
+      },
+      "to": {
+        "world": "db-library",
+        "actor": "gate",
+        "event": null,
+        "name": "데이터베이스 도서관"
+      },
+      "why": "기록 금고 안은 데이터베이스 도서관에서",
+      "tone": "#e3e8df"
+    },
+    {
+      "from": {
+        "world": "eks-security",
+        "actor": "ingress"
+      },
+      "to": {
+        "world": "k8s-harbor",
+        "actor": "gate",
+        "event": null,
+        "name": "쿠버네티스 항구"
+      },
+      "why": "같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요",
+      "generated": true,
+      "tone": "#7cc6d8"
+    },
+    {
+      "from": {
+        "world": "db-library",
+        "actor": "gate"
+      },
+      "to": {
+        "world": "eks-security",
+        "actor": "rds",
+        "event": null,
+        "name": "EKS 보안 공항"
+      },
+      "why": "기록 금고 안은 데이터베이스 도서관에서",
+      "generated": true,
+      "tone": "#7cc6d8"
+    }
+  ]
 }

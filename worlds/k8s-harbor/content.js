@@ -7,6 +7,11 @@
 var SHOP = window.SHARED.shops["shop-web"];
 var GUEST = window.SHARED.guests["guest-browser"];
 var INGRESS_IP = window.SHARED.publicIps["ops-ingress"];
+var GUEST_NAME = "바깥 " + GUEST.name;   /* 항구 바깥 ↔ 항구 안 대비를 이름에 남긴다 */
+/* 도메인 길이가 바뀌어도 터미널 출력의 열이 맞도록 공백을 채운다 */
+function pad(s, n){ while(s.length < n) s += " "; return s; }
+var HOST_W = Math.max(SHOP.domain.length + 3, 19);
+var YAML_C = Math.max(("  - host: " + SHOP.domain).length + 4, 30);
 
 var ACTORS = {
   hill:{ name:"관제 언덕", real:"Control Plane",
@@ -133,7 +138,7 @@ var ACTORS = {
           {l:"우편함 뒤의 실제 주소들", code:"<span class='k'>$ kubectl get endpointslice -l kubernetes.io/service-name=my-shop</span>\nNAME            ADDRESSTYPE   PORTS   ENDPOINTS                          AGE\nmy-shop-x7k2q   IPv4          80      10.244.1.5,10.244.2.4,10.244.2.5   5m"}],
     myth:"우편함이 요청을 받아 전달하는 서버다? — 가상 주소예요. 실제 전달은 각 부두 커널의 규칙이 해요." },
 
-  guest:{ name:GUEST.name, real:GUEST.real,
+  guest:{ name:GUEST_NAME, real:"client (브라우저·curl)",
     tip:("항구 바깥에서 " + SHOP.name + "를 찾아온 손님이에요. 항구 안 사정은 전혀 몰라요."),
     what:("손님은 <b>도메인 이름(" + SHOP.domain + ")</b>만 알아요. 바깥 DNS 가 그 이름을 정문의 공인 주소로 바꿔 주고, 손님은 그 주소로 HTTP 요청을 보내요. 상자가 몇 개인지, 어느 부두에 있는지는 몰라도 돼요."),
     talks:[["바깥 DNS","DNS",(SHOP.domain + " → 정문 공인 주소")],["항구 정문 (Ingress Controller)","HTTP / HTTPS","요청 보내기 · 응답 받기"]],
@@ -144,9 +149,9 @@ var ACTORS = {
   gate:{ name:"항구 정문", real:"Ingress Controller (ingress-nginx)",
     tip:"바깥 손님이 들어오는 문이에요. 안내판(Ingress 규칙)을 보고 어느 가게로 보낼지 정해요.",
     what:"정문은 <b>Ingress 규칙</b>(host·path → Service)을 읽어 요청을 나눠 보내는 프록시예요. ingress-nginx 는 우편함 주소(ClusterIP)로 보내지 않고, 창구에서 받아 둔 <b>주소 목록(EndpointSlice)</b>에서 상자 하나를 골라 바로 보내요. 그림에선 입구에 따로 그렸지만 실제로는 부두에서 도는 Pod예요.",
-    talks:[[GUEST.name,"HTTP / HTTPS","요청 받기 · 응답 돌려주기"],["관제탑 접수 창구","HTTPS watch","Ingress 규칙 · 주소 목록 감시"],["컨테이너 묶음 (Pod)","HTTP (Pod IP)","요청 전달"]],
+    talks:[[GUEST_NAME,"HTTP / HTTPS","요청 받기 · 응답 돌려주기"],["관제탑 접수 창구","HTTPS watch","Ingress 규칙 · 주소 목록 감시"],["컨테이너 묶음 (Pod)","HTTP (Pod IP)","요청 전달"]],
     steps:["공인 주소(LoadBalancer)로 요청 받기","Host·경로로 Ingress 규칙 찾기","규칙에 적힌 Service 의 주소 목록 찾기","준비된 주소 하나 고르기","상자로 전달하고 응답 돌려주기"],
-    xr:[{l:"정문 안내판 (Ingress)", code:("<span class='k'>$ kubectl get ingress my-shop</span>\nNAME      CLASS   HOSTS              ADDRESS        PORTS   AGE\nmy-shop   nginx   " + SHOP.domain + "   " + INGRESS_IP + "   80      1m")},
+    xr:[{l:"정문 안내판 (Ingress)", code:("<span class='k'>$ kubectl get ingress my-shop</span>\nNAME      CLASS   " + pad("HOSTS", HOST_W) + "ADDRESS        PORTS   AGE\nmy-shop   nginx   " + pad(SHOP.domain, HOST_W) + pad(INGRESS_IP, 15) + "80      1m")},
         {l:"정문 자신의 공인 주소 (LoadBalancer Service)", code:("<span class='k'>$ kubectl get svc -n ingress-nginx</span>\nNAME                       TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)                      AGE\ningress-nginx-controller   LoadBalancer   10.96.140.7   " + INGRESS_IP + "   80:31080/TCP,443:31443/TCP   30d")}],
     myth:"Ingress 를 만들면 바로 동작한다? — 규칙을 적은 것뿐이에요. 규칙을 읽어 실행할 정문(Ingress Controller)을 따로 설치해야 해요." },
 
@@ -210,7 +215,7 @@ var REQUEST_BEATS = [
           {l:"바깥 DNS 가 알려 준 정문 주소", code:("<span class='k'>$ dig +short " + SHOP.domain + "</span>\n" + INGRESS_IP)}] },
   { actor:"gate",
     text:("정문은 편지의 <b>Host</b>와 경로를 안내판(<b>Ingress 규칙</b>)에 맞춰 봐요. " + SHOP.domain + " 의 / 는 <b>Service my-shop 의 80번</b>으로 보내라고 적혀 있어요."),
-    xray:[{l:"정문 안내판 (Ingress) — 줄마다 누가 정한 이름인지", code:("apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: my-shop               <span class='c'># ← 직접 지은 이름</span>\nspec:\n  ingressClassName: nginx     <span class='c'># 이 규칙을 읽을 정문 종류</span>\n  rules:\n  - host: " + SHOP.domain + "    <span class='c'># ← 직접 정한 도메인</span>\n    http:\n      paths:\n      - path: /\n        pathType: Prefix\n        backend:\n          service:\n            name: my-shop     <span class='c'># 보낼 우편함 이름</span>\n            port:\n              number: 80")}] },
+    xray:[{l:"정문 안내판 (Ingress) — 줄마다 누가 정한 이름인지", code:("apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n" + pad("  name: my-shop", YAML_C) + "<span class='c'># ← 직접 지은 이름</span>\nspec:\n" + pad("  ingressClassName: nginx", YAML_C) + "<span class='c'># 이 규칙을 읽을 정문 종류</span>\n  rules:\n" + pad("  - host: " + SHOP.domain, YAML_C) + "<span class='c'># ← 직접 정한 도메인</span>\n    http:\n      paths:\n      - path: /\n        pathType: Prefix\n        backend:\n          service:\n" + pad("            name: my-shop", YAML_C) + "<span class='c'># 보낼 우편함 이름</span>\n            port:\n              number: 80")}] },
   { actor:"gate",
     text:"정문은 우편함 주소를 거치지 않아요. 창구에서 받아 둔 <b>주소 목록(EndpointSlice)</b>에서 상자 하나(10.244.1.5)를 골라 <b>바로</b> 보내고, 응답을 손님에게 돌려줘요.",
     xray:[{l:"정문 접근 기록 — 실제로 보낸 곳 (시각은 생략)", code:"198.51.100.23 - - […] \"GET / HTTP/1.1\" 200 615 \"-\" \"curl/8.5.0\" 79 0.002 [default-my-shop-80] [] <span class='y'>10.244.1.5:80</span> 615 0.002 200 …"},
@@ -305,7 +310,9 @@ window.CONTENT = {
     guest:"guest",
     values:["shop-web", "guest-browser"],
     hubColor:"#e07a5f",
-    doors:[] /* 2차 배치(eks-security) 때 복원: {from:"gate", to:"eks-security:ingress", why:"같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요"} */
+    doors:[
+      {from:"gate", to:"eks-security:ingress", why:"같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요"}
+    ]
   },
   subtitle:"클러스터가 일하는 모습을 항구로 그렸어요",
   logo:"⎈",

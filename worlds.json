@@ -73,6 +73,15 @@
         340
       ],
       "status": "verified"
+    },
+    {
+      "id": "eks-security",
+      "region": "ops",
+      "pos": [
+        900,
+        300
+      ],
+      "status": "verified"
     }
   ]
 }

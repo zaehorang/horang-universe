@@ -9,12 +9,13 @@
 
 var SHOP = window.SHARED.shops["shop-web"];
 var GUEST = window.SHARED.guests["guest-browser"];
+var GUEST_NAME = "바깥 " + GUEST.name;   /* 항구 바깥 ↔ 항구 안 대비를 이름에 남긴다 */
 var ISO = window.ISO;
 var iso = ISO.iso, isoL = ISO.isoL, el = ISO.el, box = ISO.box, flat = ISO.flat, faceR = ISO.faceR, faceL = ISO.faceL, C = ISO.C;
 
 /* 컨테이너 상자 (Pod) — 바깥 그룹은 위치, 안쪽(body)은 애니메이션 */
 function container(parent, id){
-  var outer = ISO.mover(parent, {id:id, "class":"ctr ghost act nohit", "data-actor":"pod", tabindex:"0", role:"button", "aria-label":"컨테이너 묶음(Pod) 알아보기"});
+  var outer = ISO.mover(parent, {id:id, "class":"ctr ctr-ghost act nohit", "data-actor":"pod", tabindex:"0", role:"button", "aria-label":"컨테이너 묶음(Pod) 알아보기"});
   var g = outer.body;
   box(g, isoL, 0, 0, 0, 56, 36, 30, C.coral);
   for(var i=1;i<4;i++){
@@ -81,7 +82,7 @@ function deployed(tl, R){
     [0,1,2].forEach(function(i){
       var s = slotOf(R, PLAN[i]), c = R.ctrs[i];
       ISO.place(c, s[0], s[1], 0);
-      c.classList.remove("ghost");
+      c.classList.remove("ctr-ghost");
       gsap.set(c.body, {opacity:1, y:0, scale:1});
       tagAt(R, i, PLAN[i].ip, s);
       gsap.set(R.ipTags[i], {opacity:1});
@@ -137,7 +138,7 @@ function dropNew(tl, R){
 function runNew(tl, R, plan, label, base){
   [3,4].forEach(function(i, n){
     var c = R.ctrs[i], s = slotOf(R, plan[n]), t = R.ipTags[i], a = label + "+=" + (base + n * .35), b = label + "+=" + (base + n * .35 + .3);
-    tl.call(function(){ c.classList.remove("ghost"); }, null, a);
+    tl.call(function(){ c.classList.remove("ctr-ghost"); }, null, a);
     tl.fromTo(c.body, {scale:1.15, transformOrigin:"50% 100%"}, {scale:1, duration:.5, ease:"back.out(3)"}, a);
     tl.call(function(){ tagAt(R, i, plan[n].ip, s); }, null, b);
     tl.to(t, {opacity:1, duration:.3}, b);
@@ -344,7 +345,7 @@ window.WORLD = {
     R.shipPt = iso(640, 725, 34);
 
     /* 바깥 손님 (Client) — 항구 밖 바다에서 온 작은 배 */
-    var guest = ISO.act(L.front, "guest", GUEST.name);
+    var guest = ISO.act(L.front, "guest", GUEST_NAME);
     var gb = el("g", {}, guest); R.guestBoat = gb;
     box(gb, iso, 430, 690, -12, 80, 34, 16, C.roofR);   /* 정문 오른쪽 앞바다 — 좁은 창에서도 사건 패널에 가리지 않게 */
     box(gb, iso, 440, 696, 4, 30, 22, 2, C.wood);
@@ -377,7 +378,7 @@ window.WORLD = {
     p = iso(630, 590, 0); api.label(p[0] - 4, p[1] - 70, "고정 우편함", "Service");
     p = iso(640, 730, 60); api.label(p[0] + 24, p[1] - 30, "이미지 저장소선", "Registry");
     p = R.gateTop; api.label(p[0] + 84, p[1] - 8, "항구 정문", "Ingress");
-    p = iso(470, 724, -12); api.label(p[0] - 6, p[1] + 26, GUEST.name, GUEST.real.split(" (")[0]);
+    p = iso(470, 724, -12); api.label(p[0] - 6, p[1] + 26, GUEST_NAME, "client");
 
     /* 움직이는 물체 */
     R.ctrs = [0,1,2,3,4].map(function(n){ return container(L.fx, "c" + (n + 1)); });
@@ -436,7 +437,7 @@ window.WORLD = {
     R.hook.gx = 430; R.hook.gy = 250; R.hook.gz = 150; drawCrane(R);
     R.ctrs.forEach(function(c, i){
       gsap.killTweensOf(c.body);
-      c.classList.add("ghost");
+      c.classList.add("ctr-ghost");
       ISO.place(c, YARD[i][0], YARD[i][1], 0);
       gsap.set(c.body, {opacity:0, y:0, scale:1});
     });
@@ -488,7 +489,7 @@ window.WORLD = {
           el("circle", {cx:cx, cy:cy, r:27}, s);
           api.text(s, cx, cy + 5, n[0], "");
           api.text(g, cx, cy + 44, n[1], "s", {"text-anchor":"middle"});
-          var ink = el("g", {"class":"stamp on", opacity:0}, g);
+          var ink = el("g", {"class":"stamp stamp-on", opacity:0}, g);
           el("circle", {cx:cx, cy:cy, r:27}, ink);
           api.text(ink, cx, cy - 1, n[0], "");
           api.text(ink, cx, cy + 14, "✓", "", {"text-anchor":"middle", "font-size":"13", fill:"#dc2626", "font-weight":"900"});
@@ -560,7 +561,7 @@ window.WORLD = {
         tl.addLabel("run", "pull+=2.6");
         [0,1,2].forEach(function(i){
           var c = R.ctrs[i], s = slotOf(R, PLAN[i]), t = R.ipTags[i], at = "run+=" + (i * .35);
-          tl.call(function(){ c.classList.remove("ghost"); }, null, at);
+          tl.call(function(){ c.classList.remove("ctr-ghost"); }, null, at);
           tl.fromTo(c.body, {scale:1.15, transformOrigin:"50% 100%"}, {scale:1, duration:.5, ease:"back.out(3)"}, at);
           tl.call(function(){ tagAt(R, i, PLAN[i].ip, s); }, null, "run+=" + (i * .35 + .3));
           tl.to(t, {opacity:1, duration:.3}, "run+=" + (i * .35 + .3));
@@ -871,7 +872,7 @@ window.WORLD = {
         api.pop(tl, b, "+=.1");
         [0,2].forEach(function(i, n){
           var c = R.ctrs[i], t = R.ipTags[i], a = "+=" + (n ? .1 : .5);
-          tl.call(function(){ c.classList.add("ghost"); t.classList.add("pod-terminating"); t.querySelector("text").textContent = "Terminating"; }, null, a);
+          tl.call(function(){ c.classList.add("ctr-ghost"); t.classList.add("pod-terminating"); t.querySelector("text").textContent = "Terminating"; }, null, a);
           tl.fromTo(t.inner, {scale:1.3, transformOrigin:"50% 50%"}, {scale:1, duration:.35, ease:"back.out(2)"}, "<");
         });
       },
