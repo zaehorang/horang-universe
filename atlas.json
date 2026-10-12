@@ -297,10 +297,10 @@
         425
       ],
       "status": "verified",
-      "title": "우편 도시: 주소 하나가 가게에 닿기까지",
-      "subtitle": "DNS → TCP → TLS → HTTP 를 우편 도시로 그렸어요",
+      "title": "우편 도시",
+      "subtitle": "주소 하나가 가게에 닿기까지: DNS → TCP → TLS → HTTP",
       "logo": "✉",
-      "roof": "#c99a2e",
+      "roof": "#4f7aa6",
       "regionName": "네트워크 해안",
       "concepts": [
         "dns",
@@ -387,11 +387,11 @@
       "to": {
         "world": "network-layers",
         "actor": "server",
-        "event": null,
+        "event": "request",
         "name": "층층 우체국 빌딩"
       },
-      "why": "가게 안의 7층 빌딩을 보러 간다",
-      "whyBack": "",
+      "why": "가게 안의 7층 빌딩에서 편지 봉투가 층층이 벗겨지는 모습을 보러 가요",
+      "whyBack": "이 빌딩이 서 있는 우편 도시로 나가 주소 하나가 가게에 닿는 길을 보러 가요",
       "tone": "#a9d6a0"
     },
     {
@@ -433,9 +433,9 @@
         "world": "http-https",
         "actor": "shop",
         "event": null,
-        "name": "우편 도시: 주소 하나가 가게에 닿기까지"
+        "name": "우편 도시"
       },
-      "why": "가게 안의 7층 빌딩을 보러 간다",
+      "why": "이 빌딩이 서 있는 우편 도시로 나가 주소 하나가 가게에 닿는 길을 보러 가요",
       "generated": true,
       "tone": "#a9d6a0"
     }

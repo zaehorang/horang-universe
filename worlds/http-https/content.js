@@ -6,7 +6,16 @@
 var SHOP = window.SHARED.shops["shop-web"];
 var GUEST = window.SHARED.guests["guest-browser"];
 var SHOP_IP = window.SHARED.publicIps["shop-web"];
-/* 바이트 수(DNS 질문 37 · 답 53, http 요청 69)는 도메인 길이에 묶여 있다. shop-web 도메인이 바뀌면 함께 고친다 */
+/* 화면의 바이트 수는 shop-web 도메인 길이에 묶여 있다. 도메인이 바뀌면 여기서 멈추고 xr·xray 의 숫자를 함께 고친다.
+   DNS 질문 = 헤더 12 + 이름(길이표 포함) + 종류·클래스 4, 답 = 질문 + 압축 레코드 16,
+   http 요청 = 요청 줄 16 + Host 줄 + Cookie 줄 24 + 빈 줄 2, TLS 레코드 = 머리 5 + (요청 + 내용 종류 1 + 인증 태그 16), IP 전체 = IP 20 + TCP 32 + 레코드 */
+var BYTES = {dnsQ:37, dnsA:53, req:69, tlsRec:91, ipTotal:143};
+(function(){
+  var dnsQ = 12 + (SHOP.domain.length + 2) + 4;
+  var req = ("GET / HTTP/1.1\r\nHost: " + SHOP.domain + "\r\nCookie: sid=7f3a9c2e41\r\n\r\n").length;
+  var got = {dnsQ:dnsQ, dnsA:dnsQ + 16, req:req, tlsRec:5 + req + 1 + 16, ipTotal:20 + 32 + 5 + req + 1 + 16};
+  for(var k in BYTES) if(got[k] !== BYTES[k]) throw new Error("http-https: " + k + " 가 " + got[k] + "바이트 — 화면 숫자 " + BYTES[k] + " 와 다르다 (shop-web 도메인 길이 변경?)");
+})();
 
 var ACTORS = {
   browser:{ name:"내 브라우저", real:GUEST.real,
@@ -236,11 +245,12 @@ window.CONTENT = {
     concepts:["dns", "udp", "tcp", "tls", "sni", "certificate", "certificate-authority", "http", "https", "hsts", "http-cache"],
     guest:"browser",
     values:["shop-web", "guest-browser"],
-    hubColor:"#c99a2e",
-    doors:[{from:"shop", to:"network-layers:server", why:"가게 안의 7층 빌딩을 보러 간다"}]
+    hubColor:"#4f7aa6",
+    doors:[{from:"shop", to:"network-layers:server@request", why:"가게 안의 7층 빌딩에서 편지 봉투가 층층이 벗겨지는 모습을 보러 가요",
+      whyBack:"이 빌딩이 서 있는 우편 도시로 나가 주소 하나가 가게에 닿는 길을 보러 가요"}]
   },
-  title:"우편 도시: 주소 하나가 가게에 닿기까지",
-  subtitle:"DNS → TCP → TLS → HTTP 를 우편 도시로 그렸어요",
+  title:"우편 도시",
+  subtitle:"주소 하나가 가게에 닿기까지: DNS → TCP → TLS → HTTP",
   logo:"✉",
   intro:{
     title:"이 도시가 인터넷이에요",

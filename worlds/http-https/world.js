@@ -73,7 +73,7 @@ function idCard(parent, name, issuer, stampFill, stampTxt){
 
 /* 확인 목록 한 줄에 ✓(맞음)·✗(틀림) 붙이기 */
 function mark(tl, t, ok, at){
-  tl.call(function(){ t.textContent = t.textContent.replace(/^([✓✗] )?/, ok ? "✓ " : "✗ "); t.setAttribute("class", ok ? "s ok" : "s bad"); }, null, at);
+  tl.call(function(){ t.textContent = t.textContent.replace(/^([✓✗] )?/, ok ? "✓ " : "✗ "); t.setAttribute("class", ok ? "s chk ok" : "s chk bad"); }, null, at);
 }
 
 /* 중계소 불빛이 봉투가 지나는 순간 커졌다 돌아온다 (깜빡임은 ambient 가 opacity 로 따로 돌린다) */
@@ -322,7 +322,7 @@ window.WORLD = {
     gsap.set(R.reqBox.shackle, {y:0});
     gsap.set(R.resBox.shackle, {y:0});
     [R.keyH, R.keyS].forEach(function(k){ gsap.killTweensOf(k.body); gsap.set(k, {opacity:0}); gsap.set(k.body, {scale:1, x:0}); });
-    [R.conn443, R.conn80].forEach(function(c){ gsap.set(c, {opacity:0}); c.classList.remove("sealed"); c.classList.remove("open"); });
+    [R.conn443, R.conn80].forEach(function(c){ gsap.set(c, {opacity:0}); c.classList.remove("sealed"); c.classList.remove("bare"); });
     gsap.set([R.screen, R.screenTxt, R.shopLight, R.hsts, R.bang], {opacity:0, y:0});
     [R.fakeCard, R.copyCard].forEach(function(c){ gsap.set(c.bad, {opacity:0}); });
     gsap.set([R.warn, R.certBad, R.memo], {opacity:0, scale:1});
@@ -358,8 +358,8 @@ window.WORLD = {
         K.forEach(function(k, i){
           api.showLink(tl, "res-k" + i, r, k, i ? "+=.1" : ">");
           api.fly(tl, R.q, prev, k, {duration:.8, lift:50}, "<");
-          var b = api.bubble(k[0] + 18, k[1] - 104, i === 2 ? 150 : 176, 40, [k[0] + 24, k[1] - 64, k[0] + 6, k[1] - 40, k[0] + 44, k[1] - 64]);
-          api.text(b.inner, k[0] + 32, k[1] - 79, said[i], i === 2 ? "t" : "s", i === 2 ? {fill:"#0f766e"} : {});
+          var b = api.bubble(k[0] + 18, k[1] - 90, i === 2 ? 150 : 176, 40, [k[0] + 24, k[1] - 50, k[0] + 6, k[1] - 40, k[0] + 44, k[1] - 50]);
+          api.text(b.inner, k[0] + 32, k[1] - 65, said[i], i === 2 ? "t" : "s", i === 2 ? {fill:"#0f766e"} : {});
           api.pop(tl, b, "+=.05");
           if(i < 2) api.hideLinks(tl, ["res-k" + i], "+=.35");
           prev = k;
@@ -435,7 +435,7 @@ window.WORLD = {
         var c3 = api.text(b.inner, h[0] - 92, h[1] - 99, "도장 Let's Encrypt — 목록에 있음", "s");
         api.pop(tl, b, "+=.1");
         [c1, c2, c3].forEach(function(c){
-          tl.call(function(){ c.textContent = c.textContent.replace(/^(✓ )?/, "✓ "); c.setAttribute("class", "s ok"); }, null, "+=.5");
+          tl.call(function(){ c.textContent = c.textContent.replace(/^(✓ )?/, "✓ "); c.setAttribute("class", "s chk ok"); }, null, "+=.5");
         });
         var cb = api.bubble(950, 200, 240, 46, [1020, 246, 1060, 266, 1050, 246]);
         api.text(cb.inner, 968, 229, "도장 목록은 미리 배포됨", "s");
@@ -477,9 +477,9 @@ window.WORLD = {
         tl.to(R.reqBox, {opacity:0, scale:.5, duration:.4});
         tl.to(R.shopLight, {opacity:1, duration:.4});
         var p = R.shopPt;
-        var b = api.bubble(p[0] - 30, p[1] - 130, 220, 70, [p[0] + 10, p[1] - 60, p[0] + 20, p[1] - 30, p[0] + 40, p[1] - 60]);
-        api.text(b.inner, p[0] - 12, p[1] - 103, "GET / → 200 OK", "t", {fill:"#16a34a"});
-        api.text(b.inner, p[0] - 12, p[1] - 80, "페이지를 다시 봉인해서", "s");
+        var b = api.bubble(p[0] - 70, p[1] - 130, 220, 70, [p[0] + 10, p[1] - 60, p[0] + 20, p[1] - 30, p[0] + 40, p[1] - 60]);
+        api.text(b.inner, p[0] - 52, p[1] - 103, "GET / → 200 OK", "t", {fill:"#16a34a"});
+        api.text(b.inner, p[0] - 52, p[1] - 80, "페이지를 다시 봉인해서", "s");
         api.pop(tl, b, "<");
         var d = [R.door443Pt[0] - 10, R.door443Pt[1] - 8], h = [R.housePt[0] + 30, ROAD_Y - 8];
         tl.set(R.resBox, {x:d[0], y:d[1], opacity:1, scale:1.2}, "+=.4");
@@ -487,8 +487,8 @@ window.WORLD = {
         tl.to(R.resBox, {opacity:0, scale:.5, duration:.3});
         tl.to([R.screen, R.screenTxt], {opacity:1, duration:.5});
         var hb = R.houseTop;
-        var b2 = api.bubble(hb[0] - 120, hb[1] - 120, 240, 60, [hb[0] - 10, hb[1] - 60, hb[0], hb[1] - 30, hb[0] + 20, hb[1] - 60]);
-        api.text(b2.inner, hb[0] - 102, hb[1] - 84, "🔒 " + SHOP.shortName + " 화면 표시", "t");
+        var b2 = api.bubble(hb[0] - 90, hb[1] - 120, 240, 60, [hb[0] - 10, hb[1] - 60, hb[0], hb[1] - 30, hb[0] + 20, hb[1] - 60]);
+        api.text(b2.inner, hb[0] - 72, hb[1] - 84, "🔒 " + SHOP.shortName + " 화면 표시", "t");
         api.pop(tl, b2, "<");
       }
     ],
@@ -508,7 +508,7 @@ window.WORLD = {
           api.fly(tl, e, a, z, {duration:1.2, lift:30});
           tl.to(e, {opacity:0, duration:.2});
         });
-        tl.call(function(){ R.conn80.classList.add("open"); });
+        tl.call(function(){ R.conn80.classList.add("bare"); });
         tl.to(R.conn80, {opacity:1, duration:.5});
         var b = api.bubble(960, 340, 240, 62, [1120, 402, 1170, 450, 1150, 402]);
         api.text(b.inner, 978, 366, "연결됨 — 바로 요청", "t");
@@ -594,11 +594,11 @@ window.WORLD = {
         api.fly(tl, R.fakeCard, s, c, {duration:1.5, lift:40});
         api.showLink(tl, "ca-b", R.caPt, [R.houseTop[0] + 20, R.houseTop[1] - 20], ">", "alt");
         var h = R.houseTop;
-        var b = api.bubble(h[0] - 230, h[1] - 206, 310, 128, [h[0] - 20, h[1] - 78, h[0] + 2, h[1] - 40, h[0] + 20, h[1] - 78]);
-        api.text(b.inner, h[0] - 212, h[1] - 178, "받은 신분증 확인", "t");
-        var c1 = api.text(b.inner, h[0] - 212, h[1] - 153, "이름 " + SHOP.domain, "s");
-        var c2 = api.text(b.inner, h[0] - 212, h[1] - 131, "기한 남아 있음", "s");
-        var c3 = api.text(b.inner, h[0] - 212, h[1] - 109, "도장 '내가 직접' — 목록에 없음", "s");
+        var b = api.bubble(h[0] - 200, h[1] - 206, 310, 128, [h[0] - 20, h[1] - 78, h[0] + 2, h[1] - 40, h[0] + 20, h[1] - 78]);
+        api.text(b.inner, h[0] - 182, h[1] - 178, "받은 신분증 확인", "t");
+        var c1 = api.text(b.inner, h[0] - 182, h[1] - 153, "이름 " + SHOP.domain, "s");
+        var c2 = api.text(b.inner, h[0] - 182, h[1] - 131, "기한 남아 있음", "s");
+        var c3 = api.text(b.inner, h[0] - 182, h[1] - 109, "도장 '내가 직접' — 목록에 없음", "s");
         api.pop(tl, b, "<");
         mark(tl, c1, true, "+=.4"); mark(tl, c2, true, "+=.4"); mark(tl, c3, false, "+=.5");
         tl.to(R.fakeCard.bad, {opacity:1, duration:.3});
@@ -675,11 +675,11 @@ window.WORLD = {
         tl.call(function(){ R.certBadTxt.textContent = "≠"; });
         tl.to(R.certBad, {opacity:1, duration:.4}, "+=.5");
         var p = R.certPt;
-        var b2 = api.bubble(p[0] - 160, p[1] - 206, 310, 116, [p[0] - 6, p[1] - 90, p[0] + 2, p[1] - 14, p[0] + 24, p[1] - 90]);
-        api.text(b2.inner, p[0] - 142, p[1] - 178, "신분증 이름 (subjectAltName)", "t");
-        api.text(b2.inner, p[0] - 142, p[1] - 154, SHOP.domain + " 뿐", "s");
-        api.text(b2.inner, p[0] - 142, p[1] - 132, "✗ www." + SHOP.shortName + "… 은 없음", "s bad");
-        api.text(b2.inner, p[0] - 142, p[1] - 109, "NET::ERR_CERT_COMMON_NAME_INVALID", "m", {"font-weight":"700"});
+        var b2 = api.bubble(p[0] - 180, p[1] - 206, 310, 116, [p[0] - 6, p[1] - 90, p[0] + 2, p[1] - 14, p[0] + 24, p[1] - 90]);
+        api.text(b2.inner, p[0] - 162, p[1] - 178, "신분증 이름 (subjectAltName)", "t");
+        api.text(b2.inner, p[0] - 162, p[1] - 154, SHOP.domain + " 뿐", "s");
+        api.text(b2.inner, p[0] - 162, p[1] - 132, "✗ www." + SHOP.shortName + "… 은 없음", "s chk bad");
+        api.text(b2.inner, p[0] - 162, p[1] - 109, "NET::ERR_CERT_COMMON_NAME_INVALID", "m", {"font-weight":"700"});
         api.pop(tl, b2, "<");
       },
       /* 7. 정리 — 하나라도 틀리면 끊음 · HSTS 면 계속 버튼 없음 */
@@ -730,15 +730,15 @@ window.WORLD = {
         tl.call(function(){ R.conn443.classList.remove("sealed"); });
         tl.to(R.memo, {scale:1.08, svgOrigin:R.memoPt[0] + " " + R.memoPt[1], duration:.35, yoyo:true, repeat:1, ease:"power1.inOut"});
         var m = R.memoPt;
-        var b2 = api.bubble(m[0] - 112, m[1] - 132, 224, 40, null);
-        api.text(b2.inner, m[0] - 96, m[1] - 106, "수첩은 그대로 남아요", "s", {"font-weight":"700"});
+        var b2 = api.bubble(m[0] - 82, m[1] - 132, 224, 40, null);
+        api.text(b2.inner, m[0] - 66, m[1] - 106, "수첩은 그대로 남아요", "s", {"font-weight":"700"});
         api.pop(tl, b2, "<");
       },
       /* 3. 수첩만으로 — HSTS 로 https, 번호도 수첩에서 */
       function(tl, api, R){
         tl.add(api.camTo(520, 420, 1.2, 1.2));
         api.clearBubbles(tl, "<");
-        tl.call(function(){ R.memoL[0].setAttribute("class", "memol on"); R.memoL[1].setAttribute("class", "memol on"); }, null, "+=.2");
+        tl.call(function(){ R.memoL[0].setAttribute("class", "memol lit"); R.memoL[1].setAttribute("class", "memol lit"); }, null, "+=.2");
         var w = R.housePt;
         var b = api.bubble(130, 572, 360, 70, [320, 572, w[0], w[1] + 14, 360, 572]);
         api.text(b.inner, 148, 598, "http:// → https:// (집 안에서 307)", "t");
@@ -776,7 +776,7 @@ window.WORLD = {
       function(tl, api, R){
         tl.add(api.camTo(820, 440, 1.05, 1.0));
         api.clearBubbles(tl, "<");
-        tl.call(function(){ R.memoL[2].setAttribute("class", "memol on"); }, null, 0);
+        tl.call(function(){ R.memoL[2].setAttribute("class", "memol lit"); }, null, 0);
         var h = [R.housePt[0] + 30, ROAD_Y - 6], d = [R.guardPt[0] - 6, R.guardPt[1] - 4];
         tl.set(R.chelloP, {x:h[0], y:h[1], opacity:1});
         api.fly(tl, R.chelloP, h, d, {duration:1.6, lift:40});
@@ -801,7 +801,7 @@ window.WORLD = {
       function(tl, api, R){
         tl.add(api.camTo(840, 440, 1.1, 1.2));
         api.clearBubbles(tl, "<");
-        tl.call(function(){ R.memoL[3].setAttribute("class", "memol on"); }, null, 0);
+        tl.call(function(){ R.memoL[3].setAttribute("class", "memol lit"); }, null, 0);
         var h = [R.housePt[0] + 30, ROAD_Y - 8], d = [R.door443Pt[0] - 10, R.door443Pt[1] - 8];
         tl.set(R.reqBox, {x:h[0], y:h[1], opacity:1, scale:1.2});
         api.fly(tl, R.reqBox, h, d, {duration:1.8, lift:20});
@@ -817,9 +817,9 @@ window.WORLD = {
         tl.to(R.r304, {opacity:0, duration:.3});
         tl.to([R.screen, R.screenTxt], {opacity:1, duration:.4}, "<");
         var w = R.housePt;
-        var b2 = api.bubble(205, 572, 340, 70, [320, 572, w[0], w[1] + 14, 360, 572]);
-        api.text(b2.inner, 223, 598, "사본으로 화면 그리기", "t");
-        api.text(b2.inner, 223, 622, "style.css 는 max-age 안 — 묻지도 않음", "s");
+        var b2 = api.bubble(239, 572, 340, 70, [354, 572, w[0], w[1] + 14, 394, 572]);
+        api.text(b2.inner, 257, 598, "사본으로 화면 그리기", "t");
+        api.text(b2.inner, 257, 622, "style.css 는 max-age 안 — 묻지도 않음", "s");
         api.pop(tl, b2, "<");
       },
       /* 7. 첫 방문과 비교 */
@@ -827,7 +827,7 @@ window.WORLD = {
         tl.add(api.camTo(660, 490, 1.1, 1.2));
         api.clearBubbles(tl, "<");
         tl.to(R.shopLight, {opacity:0, duration:.3}, 0);
-        tl.call(function(){ R.memoL.forEach(function(t){ t.setAttribute("class", "memol on"); }); }, null, 0);
+        tl.call(function(){ R.memoL.forEach(function(t){ t.setAttribute("class", "memol lit"); }); }, null, 0);
         var b = api.bubble(420, 560, 420, 170, [440, 560, R.housePt[0] + 6, R.housePt[1] + 16, 480, 560]);
         api.text(b.inner, 440, 586, "첫 방문 → 4분 뒤 다시", "t");
         api.text(b.inner, 440, 610, "http→https  80번 문 + 301 → 집 안 (HSTS)", "s");
