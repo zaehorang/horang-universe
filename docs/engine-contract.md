@@ -26,6 +26,7 @@
 | 앵커 `#ev=<id>&b=<n>` | 엔진 동작 | 로드 시 해당 사건·장면으로 바로 간다. 장면 이동 시 해시를 갱신한다 |
 | `window.ATLAS` (선택) | 엔진 입력 | 생성된 `atlas.js` 스크립트가 `window.ATLAS` 를 정의하면 패널 아래 문 버튼과 상단 허브 복귀 길을 켠다. `{ name, hub, regions, worlds, doors }` 형태다. `hub` 에는 `sea`·`seaDeep`·`shore`, `regions[]` 에는 `id`·`name`·`pos`·`tone`·`toneDeep`·`texture`·`hint`, `worlds[]` 에는 `id`·`region`·`pos`·`status`·`title`·`subtitle`·`roof`·`regionName`·`concepts`·`events[]`(각 `title` 포함)가 있다. `doors[].from` 은 `world`·`actor`, `doors[].to` 는 `world`·`actor`·`event`·`name`, 각 문은 `why`·`tone` 을 가진다. 엔진은 `location.pathname` 이 `/worlds/<id>/` 인 페이지에서 id 를 얻으며 `hub` 에서는 복귀 칩을 숨긴다. ATLAS 가 없으면 조용히 꺼진다 |
 | `body.in-event` | 엔진 예약 클래스 | 사건 재생 중(`startEvent` 부터 `endEvent`·`closeEvent` 까지) 엔진이 `body` 에 붙인다. 세계는 읽기만 하고 직접 붙이거나 떼지 않는다. 엔진은 이 동안 `.route-chip` 을 `visibility:hidden` 으로 숨긴다 |
+| head 아이콘 · 공유 메타 | 엔진 index | `<link rel=icon href="../../assets/favicon.svg">` 와 `og:*` · `twitter:card`(이미지는 공개 주소의 `assets/og.png` 절대 경로). 세계·허브 index 가 그대로 물려받는다. 독립 사용 때는 경로가 없어도 페이지 동작에 영향 없음 |
 | `routeChip` · `doorList` | 선택 DOM id | 허브 길·문 버튼 자리. 독립 index 에 없으면 엔진은 건너뛴다 |
 | `atlas.json` · `atlas.js` | 생성물 | 허브는 JSON fetch, 세계는 JS 스크립트로 동기 로드. 둘 다 `build_atlas` 생성·`check_all` 검사 |
 | CSS 변수 | style.css | 아래 목록. 세계 world.css 의 `:root` 에서 덮어쓴다 |

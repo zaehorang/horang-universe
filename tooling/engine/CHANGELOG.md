@@ -10,3 +10,4 @@
 - 2026-10-12 · feature · 엔진 예약 body 클래스 `in-event`(사건 재생 중) 추가. 이 동안 길 표시 칩을 visibility 로 숨겨 확대 장면의 지도 라벨과 겹치지 않고 키보드 포커스도 받지 않게 함 · 없음
 - 2026-10-12 · feature · `.tag-dark` 에 SVG(g > rect/text) 규칙 추가 — 짙은 IP 표를 세계가 fill 없이 그린다 · eks-security(이관 시 사용)
 - 2026-10-12 · fix · `.tag-dark` SVG 규칙을 `:where()` 로 특이도 0 으로 낮춤 — k8s-harbor `.pod-terminating` 상태색이 덮이던 회귀 수정 · k8s-harbor
+- 2026-10-12 · feature · index head 에 파비콘(`../../assets/favicon.svg`)과 공유 미리보기 메타(og:* · twitter:card, 이미지 `assets/og.png` 절대 주소) 추가. 세계·허브 index 재생성 · 없음

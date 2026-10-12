@@ -91,6 +91,12 @@
         425
       ],
       "status": "verified"
+    },
+    {
+      "id": "k8s-cluster-architecture",
+      "region": "ops",
+      "status": "archived",
+      "redirect": "k8s-harbor"
     }
   ]
 }

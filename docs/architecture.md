@@ -8,6 +8,7 @@ horang-universe/
   worlds.json             등록부 — 운영자가 관리하고 new_world 가 새 항목을 추가한다
   atlas.json · atlas.js   색인 두 형식 — build_atlas 가 함께 만든다. 직접 편집 금지
   404.html                허브로 되돌려 보내는 페이지
+  assets/                 favicon.svg(지도책 ◆) · og.png(공유 미리보기 1200×630, 허브 화면) — 엔진 index head 가 참조
   worlds/hub/             엔진 기반 허브 본체 (index.html · content.js · world.js · world.css)
   worlds/<id>/
     index.html            얇은 파일: ../../tooling/engine 과 vendor 를 참조

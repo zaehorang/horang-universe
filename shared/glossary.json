@@ -419,6 +419,11 @@
        "event": "scale",
        "title": "컨테이너 늘리기",
        "beat": 2
+      },
+      {
+       "event": "forbidden",
+       "title": "권한 없이 보내기",
+       "beat": 4
       }
      ],
      "href": "worlds/k8s-harbor/#ev=deploy&b=3"
@@ -779,6 +784,11 @@
        "event": "deploy",
        "title": "앱 배포하기",
        "beat": 2
+      },
+      {
+       "event": "forbidden",
+       "title": "권한 없이 보내기",
+       "beat": 2
       }
      ],
      "href": "worlds/k8s-harbor/#ev=deploy&b=2"
@@ -847,6 +857,11 @@
        "event": "nodedown",
        "title": "부두 하나 끄기",
        "beat": 6
+      },
+      {
+       "event": "badimage",
+       "title": "이미지 이름 틀리기",
+       "beat": 2
       }
      ],
      "href": "worlds/k8s-harbor/#ev=deploy&b=5"
@@ -881,6 +896,11 @@
        "event": "nodedown",
        "title": "부두 하나 끄기",
        "beat": 7
+      },
+      {
+       "event": "badimage",
+       "title": "이미지 이름 틀리기",
+       "beat": 5
       }
      ],
      "href": "worlds/k8s-harbor/#ev=deploy&b=6"
@@ -1063,6 +1083,11 @@
       {
        "event": "nodedown",
        "title": "부두 하나 끄기",
+       "beat": 4
+      },
+      {
+       "event": "badimage",
+       "title": "이미지 이름 틀리기",
        "beat": 4
       }
      ],
@@ -1906,6 +1931,16 @@
      "event": "scale",
      "title": "컨테이너 늘리기",
      "beat": 1
+    },
+    {
+     "event": "forbidden",
+     "title": "권한 없이 보내기",
+     "beat": 1
+    },
+    {
+     "event": "badimage",
+     "title": "이미지 이름 틀리기",
+     "beat": 1
     }
    ],
    "href": "worlds/k8s-harbor/#ev=deploy&b=1"
@@ -1929,8 +1964,14 @@
    "actor": "machine",
    "name": "하역 기계",
    "real": "containerd (컨테이너 런타임)",
-   "scenes": [],
-   "href": "worlds/k8s-harbor/"
+   "scenes": [
+    {
+     "event": "badimage",
+     "title": "이미지 이름 틀리기",
+     "beat": 3
+    }
+   ],
+   "href": "worlds/k8s-harbor/#ev=badimage&b=3"
   },
   {
    "world": "k8s-harbor",

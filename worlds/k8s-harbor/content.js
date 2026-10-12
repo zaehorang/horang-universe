@@ -303,6 +303,50 @@ var NODEDOWN_BEATS = [
           {l:"부두 2가 돌아오면 · 아예 버리면", code:"<span class='c'># 반장이 다시 보고하면 Ready 로 돌아오고, Terminating 상자 2개는 그제야 정리돼요\n# 부두를 버릴 거면 장부에서 지워요 — 남은 Terminating 상자도 함께 정리돼요</span>\n<span class='k'>$ kubectl delete node worker-2</span>\nnode \"worker-2\" deleted"}] }
 ];
 
+/* 사건: 권한 없이 보내기 — 창구의 둘째 도장(인가)에서 끊긴다. 빈 항구에서 시작 */
+var FORBIDDEN_BEATS = [
+  { actor:"office",
+    text:"이번엔 권한이 '보기'뿐인 <b>intern</b> 계정으로 같은 요청서를 보내요. 요청서 내용은 앱 배포하기 때와 똑같아요.",
+    xray:[{l:"실행한 명령 (kubeconfig 의 사용자가 intern)", code:"<span class='k'>$ kubectl apply -f my-shop.yaml</span>"},
+          {l:"보내기 전에 미리 물어볼 수도 있어요", code:"<span class='k'>$ kubectl auth can-i create deployments -n default</span>\n<span class='y'>no</span>"}] },
+  { actor:"tower",
+    text:"창구가 첫 도장 <b>신원(인증)</b>은 찍어 줘요. 하지만 둘째 도장 <b>권한(인가)</b>에서 intern 에게 만들기 권한이 없어 거절하고, 셋째 검사는 열지도 않아요.",
+    xray:[{l:"① 인증 — 누구냐", code:"클라이언트 인증서 CN=<span class='y'>intern</span>  →  <span class='g'>확인</span>"},
+          {l:"② 인가 — 해도 되냐 (RBAC)", code:"user=intern  verb=<span class='y'>create</span>  resource=deployments\nnamespace=default  →  <span class='y'>denied</span>\n<span class='c'># intern 에 묶인 역할은 view(읽기 전용)뿐 — create 를 허락하는 RoleBinding 이 없어요</span>"},
+          {l:"③ 승인 제어 — 규칙에 맞냐", code:"<span class='c'># 인가에서 끊겨 여기까지 오지 않아요</span>"}] },
+  { actor:"office",
+    text:"요청서는 <b>403 Forbidden</b> 답과 함께 사무소로 돌아와요. 오류 문장에 누가, 무엇을, 어디서 하려다 막혔는지가 다 적혀 있어요.",
+    xray:[{l:"사무소가 받은 응답", code:"Error from server (Forbidden): error when creating \"my-shop.yaml\":\ndeployments.apps is forbidden: User \"<span class='y'>intern</span>\" cannot <span class='y'>create</span> resource\n\"deployments\" in API group \"apps\" in the namespace \"<span class='y'>default</span>\""},
+          {l:"실제 HTTP 응답", code:"HTTP/1.1 <span class='y'>403 Forbidden</span>\n{ \"kind\": \"Status\", \"status\": \"Failure\",\n  \"reason\": \"Forbidden\", \"code\": 403 }"}] },
+  { actor:"vault",
+    text:"장부에는 <b>아무것도 적히지 않았어요</b>. 그래서 순찰 로봇도 크레인도 이 요청이 있었다는 것조차 몰라요.",
+    xray:[{l:"장부 확인 — 읽기는 허락돼요", code:"<span class='k'>$ kubectl get deploy my-shop</span>\nError from server (NotFound): deployments.apps \"my-shop\" not found"},
+          {l:"고치는 법 — 관리자가 역할을 묶어 줘요", code:"<span class='k'>$ kubectl create rolebinding intern-edit \\\n    --clusterrole=edit --user=intern -n default</span>\nrolebinding.rbac.authorization.k8s.io/intern-edit <span class='g'>created</span>"}] }
+];
+
+/* 사건: 이미지 이름 틀리기 — 접수·배치는 성공하고 하역에서 막힌다. 빈 항구에서 시작 */
+var BADIMAGE_BEATS = [
+  { actor:"office",
+    text:"요청서의 이미지 이름에 오타가 났어요: <b>ngin:1.27</b>. 창구는 신원·권한·규칙만 볼 뿐 그 이미지가 정말 있는지는 보지 않아, 그대로 장부에 적혀요.",
+    xray:[{l:"요청서 일부", code:"spec:\n  replicas: 3\n  template:\n    spec:\n      containers:\n      - name: my-shop\n        image: <span class='y'>ngin:1.27</span>   <span class='c'># nginx 에서 x 하나 빠짐</span>"},
+          {l:"받은 응답 — 여기서는 성공", code:"deployment.apps/my-shop <span class='g'>created</span>"}] },
+  { actor:"crane",
+    text:"순찰 로봇이 상자 3개를 만들고 크레인 배치원이 부두를 정해요. 여기까지는 <b>앱 배포하기와 똑같이 성공</b>해요.",
+    xray:[{l:"Pod 이벤트 첫 줄 — 정상", code:"<span class='k'>$ kubectl describe pod my-shop-7d9f6c-4xk2p</span>\nEvents:\n  Type    Reason     From               Message\n  <span class='g'>Normal  Scheduled  default-scheduler  Successfully assigned default/my-shop-7d9f6c-4xk2p to worker-2</span>"}] },
+  { actor:"machine",
+    text:"하역 기계가 저장소선에서 <b>ngin:1.27</b> 을 찾지만 그런 이미지는 없어요. 상자는 빈 껍데기로 남고 상태가 <b>ErrImagePull</b> 이 돼요.",
+    xray:[{l:"Pod 이벤트 — Pulling 부터 실패", code:"  Normal   Pulling  kubelet  Pulling image \"ngin:1.27\"\n  <span class='y'>Warning  Failed   kubelet  Failed to pull image \"ngin:1.27\": … pull access denied,\n                             repository does not exist or may require authorization</span>\n  <span class='y'>Warning  Failed   kubelet  Error: ErrImagePull</span>"},
+          {l:"저장소 주소 없이 이름만 쓰면", code:"ngin:1.27  →  docker.io/library/ngin:1.27\n<span class='c'># 주소를 안 쓰면 Docker Hub 의 공식(library) 저장소에서 찾아요 — 그런 저장소는 없어요</span>"}] },
+  { actor:"pod",
+    text:"하역 기계는 <b>간격을 늘려 가며</b> 다시 받아 봐요. 그동안 상태는 <b>ImagePullBackOff</b> — 이름이 틀렸으니 몇 번을 다시 해도 성공하지 않아요.",
+    xray:[{l:"상자 상태", code:"<span class='k'>$ kubectl get pod -l app=my-shop</span>\nNAME                   READY   STATUS             RESTARTS   AGE\nmy-shop-7d9f6c-4xk2p   0/1     <span class='y'>ImagePullBackOff</span>   0          2m\nmy-shop-7d9f6c-9tq8m   0/1     <span class='y'>ImagePullBackOff</span>   0          2m\nmy-shop-7d9f6c-b2zrl   0/1     <span class='y'>ImagePullBackOff</span>   0          2m"},
+          {l:"다시 받기 이벤트", code:"  Normal   BackOff  kubelet  Back-off pulling image \"ngin:1.27\"\n  Warning  Failed   kubelet  Error: ImagePullBackOff\n<span class='c'># 다시 받는 간격은 10초에서 시작해 두 배씩, 최대 5분</span>"}] },
+  { actor:"foreman",
+    text:"반장이 남긴 이벤트를 위에서부터 읽으면 <b>Scheduled 까지 정상, Pulling 부터 실패</b>예요. 끊긴 줄이 곧 볼 곳 — 이번엔 하역(이미지) 쪽이에요.",
+    xray:[{l:"끊긴 줄 찾기", code:"Scheduled  <span class='g'>✓</span>  접수 · 감독 · 배치는 성공\nPulling    <span class='y'>✗</span>  이미지 받기에서 막힘 → 이미지 이름·저장소 권한을 본다"},
+          {l:"고치기 — 이미지 이름만 바꿔 다시 제출", code:"<span class='k'>$ kubectl set image deployment/my-shop my-shop=nginx:1.27</span>\ndeployment.apps/my-shop image updated\n<span class='c'># 설계도가 바뀌어 새 ReplicaSet 이 올바른 이미지로 상자를 다시 만들어요</span>"}] }
+];
+
 window.CONTENT = {
   title:"쿠버네티스 항구",
   meta:{
@@ -327,7 +371,9 @@ window.CONTENT = {
     {id:"deploy", kind:"normal", icon:"📦", title:"앱 배포하기", sub:"요청서 한 장이 컨테이너가 되기까지", beats:DEPLOY_BEATS},
     {id:"request", kind:"normal", icon:"✉️", title:"손님 요청 보내기", sub:"이름 하나로 실제 상자까지 가는 길", beats:REQUEST_BEATS},
     {id:"scale", kind:"scale", icon:"➕", title:"컨테이너 늘리기", sub:"숫자 하나가 상자 둘이 되기까지", beats:SCALE_BEATS},
-    {id:"nodedown", kind:"recovery", icon:"⚡", title:"부두 하나 끄기", sub:"부두가 사라져도 다시 3개가 되기까지", beats:NODEDOWN_BEATS}
+    {id:"nodedown", kind:"recovery", icon:"⚡", title:"부두 하나 끄기", sub:"부두가 사라져도 다시 3개가 되기까지", beats:NODEDOWN_BEATS},
+    {id:"forbidden", kind:"failure", icon:"🚫", title:"권한 없이 보내기", sub:"도장 하나가 빠지면 장부에 아무것도 남지 않아요", beats:FORBIDDEN_BEATS},
+    {id:"badimage", kind:"failure", icon:"🏷️", title:"이미지 이름 틀리기", sub:"접수·배치는 성공, 하역에서 막히기까지", beats:BADIMAGE_BEATS}
   ],
   names:{
     examples:{o:"kubelet", c:"my-shop", a:"-7d9f6c-4xk2p"},
@@ -346,11 +392,12 @@ window.CONTENT = {
       "NoExecute","NoSchedule","node.kubernetes.io/unreachable","node.kubernetes.io/not-ready","Taints","Tolerations","Conditions",
       "kube-node-lease","renewTime","node-controller","TaintManagerEviction","taint-eviction-controller","replicaset-controller","default-scheduler",
       "SuccessfulCreate","horizontalpodautoscaler.autoscaling","defaultConstraints","maxSkew","topologyKey","whenUnsatisfiable","ScheduleAnyway",
-      "kubernetes.io/hostname","topology.kubernetes.io/zone","PodTopologySpread","kubernetes.io/service-name"],
+      "kubernetes.io/hostname","topology.kubernetes.io/zone","PodTopologySpread","kubernetes.io/service-name",
+      "Forbidden","NotFound","Status","Failure","rolebinding.rbac.authorization.k8s.io","docker.io/library"],
     projects:["containerd","CoreDNS","Calico","Cilium","Flannel","CRI-O","runc","ingress-nginx","Metrics Server","Prometheus"],
     custom:{"my-shop.yaml":"cfile", "my-shop":"c", "app":"c", "dev-user":"cuser", "dev-edit":"cuser", "worker-1":"cnode", "worker-2":"cnode",
       "cp-1":"cnode", "nginx:1.27":"cimg", "ngin:1.27":"cimg", "order-api":"corder", [SHOP.domain]:"chost",
-      "ingress-nginx-controller":"cinst"},
+      "ingress-nginx-controller":"cinst", "intern":"cuser", "intern-edit":"cuser"},
     auto:{"48213":"arv", "51877":"arv", "3f1a9c2e7b0d4":"acid", "9c4e1f2a7d3b8":"apodid", "10.0.0.10":"caddr", "10.0.0.12":"caddr", [INGRESS_IP]:"alb", "198.51.100.23":"aguest"},
     /* 직접 지은 부분과 자동으로 붙은 부분이 한 단어에 섞인 이름은 쪼개서 칠한다 */
     patterns:[

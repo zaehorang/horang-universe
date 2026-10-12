@@ -215,6 +215,18 @@
           "title": "부두 하나 끄기",
           "kind": "recovery",
           "beats": 8
+        },
+        {
+          "id": "forbidden",
+          "title": "권한 없이 보내기",
+          "kind": "failure",
+          "beats": 4
+        },
+        {
+          "id": "badimage",
+          "title": "이미지 이름 틀리기",
+          "kind": "failure",
+          "beats": 5
         }
       ],
       "guest": "guest",

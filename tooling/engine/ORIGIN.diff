@@ -1,15 +1,24 @@
 --- original/index.html
 +++ universe/index.html
-@@ -5,7 +5,7 @@
+@@ -5,7 +5,16 @@
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <title>탐험 지도</title>
 -<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
++<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
++<meta property="og:type" content="website">
++<meta property="og:site_name" content="Horang Universe">
++<meta property="og:title" content="Horang Universe · 탐험 지도책">
++<meta property="og:description" content="개념을 항구·공항·도서관·우편 도시로 그려 사건을 따라가며 배우는 탐험 지도책">
++<meta property="og:image" content="https://zaehorang.github.io/horang-universe/assets/og.png">
++<meta property="og:image:width" content="1200">
++<meta property="og:image:height" content="630">
++<meta name="twitter:card" content="summary_large_image">
 +<link rel="stylesheet" href="../vendor/pretendard.css">
  <link rel="stylesheet" href="style.css">
  <link rel="stylesheet" href="world.css">
  </head>
-@@ -13,14 +13,19 @@
+@@ -13,14 +22,19 @@
  <div id="app">
    <svg id="stage" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-label="탐험 지도">
      <defs id="defs">
@@ -30,7 +39,7 @@
      <g id="world"></g>
    </svg>
  
-@@ -31,6 +36,8 @@
+@@ -31,6 +45,8 @@
        <p id="brandSub"></p>
      </div>
    </header>
@@ -39,7 +48,7 @@
  
    <div class="topright">
      <button type="button" id="nameBtn" class="pill" aria-pressed="false">실제 이름 보기</button>
-@@ -74,7 +81,7 @@
+@@ -74,7 +90,7 @@
    <!-- 패널 (겹 2·3) -->
    <aside class="panel" id="panel" aria-hidden="true">
      <button type="button" class="panel-x" id="panelClose" aria-label="닫기">✕</button>
@@ -48,7 +57,7 @@
    </aside>
  
    <!-- 이름 설명 -->
-@@ -116,8 +123,8 @@
+@@ -116,8 +132,8 @@
    </div>
  </div>
  

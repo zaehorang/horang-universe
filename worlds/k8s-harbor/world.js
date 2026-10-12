@@ -145,6 +145,34 @@ function runNew(tl, R, plan, label, base){
   });
 }
 
+/* 실패한 상자 꼬리표 — 빨간 표, 글자 길이에 맞춰 폭을 늘린다 (reset 이 88 로 되돌림).
+   넓은 표는 같은 부두 이웃 칸 표와 겹치므로 홀수 칸(1·3)은 상자 앞쪽 아래에 단다 */
+function failTag(R, i, text, s, slot){
+  var t = R.ipTags[i], w = Math.max(88, text.length * 8 + 22), r = t.querySelector("rect"), p, x, y;
+  r.setAttribute("width", w); r.setAttribute("x", -w / 2);
+  t.querySelector("text").textContent = text;
+  t.classList.add("pod-terminating");
+  if(slot % 2){ p = iso(s[0] + 28, s[1] + 36, 0); x = p[0]; y = p[1] + 18; }
+  else { p = iso(s[0] + 56, s[1] + 18, 14); x = p[0] + w / 2 + 2; y = p[1]; }
+  t.setAttribute("transform", "translate(" + x + "," + y + ")");
+}
+/* 요청서가 사무소에서 창구로 — 앱 배포하기 1장면과 같은 움직임 */
+function sendDoc(tl, api, R){
+  var o = [R.officePt[0], R.officePt[1] - 10], d = [R.towerDoor[0], R.towerDoor[1] - 6];
+  tl.set(R.doc, {x:o[0], y:o[1], opacity:0, scale:.3});
+  tl.to(R.doc, {opacity:1, scale:1.25, duration:.5, ease:"back.out(2)"}, "-=.3");
+  api.fly(tl, R.doc, o, d, {duration:2.2, lift:150});
+  tl.to(R.doc, {scale:.9, duration:.3}, "-=.3");
+}
+/* 사무소 위 응답 말풍선 */
+function officeReply(api, R, line, note, color, w){
+  var o = R.officePt, bw = w || 290;
+  var r = api.bubble(o[0] - 120, o[1] - 120, bw, 62, [o[0] - 10, o[1] - 58, o[0] + 2, o[1] - 36, o[0] + 14, o[1] - 58]);
+  api.text(r.inner, o[0] - 104, o[1] - 94, line, "m", {style:"fill:" + color, "font-weight":"700"});
+  api.text(r.inner, o[0] - 104, o[1] - 72, note, "s");
+  return r;
+}
+
 window.WORLD = {
   home:{x:800, y:468, s:1.08},
 
@@ -302,6 +330,9 @@ window.WORLD = {
       el("circle", {cx:0, cy:0, r:9, fill:"none", stroke:"#334155", "stroke-width":5, "stroke-dasharray":"3.5 2.6"}, P.gear);
       el("circle", {cx:0, cy:0, r:3, fill:"#334155"}, P.gear);
       P.machPt = iso(796, g0+154, 34);
+      P.xMark = el("g", {opacity:0, transform:"translate(" + gp[0] + "," + (gp[1] - 34) + ")"}, mach);   /* 이미지 받기 실패 표시 */
+      el("circle", {cx:0, cy:0, r:13, fill:"#dc2626", stroke:"#fff", "stroke-width":2.4}, P.xMark);
+      ISO.text(P.xMark, 0, 5, "✕", "", {"text-anchor":"middle", "font-size":"14", "font-weight":"900", fill:"#fff"});
       var fm = ISO.act(pg, "foreman", "부두 반장");
       var fp = iso(800, g0+58, 0);
       ISO.person(fm, fp[0], fp[1], {hard:true, clip:true, body:"#f97316"});
@@ -444,17 +475,19 @@ window.WORLD = {
     R.ipTags.forEach(function(t){
       gsap.killTweensOf([t, t.inner]); t.classList.remove("pod-terminating"); gsap.set(t, {opacity:0}); gsap.set(t.inner, {scale:1});
       t.querySelector("text").textContent = ""; t.setAttribute("transform", "translate(0,0)");
+      t.querySelector("rect").setAttribute("width", 88); t.querySelector("rect").setAttribute("x", -44);
     });
-    [R.doc, R.doc5].forEach(function(d){ gsap.set(d, {opacity:0, x:0, y:0, scale:1}); gsap.set(d.seal, {opacity:0}); });
+    [R.doc, R.doc5].forEach(function(d){ gsap.set(d, {opacity:0, x:0, y:0, scale:1, rotation:0}); gsap.set(d.seal, {opacity:0}); });
     [R.mail, R.ask, R.ans].forEach(function(m){ gsap.set(m, {opacity:0, x:0, y:0, scale:1, rotation:0}); });
     gsap.set(R.nrTag, {opacity:0, scale:1});
     R.piers.forEach(function(P){
       gsap.killTweensOf([P.gear, P.cable]);
       P.g.classList.remove("pier-off");
       P.cable.classList.remove("live"); gsap.set(P.cable, {opacity:1});
-      gsap.set(P.whLight, {opacity:0}); gsap.set(P.bang, {opacity:0});
+      gsap.killTweensOf(P.xMark);
+      gsap.set(P.whLight, {opacity:0}); gsap.set(P.bang, {opacity:0}); gsap.set(P.xMark, {opacity:0, scale:1});
     });
-    R.crates.forEach(function(c){ gsap.set(c, {opacity:0}); });
+    R.crates.forEach(function(c){ gsap.killTweensOf(c); gsap.set(c, {opacity:0, x:0, y:0, scale:1}); });
     gsap.set(R.vaultGlow, {opacity:0});
     if(R.patrol) R.patrol.play();
   },
@@ -932,6 +965,167 @@ window.WORLD = {
           api.showLink(tl, "e" + (n + 1), R.mailPt, ctrPt(s), n ? "<" : "+=.3", "alt");
         });
         tl.to([n1, n2], {opacity:1, duration:.4, stagger:.3}, "+=.2");
+      }
+    ],
+
+    forbidden:[
+      /* 1. intern 계정으로 요청서 보내기 */
+      function(tl, api, R){
+        tl.add(api.camTo(660, 310, 1.32, 1.3));
+        sendDoc(tl, api, R);
+        var o = R.officePt;
+        var b = api.bubble(o[0] - 150, o[1] - 128, 220, 58, [o[0] - 10, o[1] - 70, o[0] + 2, o[1] - 50, o[0] + 14, o[1] - 70]);
+        api.text(b.inner, o[0] - 134, o[1] - 104, "보내는 사람: intern", "m", {fill:"#b45309", "font-weight":"700"});
+        api.text(b.inner, o[0] - 134, o[1] - 84, "권한: 보기(view)뿐", "s");
+        api.pop(tl, b, 0.4);
+      },
+      /* 2. 창구 검사 — 신원 ✓, 권한 ✗, 규칙은 열지 않음 */
+      function(tl, api, R){
+        tl.add(api.camTo(630, 175, 1.55, 1.2));
+        api.clearBubbles(tl, "<");
+        var b = api.bubble(430, 34, 320, 214, [748, 108, 790, 150, 748, 142]), g = b.inner, el = api.el;
+        api.text(g, 452, 66, "관제탑 접수 창구 안", "t");
+        api.text(g, 452, 87, "user=intern  verb=create  deployments", "m");
+        var marks = [["신원","인증","✓"],["권한","인가 · RBAC","✕"],["규칙","승인 제어",""]].map(function(n, i){
+          var cx = 496 + i*92, cy = 160;
+          var st = el("g", {"class":"stamp"}, g);
+          el("circle", {cx:cx, cy:cy, r:27}, st);
+          api.text(st, cx, cy + 5, n[0], "");
+          api.text(g, cx, cy + 44, n[1], "s", {"text-anchor":"middle"});
+          if(!n[2]){ api.text(g, cx, cy + 62, "열지 않음", "s", {"text-anchor":"middle", fill:"#64748b"}); return null; }
+          var ink = el("g", {"class":"stamp stamp-on", opacity:0}, g);
+          el("circle", {cx:cx, cy:cy, r:27}, ink);
+          api.text(ink, cx, cy - 1, n[0], "");
+          api.text(ink, cx, cy + 15, n[2], "", {"text-anchor":"middle", "font-size":"14", fill:"#dc2626", "font-weight":"900"});
+          return ink;
+        });
+        api.pop(tl, b, "-=.5");
+        [marks[0], marks[1]].forEach(function(ink, i){
+          tl.fromTo(ink, {opacity:0, scale:2.2, rotation:-25, transformOrigin:"50% 50%"}, {opacity:1, scale:1, rotation:-8, duration:.42, ease:"power3.in"}, "+=" + (i ? .6 : .7));
+          tl.to(b.inner, {x:i ? 5 : 2, duration:.05, yoyo:true, repeat:i ? 5 : 3}, ">-0.02");
+        });
+        tl.to(R.beacon, {opacity:1, duration:.15, yoyo:true, repeat:5}, "<");
+      },
+      /* 3. 403 응답과 함께 요청서가 사무소로 돌아온다 */
+      function(tl, api, R){
+        tl.add(api.camTo(560, 330, 1.3, 1.2));
+        api.clearBubbles(tl, "<");
+        var d = [R.towerDoor[0], R.towerDoor[1] - 6], o = [R.officePt[0], R.officePt[1] - 10];
+        api.fly(tl, R.doc, d, o, {duration:1.8, lift:120}, "-=.4");
+        tl.to(R.doc, {rotation:-14, duration:.3, ease:"power2.out"});
+        api.pop(tl, officeReply(api, R, "403 Forbidden", "intern 은 deployments 를 만들 수 없음", "#dc2626", 300), "+=.1");
+      },
+      /* 4. 장부는 비어 있고 아무도 움직이지 않는다 */
+      function(tl, api, R){
+        tl.add(api.camTo(780, 290, 1.2, 1.2));
+        api.clearBubbles(tl, "<");
+        tl.to(R.doc, {opacity:0, duration:.4}, "<");
+        var b = api.bubble(1000, 150, 250, 100, [1000, 214, 975, 236, 1000, 232]);
+        api.text(b.inner, 1020, 180, "📒 금고 장부", "t");
+        api.text(b.inner, 1020, 206, "deployment / my-shop", "m");
+        api.text(b.inner, 1020, 230, "기록 없음", "m", {fill:"#64748b", "font-weight":"700"});
+        api.pop(tl, b, "+=.1");
+        var rp = robotPt(R);
+        var rb = api.bubble(rp[0] - 250, rp[1] - 70, 214, 50, [rp[0] - 40, rp[1] - 20, rp[0] - 16, rp[1] - 6, rp[0] - 40, rp[1] - 32]);
+        api.text(rb.inner, rp[0] - 234, rp[1] - 40, "바뀐 것 없음 · 할 일 없음", "t", {fill:"#64748b"});
+        api.pop(tl, rb, "+=.5");
+      }
+    ],
+
+    badimage:[
+      /* 1. 오타 난 요청서가 창구를 통과해 장부에 적힌다 */
+      function(tl, api, R){
+        tl.add(api.camTo(700, 300, 1.25, 1.3));
+        sendDoc(tl, api, R);
+        tl.to(R.doc.seal, {opacity:1, duration:.3}, "+=.2");
+        var d = [R.towerDoor[0], R.towerDoor[1] - 6], v = [R.vaultPt[0] + 36, R.vaultPt[1] - 2];
+        api.fly(tl, R.doc, d, v, {duration:1.2, lift:90}, "+=.2");
+        tl.to(R.doc, {scale:.2, opacity:0, duration:.4});
+        tl.fromTo(R.vaultGlow, {opacity:0}, {opacity:1, duration:.3, yoyo:true, repeat:1}, "<");
+        api.pop(tl, officeReply(api, R, "image: ngin:1.27", "창구 통과 — 이미지가 있는지는 안 봐요", "#b45309", 300), "+=.1");
+      },
+      /* 2. 상자 3개 생성 · 배치 — 여기까지는 정상 */
+      function(tl, api, R){
+        tl.add(api.camTo(1000, 480, 1.0, 1.3));
+        api.clearBubbles(tl, "<");
+        [0,1,2].forEach(function(i){
+          tl.fromTo(R.ctrs[i].body, {opacity:0, y:-40}, {opacity:1, y:0, duration:.55, ease:"bounce.out"}, i ? "-=.25" : "+=.3");
+        });
+        api.showLink(tl, "crane", [R.craneTop[0], R.craneTop[1] + 20], R.towerPt, "+=.2");
+        [0,1,2].forEach(function(i){
+          var c = R.ctrs[i], s = slotOf(R, PLAN[i]);
+          tl.to(c.body, {opacity:0, duration:.25}, "+=.25");
+          tl.call(function(){ ISO.place(c, s[0], s[1], 0); });
+          tl.to(c.body, {opacity:1, duration:.35});
+        });
+        var b = api.bubble(1250, 330, 230, 76, null);
+        api.text(b.inner, 1270, 360, "배치 완료 ✓", "t", {fill:"#16a34a"});
+        api.text(b.inner, 1270, 384, "부두 2에 2개 · 부두 1에 1개", "s");
+        api.pop(tl, b, "+=.1");
+        api.hideLinks(tl, ["crane"], "+=.6");
+      },
+      /* 3. 하역 기계가 이미지를 찾지 못한다 — ErrImagePull */
+      function(tl, api, R){
+        tl.add(api.camTo(1060, 640, 1.12, 1.3));
+        api.clearBubbles(tl, "<");
+        R.piers.forEach(function(P, n){ tl.fromTo(P.bang, {opacity:0, y:6}, {opacity:1, y:0, duration:.35, ease:"back.out(3)"}, n ? "<" : ">"); });
+        tl.addLabel("pull", "+=.4");
+        R.piers.forEach(function(P, n){
+          var cr = R.crates[n];
+          tl.set(cr, {x:P.machPt[0], y:P.machPt[1], opacity:0, scale:1}, "pull");
+          tl.to(cr, {opacity:.9, duration:.2}, "pull");
+          api.fly(tl, cr, P.machPt, R.shipPt, {duration:1.3, lift:140}, "pull");
+          tl.to(cr, {opacity:0, duration:.25}, "pull+=1.3");
+          tl.to(P.gear, {rotation:"+=120", transformOrigin:"50% 50%", duration:.5, ease:"power1.inOut"}, "pull");
+          tl.fromTo(P.xMark, {opacity:0, scale:.4, transformOrigin:"50% 50%"}, {opacity:1, scale:1, duration:.4, ease:"back.out(3)"}, "pull+=1.6");
+        });
+        [0,1,2].forEach(function(i){
+          var s = slotOf(R, PLAN[i]);
+          tl.call(function(){ failTag(R, i, "ErrImagePull", s, PLAN[i].slot); }, null, "pull+=1.9");
+          tl.to(R.ipTags[i], {opacity:1, duration:.3}, "pull+=1.9");
+        });
+        var sp = R.shipPt;   /* 말풍선은 저장소선 왼쪽 바다 — 부두의 꼬리표를 가리지 않게 */
+        var b = api.bubble(sp[0] - 380, sp[1] + 30, 270, 70, [sp[0] - 110, sp[1] + 34, sp[0] - 60, sp[1], sp[0] - 110, sp[1] + 58]);
+        api.text(b.inner, sp[0] - 362, sp[1] + 58, "저장소선: ngin:1.27 없음", "t", {fill:"#dc2626"});
+        api.text(b.inner, sp[0] - 362, sp[1] + 82, "상자는 빈 껍데기로 남아요", "s");
+        api.pop(tl, b, "pull+=2.1");
+      },
+      /* 4. 간격을 늘리며 다시 시도 — ImagePullBackOff */
+      function(tl, api, R){
+        api.clearBubbles(tl);
+        var sp = R.shipPt;
+        var b = api.bubble(sp[0] - 380, sp[1] + 30, 270, 92, [sp[0] - 110, sp[1] + 34, sp[0] - 60, sp[1], sp[0] - 110, sp[1] + 58]);
+        api.text(b.inner, sp[0] - 362, sp[1] + 58, "다시 받기 기다리는 중", "t");
+        var wait = api.text(b.inner, sp[0] - 362, sp[1] + 82, "10초", "m", {fill:"#b45309", "font-weight":"700"});
+        api.text(b.inner, sp[0] - 362, sp[1] + 104, "이름이 틀려 계속 실패", "s");
+        api.pop(tl, b, "+=.1");
+        ["10초 → 20초", "10초 → 20초 → 40초", "10초 → 20초 → 40초 … 최대 5분"].forEach(function(line){
+          tl.call(function(){ wait.textContent = line; }, null, "+=.7");
+          R.piers.forEach(function(P, n){
+            tl.to(P.gear, {rotation:"+=90", transformOrigin:"50% 50%", duration:.35}, n ? "<" : ">");
+            tl.fromTo(P.xMark, {scale:1.4, transformOrigin:"50% 50%"}, {scale:1, duration:.35, ease:"back.out(3)"}, "<");
+          });
+        });
+        [0,1,2].forEach(function(i){
+          var s = slotOf(R, PLAN[i]);
+          tl.call(function(){ failTag(R, i, "ImagePullBackOff", s, PLAN[i].slot); }, null, i ? "<" : "+=.2");
+          tl.fromTo(R.ipTags[i].inner, {scale:1.25}, {scale:1, duration:.35, ease:"back.out(3)"}, "<");
+        });
+      },
+      /* 5. 반장의 이벤트 기록 — 끊긴 줄이 볼 곳을 알려 준다 */
+      function(tl, api, R){
+        tl.add(api.camTo(960, 520, 1.0, 1.3));
+        api.clearBubbles(tl, "<");
+        R.piers.forEach(function(P, n){ api.showLink(tl, "f" + (n + 1), P.foremanPt, R.towerPt, n ? "<" : ">", "warn"); });
+        var b = api.bubble(1180, 250, 300, 134, null);
+        api.text(b.inner, 1200, 280, "반장이 남긴 이벤트", "t");
+        var rows = [["Scheduled  ✓", "#16a34a"], ["Pulling    ✕", "#dc2626"], ["BackOff    ✕", "#dc2626"]].map(function(r, i){
+          return api.text(b.inner, 1200, 306 + i * 22, r[0], "m", {fill:r[1], "font-weight":"700", opacity:0});
+        });
+        api.text(b.inner, 1200, 372, "끊긴 곳 = 하역(이미지) 쪽", "s");
+        api.pop(tl, b, "+=.2");
+        rows.forEach(function(r){ tl.to(r, {opacity:1, duration:.3}, "+=.35"); });
+        api.hideLinks(tl, ["f1", "f2"], "+=1.2");
       }
     ]
   }

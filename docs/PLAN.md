@@ -115,10 +115,10 @@ Pretendard 1.3.9 dynamic-subset 500·700·800 굵기와 WOFF2 276개는 사용�
 
 **완료 기준**: 구형 세계 내용이 항구에 들어가고, SKALA 에 explainers 가 남지 않는다.
 
-- [ ] 3-1 `k8s-cluster-architecture` 의 만약에 사건 3개를 `k8s-harbor` 에 `failure` · `recovery` 사건으로 추가
-- [ ] 3-2 등록부에 `k8s-cluster-architecture` 를 `archived` + redirect → `k8s-harbor` 로 기록(폴더는 두지 않음). 공개된 옛 URL 의 리다이렉트 파일이 필요한 경우 수동 확인
+- [x] 3-1 `k8s-cluster-architecture` 의 만약에 사건 3개를 `k8s-harbor` 에 `failure` · `recovery` 사건으로 추가 (셋 중 '일꾼 2 전원 끄기'는 기존 `nodedown`(recovery)과 겹쳐 제외. `forbidden`(관제탑 인가 거부 403) · `badimage`(ngin:1.27 ErrImagePull → ImagePullBackOff) 를 failure 로 추가, 항구 사건 유형 넷. 헤드리스 verify_browser 통과)
+- [x] 3-2 등록부에 `k8s-cluster-architecture` 를 `archived` + redirect → `k8s-harbor` 로 기록(폴더는 두지 않음). 공개된 옛 URL 의 리다이렉트 파일이 필요한 경우 수동 확인 (이 저장소 Pages 에 공개된 적이 없어 리다이렉트 파일 불필요, check_registry 가 폴더 없는 archived 허용)
 - [ ] 3-3 (승인) `SKALA/explainers/` 삭제, `SKALA/CLAUDE.md` 한 줄
-- [ ] 3-4 공유용 미리보기 이미지 · 파비콘
+- [x] 3-4 공유용 미리보기 이미지 · 파비콘 (`assets/og.png` 1200×630 · `assets/favicon.svg`, 엔진 index head · 루트 index · 404)
 - [ ] 3-5 메모리의 Horang Universe 항목을 "설계 결정"에서 "운영 중" 으로 갱신
 
 ## Phase 4 · 확장 — todo
