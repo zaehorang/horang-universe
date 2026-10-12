@@ -104,7 +104,7 @@ Pretendard 1.3.9 dynamic-subset 500·700·800 굵기와 WOFF2 276개는 사용�
 
 - [x] 2-1 `network-layers` — 절차 검증. 막힌 곳은 체크리스트에 반영
 - [x] 2-2 `db-library` — `pay-app` · `guest-app` 벌 확정
-- [ ] 2-3 `k8s-harbor` — 먼저 `eks-security` 를 draft 로 생성하고 `ingress` actor 를 둔 뒤 `gate → eks-security:ingress` 문을 등록
+- [x] 2-3 `k8s-harbor` — 먼저 `eks-security` 를 draft 로 생성하고 `ingress` actor 를 둔 뒤 `gate → eks-security:ingress` 문을 등록 (verified. 문은 상대 부재로 보류, 2-4 에서 복원)
 - [ ] 2-4 `eks-security` — 내용 이관 후 문 둘 활성. **문 기능 첫 실사용 시험**
 - [ ] 2-5 `http-https` — 작업 마무리 확인 후. 문 `shop → network-layers:server`
 - [ ] 2-6 `build_glossary`: 전 세계 `actors[].real` + `meta.concepts` → `shared/glossary.json` 초안, 비유 대응표 수동 보강(Ingress 둘 묶기 등)

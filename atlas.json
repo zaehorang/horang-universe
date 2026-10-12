@@ -166,6 +166,65 @@
       "values": [
         "shop-web"
       ]
+    },
+    {
+      "id": "k8s-harbor",
+      "region": "ops",
+      "pos": [
+        780,
+        340
+      ],
+      "status": "verified",
+      "since": "2026-10-12",
+      "title": "쿠버네티스 항구",
+      "subtitle": "클러스터가 일하는 모습을 항구로 그렸어요",
+      "logo": "⎈",
+      "roof": "#e07a5f",
+      "regionName": "운영 항만",
+      "concepts": [
+        "kubernetes",
+        "control-plane",
+        "kube-apiserver",
+        "etcd",
+        "kube-controller-manager",
+        "kube-scheduler",
+        "kubelet",
+        "pod",
+        "service",
+        "ingress",
+        "cni"
+      ],
+      "events": [
+        {
+          "id": "deploy",
+          "title": "앱 배포하기",
+          "kind": "normal",
+          "beats": 7
+        },
+        {
+          "id": "request",
+          "title": "손님 요청 보내기",
+          "kind": "normal",
+          "beats": 7
+        },
+        {
+          "id": "scale",
+          "title": "컨테이너 늘리기",
+          "kind": "scale",
+          "beats": 7
+        },
+        {
+          "id": "nodedown",
+          "title": "부두 하나 끄기",
+          "kind": "recovery",
+          "beats": 8
+        }
+      ],
+      "guest": "guest",
+      "values": [
+        "shop-web",
+        "guest-browser"
+      ]
     }
   ],
   "doors": []

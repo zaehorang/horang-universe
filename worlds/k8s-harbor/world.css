@@ -1,0 +1,19 @@
+/* 항구 세계 전용 스타일 */
+:root{--world-bg:#7cc6d8;--world-bg-deep:#5eb3c9;--world-texture:url(#tex-waves)}
+.ctr.ghost polygon{fill-opacity:.1;stroke:#e0603f;stroke-width:1.6;stroke-dasharray:5 3}
+.ctr.ghost .door{opacity:0}
+.ctr polygon{stroke:rgba(0,0,0,.12);stroke-width:.8;transition:fill-opacity .5s}
+.ctr .door{stroke:rgba(0,0,0,.25);stroke-width:1.2}
+.cable{fill:none;stroke:#3b4a5a;stroke-width:3;stroke-linecap:round;opacity:.45}
+.cable.live{stroke:#22d3ee;opacity:1;filter:drop-shadow(0 0 4px #22d3ee)}
+.stamp circle{fill:#fff;stroke:#c7d0da;stroke-width:2;stroke-dasharray:4 3}
+.stamp text{font-size:13px;font-weight:800;text-anchor:middle;fill:#9aa7b4}
+.stamp.on circle{fill:#fde8e4;stroke:#dc2626;stroke-dasharray:none;stroke-width:3}
+.stamp.on text{fill:var(--danger)}
+
+/* 부두 전원 꺼짐 · 축출 중인 상자 · NotReady 표 */
+.pier-off{filter:grayscale(.85) brightness(.55);transition:filter .6s}
+.pod-terminating rect{fill:#991b1b}
+.pod-terminating text{fill:#fecaca}
+.nrtag rect{fill:#dc2626;stroke:#fff;stroke-width:2}
+.nrtag text{fill:#fff;font:800 13px var(--sans);text-anchor:middle;dominant-baseline:central}
