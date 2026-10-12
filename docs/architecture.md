@@ -58,7 +58,7 @@ Phase 4 에서 대륙 간 사건이 허브의 장면으로 들어간다.
 
 ## 문 (door)
 
-한쪽 세계의 meta 에만 적는다. `{ from: "<actor>", to: "<world>:<actor>[@<event>]", why: "..." }`.
+한쪽 세계의 meta 에만 적는다. `{ from: "<actor>", to: "<world>:<actor>[@<event>]", why: "...", whyBack: "..." }`. `whyBack` 은 자동 생성되는 역방향 문의 버튼 문구이고 없으면 `why` 를 재사용한다.
 build_atlas 가 반대 방향을 자동 생성한다. 엔진은 두 방향 모두 패널 아래 버튼으로 그린다.
 
 ## 앵커

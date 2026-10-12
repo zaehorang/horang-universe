@@ -32,7 +32,8 @@ meta: {
   values: ["shop-web", "guest-browser"],             // 쓰는 예시 값 벌
   hubColor: "#4f7aa6",                         // 선택: 허브 지붕 상징색. 없으면 지역 toneDeep
   doors: [
-    { from: "shop", to: "network-layers:server", why: "가게 안의 7층 빌딩을 보러 간다" }
+    { from: "shop", to: "network-layers:server", why: "가게 안의 7층 빌딩을 보러 간다",
+      whyBack: "이 빌딩이 서 있는 우편 도시로 나간다" }   // whyBack: 상대 세계 안에서 보이는 역방향 문구(선택, 없으면 why 재사용)
   ]
 }
 ```

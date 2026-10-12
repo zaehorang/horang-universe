@@ -234,7 +234,7 @@
       "title": "EKS 보안 공항",
       "subtitle": "EKS 보안 구성을 공항으로 그렸어요",
       "logo": "✈",
-      "roof": "#4f7aa6",
+      "roof": "#2e4a6b",
       "regionName": "운영 항만",
       "concepts": [
         "eks",
@@ -357,10 +357,11 @@
       "to": {
         "world": "eks-security",
         "actor": "ingress",
-        "event": null,
+        "event": "request",
         "name": "EKS 보안 공항"
       },
       "why": "같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요",
+      "whyBack": "같은 Ingress가 항구에서 컨테이너를 찾아가는 모습을 보러 가요",
       "tone": "#7cc6d8"
     },
     {
@@ -371,10 +372,11 @@
       "to": {
         "world": "db-library",
         "actor": "gate",
-        "event": null,
+        "event": "select",
         "name": "데이터베이스 도서관"
       },
       "why": "기록 금고 안은 데이터베이스 도서관에서",
+      "whyBack": "이 도서관이 공항에서는 기록 금고로 보여요",
       "tone": "#e3e8df"
     },
     {
@@ -389,6 +391,7 @@
         "name": "층층 우체국 빌딩"
       },
       "why": "가게 안의 7층 빌딩을 보러 간다",
+      "whyBack": "",
       "tone": "#a9d6a0"
     },
     {
@@ -402,7 +405,7 @@
         "event": null,
         "name": "쿠버네티스 항구"
       },
-      "why": "같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요",
+      "why": "같은 Ingress가 항구에서 컨테이너를 찾아가는 모습을 보러 가요",
       "generated": true,
       "tone": "#7cc6d8"
     },
@@ -417,7 +420,7 @@
         "event": null,
         "name": "EKS 보안 공항"
       },
-      "why": "기록 금고 안은 데이터베이스 도서관에서",
+      "why": "이 도서관이 공항에서는 기록 금고로 보여요",
       "generated": true,
       "tone": "#7cc6d8"
     },
