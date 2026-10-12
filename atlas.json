@@ -2,7 +2,7 @@
   "name": "Horang Universe",
   "hub": {
     "id": "hub",
-    "status": "draft",
+    "status": "verified",
     "sea": "#5fb0c8",
     "seaDeep": "#3f8fab",
     "shore": "#efe2c0"
@@ -50,11 +50,10 @@
       "id": "db-library",
       "region": "data",
       "pos": [
-        1230,
-        510
+        1250,
+        470
       ],
       "status": "verified",
-      "since": "2026-10-12",
       "title": "데이터베이스 도서관",
       "subtitle": "SQL 한 줄이 디스크까지 — PostgreSQL로 보는 DB의 큰 흐름",
       "logo": "▤",
@@ -113,11 +112,10 @@
         465
       ],
       "status": "verified",
-      "since": "2026-10-12",
       "title": "층층 우체국 빌딩",
       "subtitle": "네트워크 계층: 편지 한 장이 봉투를 겹겹이 쓰고 벗기기까지",
       "logo": "🏢",
-      "roof": "#8dbd6f",
+      "roof": "#e07a5f",
       "regionName": "네트워크 해안",
       "concepts": [
         "osi",
@@ -175,7 +173,6 @@
         340
       ],
       "status": "verified",
-      "since": "2026-10-12",
       "title": "쿠버네티스 항구",
       "subtitle": "클러스터가 일하는 모습을 항구로 그렸어요",
       "logo": "⎈",

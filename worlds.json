@@ -41,14 +41,38 @@
   ],
   "hub": {
     "id": "hub",
-    "status": "draft",
+    "status": "verified",
     "sea": "#5fb0c8",
     "seaDeep": "#3f8fab",
     "shore": "#efe2c0"
   },
   "worlds": [
-    { "id": "db-library", "region": "data", "pos": [1230, 510], "status": "verified", "since": "2026-10-12" },
-    { "id": "network-layers", "region": "network", "pos": [300, 465], "status": "verified", "since": "2026-10-12" },
-    { "id": "k8s-harbor", "region": "ops", "pos": [780, 340], "status": "verified", "since": "2026-10-12" }
+    {
+      "id": "db-library",
+      "region": "data",
+      "pos": [
+        1250,
+        470
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "network-layers",
+      "region": "network",
+      "pos": [
+        300,
+        465
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "k8s-harbor",
+      "region": "ops",
+      "pos": [
+        780,
+        340
+      ],
+      "status": "verified"
+    }
   ]
 }
