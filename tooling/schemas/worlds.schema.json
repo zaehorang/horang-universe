@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Horang Universe registry",
+  "type": "object",
+  "required": [
+    "name",
+    "regions",
+    "hub",
+    "worlds"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "pos",
+          "tone",
+          "texture"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pos": {
+            "$ref": "#/$defs/pos"
+          },
+          "tone": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "hint": {
+            "type": "string"
+          },
+          "toneDeep": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "texture": {
+            "enum": ["dots", "waves", "paper", "hatch"]
+          }
+        }
+      }
+    },
+    "hub": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "sea",
+        "seaDeep",
+        "shore"
+      ],
+      "properties": {
+        "id": {
+          "const": "hub"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "sea": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "seaDeep": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "shore": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "worlds": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "region",
+          "status"
+        ],
+        "if": {
+          "properties": {"status": {"const": "archived"}},
+          "required": ["status"]
+        },
+        "then": {"required": ["redirect"]},
+        "else": {"required": ["pos"], "not": {"required": ["redirect"]}},
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "allOf": [{"$ref": "#/$defs/id"}, {"not": {"const": "hub"}}]
+          },
+          "region": {
+            "$ref": "#/$defs/id"
+          },
+          "pos": {
+            "$ref": "#/$defs/pos"
+          },
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "redirect": {
+            "$ref": "#/$defs/id",
+            "description": "archived 일 때 목적지 세계 id"
+          },
+          "since": {
+            "type": "string",
+            "format": "date",
+            "description": "draft 가 된 날. 30일 초과 경고"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "pos": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "verified",
+        "archived"
+      ]
+    }
+  }
+}

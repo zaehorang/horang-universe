@@ -1,0 +1,5 @@
+GSAP 3.12.5 core and MotionPathPlugin
+Copyright 2024, GreenSock. All rights reserved.
+These distributed files include the upstream license notice in their headers.
+License terms: https://gsap.com/standard-license
+Club GSAP members are subject to their membership agreement.
