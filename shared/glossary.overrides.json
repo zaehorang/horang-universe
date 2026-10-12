@@ -1,5 +1,5 @@
 {
- "$comment": "용어 사전 손 보강. build_glossary.mjs 가 자동 대응(meta.concepts × actors[].real) 위에 이 파일을 얹어 shared/glossary.json 을 만든다. labels=표시명, aliases=검색용 다른 이름, notes=비유 대응 설명, links=자동으로 못 찾은 개념↔actor(event 는 먼저 보여 줄 사건), unlinks=잘못 잡힌 자동 대응, merge=세계마다 다르게 적은 같은 개념 id 를 한 id 로. 대상이 사라지면 check_all 이 오류를 낸다.",
+ "$comment": "용어 사전 손 보강. build_glossary.mjs 가 자동 대응(meta.concepts × actors[].real) 위에 이 파일을 얹어 shared/glossary.json 을 만든다. labels=표시명, aliases=검색용 다른 이름, notes=비유 대응 설명, links=자동으로 못 찾은 개념↔actor(event 는 먼저 보여 줄 사건, actor 없이 event 만 주면 세계 입구를 그 사건으로 연다). 개념은 그 세계 meta.concepts 에 있어야 한다(소속은 세계가 정함), unlinks=잘못 잡힌 자동 대응, autoAccepted=검토해 받아들인 자동 대응(여기도 unlinks 에도 없는 새 자동 대응은 오류), merge=세계마다 다르게 적은 같은 개념 id 를 한 id 로. 대상이 사라지면 check_all 이 오류를 낸다.",
  "labels": {
   "arp": "ARP",
   "checkpoint": "Checkpoint",
@@ -19,21 +19,60 @@
   "udp": "UDP"
  },
  "aliases": {
-  "ingress": ["인그레스", "ingress-nginx"],
-  "kubernetes": ["쿠버네티스", "k8s"],
-  "pod": ["파드"],
-  "service": ["서비스", "ClusterIP"],
-  "dns": ["도메인", "CoreDNS"],
-  "tls": ["SSL", "암호화"],
-  "certificate": ["인증서", "X.509"],
-  "certificate-authority": ["인증 기관", "CA"],
-  "transaction": ["트랜잭션"],
-  "checkpoint": ["체크포인트"],
-  "crash-recovery": ["복구"],
-  "alb": ["로드 밸런서", "Application Load Balancer"],
-  "control-plane": ["컨트롤 플레인"],
-  "postgresql": ["Postgres"],
-  "http-cache": ["캐시", "Cache-Control"]
+  "ingress": [
+   "인그레스",
+   "ingress-nginx"
+  ],
+  "kubernetes": [
+   "쿠버네티스",
+   "k8s"
+  ],
+  "pod": [
+   "파드"
+  ],
+  "service": [
+   "서비스",
+   "ClusterIP"
+  ],
+  "dns": [
+   "도메인",
+   "CoreDNS"
+  ],
+  "tls": [
+   "SSL",
+   "암호화"
+  ],
+  "certificate": [
+   "인증서",
+   "X.509"
+  ],
+  "certificate-authority": [
+   "인증 기관",
+   "CA"
+  ],
+  "transaction": [
+   "트랜잭션"
+  ],
+  "checkpoint": [
+   "체크포인트"
+  ],
+  "crash-recovery": [
+   "복구"
+  ],
+  "alb": [
+   "로드 밸런서",
+   "Application Load Balancer"
+  ],
+  "control-plane": [
+   "컨트롤 플레인"
+  ],
+  "postgresql": [
+   "Postgres"
+  ],
+  "http-cache": [
+   "캐시",
+   "Cache-Control"
+  ]
  },
  "notes": {
   "ingress": "같은 Ingress Controller 가 항구에서는 '항구 정문', 공항에서는 '안내 데스크'다. 공항의 '정문'은 그 앞의 ALB 다.",
@@ -42,29 +81,270 @@
   "tls": "우편 도시에서는 문지기·신분증, 층층 우체국에서는 6층 봉인, 공항에서는 정문(ALB)이 TLS 를 맡는다."
  },
  "links": [
-  {"concept": "tls", "world": "network-layers", "actor": "upper56", "event": "tls"},
-  {"concept": "tls", "world": "eks-security", "actor": "alb"},
-  {"concept": "mtls", "world": "eks-security", "actor": "sidecar"},
-  {"concept": "dns", "world": "eks-security", "actor": "route53"},
-  {"concept": "dns", "world": "k8s-harbor", "actor": "booth"},
-  {"concept": "control-plane", "world": "eks-security", "actor": "cp"},
-  {"concept": "udp", "world": "network-layers", "actor": "tcp", "event": "tour"},
-  {"concept": "udp", "world": "http-https", "actor": "resolver"},
-  {"concept": "arp", "world": "network-layers", "actor": "eth", "event": "arp"},
-  {"concept": "osi", "world": "network-layers", "actor": "upper56", "event": "tour"},
-  {"concept": "mvcc", "world": "db-library", "actor": "buffer", "event": "race"},
-  {"concept": "transaction", "world": "db-library", "actor": "lock"},
-  {"concept": "checkpoint", "world": "db-library", "actor": "checkpointer"},
-  {"concept": "crash-recovery", "world": "db-library", "actor": "startup"},
-  {"concept": "query-planner", "world": "db-library", "actor": "planner"},
-  {"concept": "sql", "world": "db-library", "actor": "parser"},
-  {"concept": "postgresql", "world": "db-library", "actor": "gate"},
-  {"concept": "hsts", "world": "http-https", "actor": "browser", "event": "revisit"},
-  {"concept": "sni", "world": "http-https", "actor": "guard"},
-  {"concept": "http-cache", "world": "http-https", "actor": "shop", "event": "revisit"}
+  {
+   "concept": "tls",
+   "world": "network-layers",
+   "actor": "upper56",
+   "event": "tls"
+  },
+  {
+   "concept": "tls",
+   "world": "eks-security",
+   "actor": "alb"
+  },
+  {
+   "concept": "mtls",
+   "world": "eks-security",
+   "actor": "sidecar"
+  },
+  {
+   "concept": "dns",
+   "world": "eks-security",
+   "actor": "route53"
+  },
+  {
+   "concept": "dns",
+   "world": "k8s-harbor",
+   "actor": "booth"
+  },
+  {
+   "concept": "udp",
+   "world": "network-layers",
+   "actor": "tcp",
+   "event": "tour"
+  },
+  {
+   "concept": "udp",
+   "world": "http-https",
+   "actor": "resolver"
+  },
+  {
+   "concept": "arp",
+   "world": "network-layers",
+   "actor": "eth",
+   "event": "arp"
+  },
+  {
+   "concept": "mvcc",
+   "world": "db-library",
+   "actor": "buffer",
+   "event": "race"
+  },
+  {
+   "concept": "checkpoint",
+   "world": "db-library",
+   "actor": "checkpointer"
+  },
+  {
+   "concept": "crash-recovery",
+   "world": "db-library",
+   "actor": "startup"
+  },
+  {
+   "concept": "query-planner",
+   "world": "db-library",
+   "actor": "planner"
+  },
+  {
+   "concept": "sql",
+   "world": "db-library",
+   "actor": "parser"
+  },
+  {
+   "concept": "postgresql",
+   "world": "db-library",
+   "actor": "gate"
+  },
+  {
+   "concept": "hsts",
+   "world": "http-https",
+   "actor": "browser",
+   "event": "revisit"
+  },
+  {
+   "concept": "sni",
+   "world": "http-https",
+   "actor": "guard"
+  },
+  {
+   "concept": "http-cache",
+   "world": "http-https",
+   "actor": "shop",
+   "event": "revisit"
+  },
+  {
+   "concept": "transaction",
+   "world": "db-library",
+   "actor": "backend",
+   "event": "update"
+  },
+  {
+   "concept": "transaction",
+   "world": "db-library",
+   "actor": "wal",
+   "event": "update"
+  },
+  {
+   "concept": "osi",
+   "world": "network-layers",
+   "event": "tour"
+  },
+  {
+   "concept": "http",
+   "world": "http-https",
+   "actor": "snoop",
+   "event": "http"
+  },
+  {
+   "concept": "mvcc",
+   "world": "db-library",
+   "actor": "lock",
+   "event": "race"
+  },
+  {
+   "concept": "mvcc",
+   "world": "db-library",
+   "actor": "heap"
+  }
  ],
  "unlinks": [
-  {"concept": "pod", "world": "eks-security", "actor": "iam", "why": "real 의 'Pod Identity' 가 Pod 로 잡힘"}
+  {
+   "concept": "pod",
+   "world": "eks-security",
+   "actor": "iam",
+   "why": "real 의 'Pod Identity' 가 Pod 로 잡힘"
+  },
+  {
+   "concept": "http",
+   "world": "network-layers",
+   "actor": "client",
+   "why": "real 의 'HTTP 클라이언트 프로그램' 이 잡힘 — 요청 프로그램(curl)은 HTTP 개념의 자리가 아님"
+  }
  ],
- "merge": {}
+ "merge": {},
+ "autoAccepted": {
+  "alb": [
+   "eks-security:alb"
+  ],
+  "btree": [
+   "db-library:index"
+  ],
+  "certificate": [
+   "http-https:cert"
+  ],
+  "certificate-authority": [
+   "http-https:ca"
+  ],
+  "cloudtrail": [
+   "eks-security:watch"
+  ],
+  "cni": [
+   "k8s-harbor:cni"
+  ],
+  "control-plane": [
+   "k8s-harbor:hill",
+   "eks-security:cp"
+  ],
+  "dns": [
+   "http-https:resolver"
+  ],
+  "ecr": [
+   "eks-security:ecr"
+  ],
+  "eks": [
+   "eks-security:cp"
+  ],
+  "etcd": [
+   "k8s-harbor:vault"
+  ],
+  "ethernet": [
+   "network-layers:eth"
+  ],
+  "http": [
+   "network-layers:app",
+   "http-https:door80"
+  ],
+  "https": [
+   "http-https:door443"
+  ],
+  "iam": [
+   "eks-security:iam",
+   "eks-security:ops"
+  ],
+  "ingress": [
+   "k8s-harbor:gate",
+   "eks-security:ingress"
+  ],
+  "ip": [
+   "network-layers:ip"
+  ],
+  "irsa": [
+   "eks-security:iam"
+  ],
+  "kube-apiserver": [
+   "k8s-harbor:tower"
+  ],
+  "kube-controller-manager": [
+   "k8s-harbor:robot"
+  ],
+  "kube-scheduler": [
+   "k8s-harbor:crane"
+  ],
+  "kubelet": [
+   "k8s-harbor:foreman"
+  ],
+  "network-policy": [
+   "eks-security:netpol"
+  ],
+  "pod": [
+   "k8s-harbor:yard",
+   "k8s-harbor:pod",
+   "k8s-harbor:orderapp",
+   "eks-security:front",
+   "eks-security:order"
+  ],
+  "pod-security-admission": [
+   "eks-security:psa"
+  ],
+  "rds": [
+   "eks-security:rds"
+  ],
+  "route53": [
+   "eks-security:route53"
+  ],
+  "row-level-lock": [
+   "db-library:lock"
+  ],
+  "secrets-manager": [
+   "eks-security:secrets"
+  ],
+  "security-group": [
+   "eks-security:sg"
+  ],
+  "service": [
+   "k8s-harbor:mailbox"
+  ],
+  "shared-buffers": [
+   "db-library:buffer"
+  ],
+  "tcp": [
+   "network-layers:tcp",
+   "http-https:door80",
+   "http-https:door443"
+  ],
+  "tls": [
+   "http-https:guard",
+   "http-https:cert"
+  ],
+  "vpc": [
+   "eks-security:vpc"
+  ],
+  "waf": [
+   "eks-security:waf"
+  ],
+  "wal": [
+   "db-library:wal",
+   "db-library:walbuf"
+  ]
+ }
 }

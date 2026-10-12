@@ -74,7 +74,10 @@ diff -r tooling/engine ~/.claude/plugins/marketplaces/horang-skills/explorable-w
 
 `shared/glossary.json` 은 `build_glossary.mjs` 생성물이다. 자동 대응은 세계 `meta.concepts` 의 개념 id 를 그 세계 `actors[].real` 의 영문 토큰과 맞춘다(`btree` ↔ "B-tree index", `route53` ↔ "Route 53"). 사람이 고칠 것은 `shared/glossary.overrides.json` 에만 적는다.
 
-- 비유가 real 에 영문으로 드러나지 않으면 `links` 에 `{concept, world, actor, event?}` 를 더한다. `event` 는 검색 결과에서 먼저 열 사건이다. 그 세계 meta 에 없는 개념도 이렇게 걸 수 있다(예: 항구의 CoreDNS 안내소 → `dns`).
+- 개념이 어느 세계에 속하는지는 세계 `meta.concepts` 만 정한다(D8). 손 보강은 이미 소속된 개념에 actor·사건을 이어 줄 뿐이며, 그 세계 meta 에 없는 개념을 `links` 에 적으면 `check_all` 이 오류를 낸다. 새 소속이 필요하면 세계 `content.js` meta 에 먼저 더한다.
+- 비유가 real 에 영문으로 드러나지 않으면 `links` 에 `{concept, world, actor, event?}` 를 더한다(예: 항구의 CoreDNS 안내소 → `dns`). `event` 는 검색 결과에서 먼저 열 사건이다. 건물 전체가 개념이면 actor 없이 `{concept, world, event}` 로 세계 입구를 그 사건 1장면으로 연다(예: `osi` → network-layers `tour`).
+- 자동 대응은 검토한 것만 쓴다. `build_glossary` 가 `autoAccepted` 에도 `unlinks` 에도 없는 새 자동 대응을 "검토 필요"로 보고하고 멈추면, 맞는 것은 `autoAccepted` 에, 틀린 것은 `unlinks` 에 적는다. 자동 대응에서 사라진 `autoAccepted` 항목도 오류다.
 - 잘못 잡힌 자동 대응은 `unlinks`, 세계마다 다르게 적은 같은 개념 id 는 `merge`, 표시명은 `labels`, 한글 검색어는 `aliases`, 세계 간 비유 대응 설명은 `notes`.
 - 세계 내용(actor real·사건)을 고친 뒤에는 `build_glossary` 를 다시 돌린다. 안 돌리면 `check_all` 이 stale 로 실패한다.
+- 사전은 archived 를 뺀 draft · verified 세계를 모두 담고 자리마다 등록부 `status` 를 적는다. 허브 검색은 draft 자리에 "공사 중" 표를 단다(draft 의 meta 를 고쳐도 `build_glossary` 를 다시 돌려야 한다).
 

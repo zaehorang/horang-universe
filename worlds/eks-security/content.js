@@ -315,7 +315,7 @@ window.CONTENT = {
   },
   actors:ACTORS,
   meta:{
-    concepts:["eks", "vpc", "dns", "route53", "alb", "tls", "waf", "ingress", "pod", "mtls", "security-group", "rds", "iam", "irsa", "secrets-manager", "cloudtrail", "ecr", "pod-security-admission", "network-policy"],
+    concepts:["eks", "vpc", "dns", "route53", "alb", "tls", "waf", "ingress", "pod", "mtls", "security-group", "rds", "iam", "irsa", "secrets-manager", "cloudtrail", "ecr", "pod-security-admission", "network-policy", "control-plane"],
     guest:"user",
     values:["shop-web", "guest-browser"],
     hubColor:"#2e4a6b",

@@ -25,7 +25,7 @@ try {
   ['../vendor/','../../tooling/vendor/',true],
   ['href="style.css"','href="../../tooling/engine/style.css"'],
   ['src="iso.js"','src="../../tooling/engine/iso.js"'],
-  ['  <div class="topright">','  <div class="hub-search" role="search"><span aria-hidden="true">⌕</span><input id="hubSearch" type="search" disabled role="combobox" aria-expanded="false" aria-controls="hubResults" aria-autocomplete="list" autocomplete="off" spellcheck="false" aria-label="개념 검색" placeholder="사전을 여는 중…"><ul class="hub-results" id="hubResults" role="listbox" aria-label="검색 결과" hidden></ul></div>\n  <div class="hub-count" id="hubCount"></div>\n  <div class="topright">'],
+  ['  <div class="topright">','  <div class="hub-search" role="search"><span aria-hidden="true">⌕</span><input id="hubSearch" type="search" disabled role="combobox" aria-expanded="false" aria-controls="hubResults" aria-autocomplete="list" autocomplete="off" spellcheck="false" aria-label="개념 검색" placeholder="사전을 여는 중…"><ul class="hub-results" id="hubResults" role="listbox" aria-label="검색 결과" hidden></ul><p class="sr-only" id="hubSearchStatus" role="status" aria-live="polite"></p></div>\n  <div class="hub-count" id="hubCount"></div>\n  <div class="topright">'],
   [scripts,loader],
  ],'허브 index.html');
  return assertPageRefs(html,'허브 index.html',new Set(['world.css','./content.js','./world.js']));

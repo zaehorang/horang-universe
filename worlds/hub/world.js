@@ -6,12 +6,14 @@ function path(parent,d,cls){return svg('path',{d,class:cls,fill:'none'},parent)}
 function label(parent,x,y,text,cls){const n=svg('text',{x,y,class:cls,'text-anchor':'middle'},parent);n.textContent=text;return n}
 
 // 상단 검색칸: shared/glossary.json 을 읽어 개념 → 세계·장면 목록을 보여 준다.
-// 개념 줄을 고르면 그 개념이 있는 건물을 강조하고, 자리 줄을 고르면 그 건물을 강조한 뒤 세계 앵커로 이동한다.
+// 줄에 올라가면(↑↓·마우스) 건물을 강조하고, 고르면(Enter·클릭) 그 건물을 강조한 뒤 세계 앵커로 이동한다.
+// 개념 줄을 고르거나 아무 줄도 고르지 않은 채 Enter 면 그 개념(첫 결과)의 첫 자리로 간다.
 const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 const norm=s=>String(s||'').toLowerCase().replace(/[\s\-_./·:()]+/g,'');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function setupSearch(){
- const input=document.getElementById('hubSearch'),list=document.getElementById('hubResults'),box=input&&input.closest('.hub-search');
+ const input=document.getElementById('hubSearch'),list=document.getElementById('hubResults'),status=document.getElementById('hubSearchStatus'),box=input&&input.closest('.hub-search');
+ const say=text=>{if(status)status.textContent=text};
  if(!input||!list)return;
  const worldById=new Map(A.worlds.map(w=>[w.id,w]));
  let entries=[],options=[],active=-1;
@@ -35,7 +37,7 @@ function setupSearch(){
   for(const g of document.querySelectorAll('#world .hub-building'))g.classList.toggle('hub-found',set.has(g.getAttribute('data-actor')));
  }
  function setActive(i){
-  options.forEach((o,k)=>o.el.classList.toggle('on',k===i));active=i;
+  options.forEach((o,k)=>{o.el.classList.toggle('on',k===i);o.el.setAttribute('aria-selected',String(k===i))});active=i;
   const o=options[i];
   if(!o){input.removeAttribute('aria-activedescendant');return}
   input.setAttribute('aria-activedescendant',o.el.id);o.el.scrollIntoView({block:'nearest'});
@@ -45,7 +47,7 @@ function setupSearch(){
  function close(){show(false);options=[];active=-1;input.removeAttribute('aria-activedescendant')}
  function option(parent,entry,place,html){
   const el=document.createElement('div'),i=options.length;
-  el.id=`hubOpt${i}`;el.setAttribute('role','option');el.className=place?'hub-res-place':'hub-res-concept';el.innerHTML=html;
+  el.id=`hubOpt${i}`;el.setAttribute('role','option');el.setAttribute('aria-selected','false');el.className=place?'hub-res-place':'hub-res-concept';el.innerHTML=html;
   el.addEventListener('mousemove',()=>{if(active!==i)setActive(i)});
   el.addEventListener('click',()=>choose(i));
   parent.appendChild(el);options.push({el,entry,place});
@@ -53,9 +55,9 @@ function setupSearch(){
  function render(){
   const q=norm(input.value);
   list.innerHTML='';options=[];active=-1;input.removeAttribute('aria-activedescendant');
-  if(!q){close();highlight([]);return}
+  if(!q){close();highlight([]);say('');return}
   const hits=entries.map(e=>({e,s:score(e,q)})).filter(h=>h.s>0).sort((a,b)=>b.s-a.s||a.e.label.localeCompare(b.e.label)).slice(0,8);
-  if(!hits.length){list.innerHTML='<li class="hub-res-empty" role="presentation">아직 지도에 없는 개념이에요</li>';show(true);highlight([]);return}
+  if(!hits.length){list.innerHTML='<li class="hub-res-empty" role="presentation">아직 지도에 없는 개념이에요</li>';show(true);highlight([]);say('결과 없음 — 아직 지도에 없는 개념이에요');return}
   for(const {e} of hits){
    const group=document.createElement('li');group.setAttribute('role','group');group.className='hub-res-group';list.appendChild(group);
    const worlds=new Set(e.places.map(p=>p.world)).size;
@@ -64,15 +66,18 @@ function setupSearch(){
    group.setAttribute('aria-labelledby',options[options.length-1].el.id);
    for(const p of e.places){
     const w=worldById.get(p.world),sc=p.scenes&&p.scenes[0];
-    option(group,e,p,`<span class="hub-res-world">${esc(w.title)}</span>${p.name?`<span class="n-c">${esc(p.name)}</span>`:''}<small>${sc?`${esc(sc.title)} · ${sc.beat}장면`:'세계 입구'}</small>`);
+    const draft=p.status==='draft'?'<span class="hub-res-draft">공사 중</span>':'';
+    option(group,e,p,`<span class="hub-res-world">${esc(w.title)}</span>${p.name?`<span class="n-c">${esc(p.name)}</span>`:''}${draft}<small>${sc?`${esc(sc.title)} · ${sc.beat}장면`:'세계 입구'}</small>`);
    }
   }
   show(true);highlight(hits[0].e.places.map(p=>p.world));
+  const places=hits.reduce((n,h)=>n+h.e.places.length,0);
+  say(`개념 ${hits.length}개 · 자리 ${places}곳. 위아래 화살표로 고르고 Enter 로 이동`);
  }
  function choose(i){
-  const o=options[i];if(!o)return;
+  let o=options[i];if(!o)return;
+  if(!o.place){i=options.findIndex((x,k)=>k>i&&x.place);o=options[i];if(!o)return}   // 개념 줄 → 그 개념의 첫 자리
   setActive(i);
-  if(!o.place)return;
   safeStore.set(o.place.world);
   const g=document.querySelector(`#world .hub-building[data-actor="${CSS.escape(o.place.world)}"]`);if(g)g.classList.add('hub-go');
   setTimeout(()=>{location.href='../../'+o.place.href},RM?0:420);
@@ -84,7 +89,7 @@ function setupSearch(){
  input.addEventListener('keydown',e=>{
   e.stopPropagation(); // 엔진의 전역 단축키(?, Escape)가 입력 중에 끼어들지 않게
   if(e.key==='ArrowDown'||e.key==='ArrowUp'){if(!options.length)return;e.preventDefault();if(list.hidden)show(true);const n=options.length;setActive(active<0?(e.key==='ArrowDown'?0:n-1):(active+(e.key==='ArrowDown'?1:-1)+n)%n)}
-  else if(e.key==='Enter'){if(!options.length)return;e.preventDefault();choose(active<0?0:active)}
+  else if(e.key==='Enter'){if(!options.length)return;e.preventDefault();choose(active<0?0:active)}   // 고른 줄이 없으면 첫 개념의 첫 자리
   else if(e.key==='Escape'){e.preventDefault();if(!list.hidden&&options.length)close();else{input.value='';render()}}
  });
 }

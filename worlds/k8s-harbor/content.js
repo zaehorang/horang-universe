@@ -350,7 +350,7 @@ var BADIMAGE_BEATS = [
 window.CONTENT = {
   title:"쿠버네티스 항구",
   meta:{
-    concepts:["kubernetes", "control-plane", "kube-apiserver", "etcd", "kube-controller-manager", "kube-scheduler", "kubelet", "pod", "service", "ingress", "cni"],
+    concepts:["kubernetes", "control-plane", "kube-apiserver", "etcd", "kube-controller-manager", "kube-scheduler", "kubelet", "pod", "service", "ingress", "cni", "dns"],
     guest:"guest",
     values:["shop-web", "guest-browser"],
     hubColor:"#e07a5f",

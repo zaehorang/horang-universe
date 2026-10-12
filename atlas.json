@@ -189,7 +189,8 @@
         "pod",
         "service",
         "ingress",
-        "cni"
+        "cni",
+        "dns"
       ],
       "events": [
         {
@@ -267,7 +268,8 @@
         "cloudtrail",
         "ecr",
         "pod-security-admission",
-        "network-policy"
+        "network-policy",
+        "control-plane"
       ],
       "events": [
         {

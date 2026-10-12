@@ -14,6 +14,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "alb",
      "name": "정문",
      "real": "ALB (Application Load Balancer)",
@@ -38,6 +39,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": "eth",
      "name": "2층 데이터 링크",
      "real": "Ethernet (L2 데이터 링크 계층)",
@@ -72,6 +74,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "index",
      "name": "색인 서랍",
      "real": "B-tree index",
@@ -99,6 +102,7 @@
    "places": [
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "cert",
      "name": "가게 신분증",
      "real": "Certificate (X.509 · TLS 인증서)",
@@ -131,6 +135,7 @@
    "places": [
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "ca",
      "name": "신분증 발급소",
      "real": "CA (Certificate Authority)",
@@ -157,6 +162,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "checkpointer",
      "name": "정리 담당",
      "real": "checkpointer",
@@ -181,6 +187,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "watch",
      "name": "보안 상황실",
      "real": "CloudWatch · CloudTrail · GuardDuty",
@@ -220,6 +227,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "cni",
      "name": "배선",
      "real": "CNI plugin (Calico · Cilium · Flannel)",
@@ -241,6 +249,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "hill",
      "name": "관제 언덕",
      "real": "Control Plane",
@@ -249,6 +258,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "cp",
      "name": "관제탑",
      "real": "EKS Control Plane (AWS 관리)",
@@ -276,6 +286,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "startup",
      "name": "복구 담당",
      "real": "startup process",
@@ -305,6 +316,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "booth",
      "name": "안내소",
      "real": "CoreDNS",
@@ -319,6 +331,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "route53",
      "name": "안내 전광판",
      "real": "Route 53",
@@ -333,6 +346,7 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "resolver",
      "name": "동네 안내소",
      "real": "Resolver (재귀 DNS 리졸버)",
@@ -358,6 +372,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "ecr",
      "name": "이미지 창고",
      "real": "ECR (Amazon ECR)",
@@ -382,6 +397,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "cp",
      "name": "관제탑",
      "real": "EKS Control Plane (AWS 관리)",
@@ -406,6 +422,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "vault",
      "name": "금고 장부",
      "real": "etcd",
@@ -440,6 +457,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": "eth",
      "name": "2층 데이터 링크",
      "real": "Ethernet (L2 데이터 링크 계층)",
@@ -474,6 +492,7 @@
    "places": [
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "browser",
      "name": "내 브라우저",
      "real": "Browser (웹 브라우저)",
@@ -507,22 +526,15 @@
    "id": "http",
    "label": "HTTP",
    "terms": [
-    "curl (HTTP 클라이언트 프로그램)",
     "HTTP (L7 응용 계층)",
+    "eavesdropper (길 위의 도청자)",
     "TCP:80 (HTTP 포트)"
    ],
    "aliases": [],
    "places": [
     {
      "world": "network-layers",
-     "actor": "client",
-     "name": "요청 프로그램",
-     "real": "curl (HTTP 클라이언트 프로그램)",
-     "scenes": [],
-     "href": "worlds/network-layers/"
-    },
-    {
-     "world": "network-layers",
+     "status": "verified",
      "actor": "app",
      "name": "7층 응용",
      "real": "HTTP (L7 응용 계층)",
@@ -542,6 +554,32 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
+     "actor": "snoop",
+     "name": "엿보는 사람",
+     "real": "eavesdropper (길 위의 도청자)",
+     "scenes": [
+      {
+       "event": "http",
+       "title": "http 로 들어가면?",
+       "beat": 2
+      },
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 6
+      },
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/http-https/#ev=http&b=2"
+    },
+    {
+     "world": "http-https",
+     "status": "verified",
      "actor": "door80",
      "name": "80번 문",
      "real": "TCP:80 (HTTP 포트)",
@@ -569,6 +607,7 @@
    "places": [
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "shop",
      "name": "my-shop 가게",
      "real": "nginx (웹 서버 + 앱)",
@@ -598,6 +637,7 @@
    "places": [
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "door443",
      "name": "443번 문",
      "real": "TCP:443 (HTTPS 포트)",
@@ -628,6 +668,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "iam",
      "name": "출입증 발급소",
      "real": "IAM (IRSA · Pod Identity)",
@@ -647,6 +688,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "ops",
      "name": "운영자",
      "real": "운영자 (kubectl · IAM 사용자)",
@@ -674,6 +716,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "gate",
      "name": "항구 정문",
      "real": "Ingress Controller (ingress-nginx)",
@@ -688,6 +731,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "ingress",
      "name": "안내 데스크",
      "real": "Ingress Controller (ingress-nginx)",
@@ -713,6 +757,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": "ip",
      "name": "3층 네트워크",
      "real": "IP (L3 네트워크 계층)",
@@ -747,6 +792,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "iam",
      "name": "출입증 발급소",
      "real": "IAM (IRSA · Pod Identity)",
@@ -776,6 +822,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "tower",
      "name": "관제탑 접수 창구",
      "real": "kube-apiserver",
@@ -805,6 +852,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "robot",
      "name": "순찰 로봇",
      "real": "kube-controller-manager",
@@ -839,6 +887,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "crane",
      "name": "크레인 배치원",
      "real": "kube-scheduler",
@@ -878,6 +927,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "foreman",
      "name": "부두 반장",
      "real": "kubelet",
@@ -918,6 +968,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": null,
      "name": null,
      "real": null,
@@ -936,6 +987,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "sidecar",
      "name": "가게 경비원",
      "real": "Envoy sidecar (Istio)",
@@ -954,12 +1006,15 @@
    "id": "mvcc",
    "label": "MVCC",
    "terms": [
-    "shared_buffers"
+    "shared_buffers",
+    "heap (data files)",
+    "row-level lock"
    ],
    "aliases": [],
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "buffer",
      "name": "열람 책상",
      "real": "shared_buffers",
@@ -986,6 +1041,30 @@
       }
      ],
      "href": "worlds/db-library/#ev=race&b=2"
+    },
+    {
+     "world": "db-library",
+     "status": "verified",
+     "actor": "heap",
+     "name": "서고 책장",
+     "real": "heap (data files)",
+     "scenes": [],
+     "href": "worlds/db-library/"
+    },
+    {
+     "world": "db-library",
+     "status": "verified",
+     "actor": "lock",
+     "name": "잠금 표지판",
+     "real": "row-level lock",
+     "scenes": [
+      {
+       "event": "race",
+       "title": "③ 두 사람이 동시에",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/db-library/#ev=race&b=1"
     }
    ]
   },
@@ -999,6 +1078,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "netpol",
      "name": "구역 칸막이",
      "real": "NetworkPolicy",
@@ -1016,34 +1096,23 @@
   {
    "id": "osi",
    "label": "OSI 7계층",
-   "terms": [
-    "L5·L6 (세션·표현 계층)"
-   ],
+   "terms": [],
    "aliases": [],
    "places": [
     {
      "world": "network-layers",
-     "actor": "upper56",
-     "name": "6층 표현 · 5층 세션",
-     "real": "L5·L6 (세션·표현 계층)",
+     "status": "verified",
+     "actor": null,
+     "name": null,
+     "real": null,
      "scenes": [
       {
        "event": "tour",
        "title": "빌딩 안 둘러보기",
-       "beat": 2
-      },
-      {
-       "event": "request",
-       "title": "웹 페이지 요청 한 번",
-       "beat": 2
-      },
-      {
-       "event": "tls",
-       "title": "HTTPS로 봉인하기",
        "beat": 1
       }
      ],
-     "href": "worlds/network-layers/#ev=tour&b=2"
+     "href": "worlds/network-layers/#ev=tour&b=1"
     }
    ]
   },
@@ -1063,6 +1132,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "yard",
      "name": "대기 구역",
      "real": "Pending Pod (nodeName 없음)",
@@ -1071,6 +1141,7 @@
     },
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "pod",
      "name": "컨테이너 묶음",
      "real": "Pod",
@@ -1095,6 +1166,7 @@
     },
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "orderapp",
      "name": "주문 앱",
      "real": "order-api (다른 앱의 Pod)",
@@ -1109,6 +1181,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "front",
      "name": "쇼핑 가게",
      "real": "shop-front (Pod)",
@@ -1117,6 +1190,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "order",
      "name": "주문 가게",
      "real": "order-api (Pod)",
@@ -1141,6 +1215,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "psa",
      "name": "규칙 검사관",
      "real": "Admission (Pod Security Admission)",
@@ -1167,6 +1242,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "gate",
      "name": "정문 안내원",
      "real": "postmaster",
@@ -1196,6 +1272,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "planner",
      "name": "길 고르는 지도 테이블",
      "real": "planner (optimizer)",
@@ -1220,6 +1297,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "rds",
      "name": "기록 금고",
      "real": "RDS (Amazon RDS)",
@@ -1238,6 +1316,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "route53",
      "name": "안내 전광판",
      "real": "Route 53",
@@ -1262,6 +1341,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "lock",
      "name": "잠금 표지판",
      "real": "row-level lock",
@@ -1286,6 +1366,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "secrets",
      "name": "열쇠 보관함",
      "real": "Secrets Manager",
@@ -1310,6 +1391,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "sg",
      "name": "금고 문지기",
      "real": "Security Group",
@@ -1337,6 +1419,7 @@
    "places": [
     {
      "world": "k8s-harbor",
+     "status": "verified",
      "actor": "mailbox",
      "name": "고정 우편함",
      "real": "Service (ClusterIP)",
@@ -1366,6 +1449,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "buffer",
      "name": "열람 책상",
      "real": "shared_buffers",
@@ -1405,6 +1489,7 @@
    "places": [
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "guard",
      "name": "문지기",
      "real": "TLS 종료 (nginx ssl)",
@@ -1439,6 +1524,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "parser",
      "name": "문장 검사 데스크",
      "real": "parser · analyzer",
@@ -1465,6 +1551,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": "tcp",
      "name": "4층 전송",
      "real": "TCP (L4 전송 계층)",
@@ -1489,6 +1576,7 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "door80",
      "name": "80번 문",
      "real": "TCP:80 (HTTP 포트)",
@@ -1503,6 +1591,7 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "door443",
      "name": "443번 문",
      "real": "TCP:443 (HTTPS 포트)",
@@ -1530,6 +1619,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": null,
      "name": null,
      "real": null,
@@ -1554,6 +1644,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": "upper56",
      "name": "6층 표현 · 5층 세션",
      "real": "L5·L6 (세션·표현 계층)",
@@ -1578,6 +1669,7 @@
     },
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "alb",
      "name": "정문",
      "real": "ALB (Application Load Balancer)",
@@ -1592,6 +1684,7 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "guard",
      "name": "문지기",
      "real": "TLS 종료 (nginx ssl)",
@@ -1616,6 +1709,7 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "cert",
      "name": "가게 신분증",
      "real": "Certificate (X.509 · TLS 인증서)",
@@ -1640,7 +1734,8 @@
    "id": "transaction",
    "label": "Transaction",
    "terms": [
-    "row-level lock"
+    "backend process",
+    "WAL (pg_wal)"
    ],
    "aliases": [
     "트랜잭션"
@@ -1648,17 +1743,38 @@
    "places": [
     {
      "world": "db-library",
-     "actor": "lock",
-     "name": "잠금 표지판",
-     "real": "row-level lock",
+     "status": "verified",
+     "actor": "backend",
+     "name": "전담 사서",
+     "real": "backend process",
      "scenes": [
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 1
+      },
       {
        "event": "race",
        "title": "③ 두 사람이 동시에",
-       "beat": 1
+       "beat": 5
       }
      ],
-     "href": "worlds/db-library/#ev=race&b=1"
+     "href": "worlds/db-library/#ev=update&b=1"
+    },
+    {
+     "world": "db-library",
+     "status": "verified",
+     "actor": "wal",
+     "name": "변경 일지",
+     "real": "WAL (pg_wal)",
+     "scenes": [
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/db-library/#ev=update&b=4"
     }
    ]
   },
@@ -1673,6 +1789,7 @@
    "places": [
     {
      "world": "network-layers",
+     "status": "verified",
      "actor": "tcp",
      "name": "4층 전송",
      "real": "TCP (L4 전송 계층)",
@@ -1697,6 +1814,7 @@
     },
     {
      "world": "http-https",
+     "status": "verified",
      "actor": "resolver",
      "name": "동네 안내소",
      "real": "Resolver (재귀 DNS 리졸버)",
@@ -1721,6 +1839,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "vpc",
      "name": "공항 울타리",
      "real": "VPC",
@@ -1739,6 +1858,7 @@
    "places": [
     {
      "world": "eks-security",
+     "status": "verified",
      "actor": "waf",
      "name": "보안검색대",
      "real": "WAF (AWS WAF)",
@@ -1764,6 +1884,7 @@
    "places": [
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "wal",
      "name": "변경 일지",
      "real": "WAL (pg_wal)",
@@ -1778,6 +1899,7 @@
     },
     {
      "world": "db-library",
+     "status": "verified",
      "actor": "walbuf",
      "name": "일지 바구니",
      "real": "wal_buffers",
@@ -1796,6 +1918,7 @@
  "loose": [
   {
    "world": "db-library",
+   "status": "verified",
    "actor": "client",
    "name": "손님",
    "real": "Client (my-pay-app)",
@@ -1809,34 +1932,17 @@
    "href": "worlds/db-library/#ev=select&b=6"
   },
   {
-   "world": "db-library",
-   "actor": "backend",
-   "name": "전담 사서",
-   "real": "backend process",
-   "scenes": [
-    {
-     "event": "update",
-     "title": "② 책 고치기",
-     "beat": 1
-    },
-    {
-     "event": "race",
-     "title": "③ 두 사람이 동시에",
-     "beat": 5
-    }
-   ],
-   "href": "worlds/db-library/#ev=update&b=1"
-  },
-  {
-   "world": "db-library",
-   "actor": "heap",
-   "name": "서고 책장",
-   "real": "heap (data files)",
+   "world": "network-layers",
+   "status": "verified",
+   "actor": "client",
+   "name": "요청 프로그램",
+   "real": "curl (HTTP 클라이언트 프로그램)",
    "scenes": [],
-   "href": "worlds/db-library/"
+   "href": "worlds/network-layers/"
   },
   {
    "world": "network-layers",
+   "status": "verified",
    "actor": "phy",
    "name": "1층 물리",
    "real": "PHY (L1 물리 계층)",
@@ -1856,6 +1962,7 @@
   },
   {
    "world": "network-layers",
+   "status": "verified",
    "actor": "sw",
    "name": "동네 분류소",
    "real": "Switch (L2 스위치)",
@@ -1875,6 +1982,7 @@
   },
   {
    "world": "network-layers",
+   "status": "verified",
    "actor": "router",
    "name": "교차로 우체국",
    "real": "Router (L3 라우터)",
@@ -1899,6 +2007,7 @@
   },
   {
    "world": "network-layers",
+   "status": "verified",
    "actor": "server",
    "name": "my-shop 서버",
    "real": "nginx (웹 서버 프로그램)",
@@ -1918,6 +2027,7 @@
   },
   {
    "world": "k8s-harbor",
+   "status": "verified",
    "actor": "office",
    "name": "배포 사무소",
    "real": "kubectl",
@@ -1947,6 +2057,7 @@
   },
   {
    "world": "k8s-harbor",
+   "status": "verified",
    "actor": "pier",
    "name": "부두",
    "real": "Worker Node",
@@ -1961,6 +2072,7 @@
   },
   {
    "world": "k8s-harbor",
+   "status": "verified",
    "actor": "machine",
    "name": "하역 기계",
    "real": "containerd (컨테이너 런타임)",
@@ -1975,6 +2087,7 @@
   },
   {
    "world": "k8s-harbor",
+   "status": "verified",
    "actor": "ship",
    "name": "이미지 저장소선",
    "real": "Container Registry",
@@ -1983,6 +2096,7 @@
   },
   {
    "world": "k8s-harbor",
+   "status": "verified",
    "actor": "guest",
    "name": "바깥 손님",
    "real": "client (브라우저·curl)",
@@ -1997,6 +2111,7 @@
   },
   {
    "world": "k8s-harbor",
+   "status": "verified",
    "actor": "proxy",
    "name": "길 안내판",
    "real": "kube-proxy",
@@ -2011,6 +2126,7 @@
   },
   {
    "world": "eks-security",
+   "status": "verified",
    "actor": "user",
    "name": "손님",
    "real": "클라이언트 (브라우저)",
@@ -2019,6 +2135,7 @@
   },
   {
    "world": "eks-security",
+   "status": "verified",
    "actor": "node",
    "name": "터미널",
    "real": "Worker Node (EC2)",
@@ -2038,6 +2155,7 @@
   },
   {
    "world": "eks-security",
+   "status": "verified",
    "actor": "s3",
    "name": "짐 창고",
    "real": "S3 (Amazon S3)",
@@ -2046,6 +2164,7 @@
   },
   {
    "world": "eks-security",
+   "status": "verified",
    "actor": "ci",
    "name": "배포 로봇",
    "real": "CI/CD (배포 파이프라인)",
@@ -2060,6 +2179,7 @@
   },
   {
    "world": "eks-security",
+   "status": "verified",
    "actor": "attacker",
    "name": "침입자",
    "real": "공격자 (가정한 상황)",
@@ -2074,6 +2194,7 @@
   },
   {
    "world": "http-https",
+   "status": "verified",
    "actor": "namehall",
    "name": "주소 관청 3곳",
    "real": "Root·TLD·Authoritative (네임서버 3단)",
@@ -2082,35 +2203,12 @@
   },
   {
    "world": "http-https",
+   "status": "verified",
    "actor": "road",
    "name": "공용 도로 · 중계소",
    "real": "Internet (라우터 · ISP)",
    "scenes": [],
    "href": "worlds/http-https/"
-  },
-  {
-   "world": "http-https",
-   "actor": "snoop",
-   "name": "엿보는 사람",
-   "real": "eavesdropper (길 위의 도청자)",
-   "scenes": [
-    {
-     "event": "https",
-     "title": "https 로 들어가기",
-     "beat": 6
-    },
-    {
-     "event": "http",
-     "title": "http 로 들어가면?",
-     "beat": 2
-    },
-    {
-     "event": "badcert",
-     "title": "신분증이 틀리면?",
-     "beat": 1
-    }
-   ],
-   "href": "worlds/http-https/#ev=https&b=6"
   }
  ]
 }
