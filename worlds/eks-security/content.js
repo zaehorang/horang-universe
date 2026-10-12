@@ -7,7 +7,7 @@ var GUEST = window.SHARED.guests["guest-browser"];
 var INGRESS_IP = window.SHARED.publicIps["ops-ingress"];
 
 var ACTORS = {
-  user:{ name:GUEST.name, real:GUEST.real,
+  user:{ name:GUEST.name, real:"클라이언트 (브라우저)",
     tip:"우리 서비스를 쓰러 온 사람이에요. 손님의 요청 하나가 이 공항을 여행해요.",
     what:"손님은 인터넷 어딘가에서 브라우저로 <b>https://" + SHOP.domain + "/orders</b> 를 열어요. 손님 눈에는 주소창 하나지만, 그 뒤에서 요청은 여러 개의 문을 차례로 지나가요.",
     talks:[["안내 전광판 (Route 53)","DNS","'이 이름의 주소가 뭐예요?'"],["정문 (ALB)","HTTPS (TCP 443)","암호화된 요청을 보냄"]],
@@ -49,7 +49,7 @@ var ACTORS = {
 
   ingress:{ name:"안내 데스크", real:"Ingress Controller (ingress-nginx)",
     tip:"터미널 안에 있는 길 안내 직원이에요. 주소와 경로를 보고 어느 가게로 갈지 정해요.",
-    what:"<b>Ingress</b>는 '" + SHOP.domain + " 의 / 는 shop-front 서비스로' 같은 <b>길 안내 규칙</b>이고, 그 규칙대로 실제로 요청을 나르는 프로그램이 <b>Ingress Controller</b>예요. 이 데스크도 <b>노드 위에서 도는 Pod</b>예요 — 울타리 밖에 따로 있는 게 아니에요. (커뮤니티 ingress-nginx 는 2026년 3월에 유지보수가 끝나서, 새로 만든다면 Gateway API 구현체나 AWS Load Balancer Controller 를 써요.)",
+    what:"<b>Ingress</b>는 '" + SHOP.domain + " 의 / 는 shop-front 서비스로' 같은 <b>길 안내 규칙</b>이고, 그 규칙대로 실제로 요청을 나르는 프로그램이 <b>Ingress Controller</b>예요. 이 데스크도 <b>노드 위에서 도는 Pod</b>예요 — 울타리 밖에 따로 있는 게 아니에요. (커뮤니티 ingress-nginx 는 2026년 3월에 유지보수가 끝나 새로 만들면 Gateway API 구현체나 AWS Load Balancer Controller 를 써요.)",
     talks:[["정문 (ALB)","HTTP (TCP 80)","요청을 받음"],["가게 (shop-front)","HTTP","규칙에 맞는 가게로 전달"],["관제탑 (API Server)","HTTPS watch","Ingress 규칙이 바뀌는지 지켜봄 — 손님 요청은 여기로 가지 않아요"]],
     steps:["요청의 Host · 경로 읽기","맞는 Ingress 규칙 찾기","규칙이 가리키는 Service 찾기","Service 뒤의 살아 있는 Pod 하나로 보내기"],
     xr:[{l:"길 안내 규칙 (Ingress)", code:"apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:\n  name: shop-ingress        <span class='c'># ← 직접 지은 이름</span>\n  namespace: my-shop\nspec:\n  ingressClassName: nginx\n  rules:\n  - host: " + SHOP.domain + "\n    http:\n      paths:\n      - path: /\n        pathType: Prefix\n        backend:\n          service:\n            name: shop-front\n            port:\n              number: 80"}],
@@ -318,9 +318,10 @@ window.CONTENT = {
     concepts:["eks", "vpc", "dns", "route53", "alb", "tls", "waf", "ingress", "pod", "mtls", "security-group", "rds", "iam", "irsa", "secrets-manager", "cloudtrail", "ecr", "pod-security-admission", "network-policy"],
     guest:"user",
     values:["shop-web", "guest-browser"],
-    hubColor:"#4f7aa6",
+    hubColor:"#2e4a6b",
     doors:[
-      {from:"rds", to:"db-library:gate", why:"기록 금고 안은 데이터베이스 도서관에서"}
+      {from:"rds", to:"db-library:gate@select", why:"기록 금고 안은 데이터베이스 도서관에서",
+       whyBack:"이 도서관이 공항에서는 기록 금고로 보여요"}
     ]
   },
   events:[

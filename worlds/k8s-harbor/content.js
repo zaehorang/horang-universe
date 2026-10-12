@@ -311,7 +311,8 @@ window.CONTENT = {
     values:["shop-web", "guest-browser"],
     hubColor:"#e07a5f",
     doors:[
-      {from:"gate", to:"eks-security:ingress", why:"같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요"}
+      {from:"gate", to:"eks-security:ingress@request", why:"같은 Ingress가 보안 공항에서 요청을 심사하는 모습을 보러 가요",
+       whyBack:"같은 Ingress가 항구에서 컨테이너를 찾아가는 모습을 보러 가요"}
     ]
   },
   subtitle:"클러스터가 일하는 모습을 항구로 그렸어요",
