@@ -288,6 +288,64 @@
         "shop-web",
         "guest-browser"
       ]
+    },
+    {
+      "id": "http-https",
+      "region": "network",
+      "pos": [
+        410,
+        425
+      ],
+      "status": "verified",
+      "title": "우편 도시: 주소 하나가 가게에 닿기까지",
+      "subtitle": "DNS → TCP → TLS → HTTP 를 우편 도시로 그렸어요",
+      "logo": "✉",
+      "roof": "#c99a2e",
+      "regionName": "네트워크 해안",
+      "concepts": [
+        "dns",
+        "udp",
+        "tcp",
+        "tls",
+        "sni",
+        "certificate",
+        "certificate-authority",
+        "http",
+        "https",
+        "hsts",
+        "http-cache"
+      ],
+      "events": [
+        {
+          "id": "https",
+          "title": "https 로 들어가기",
+          "kind": "normal",
+          "beats": 7
+        },
+        {
+          "id": "http",
+          "title": "http 로 들어가면?",
+          "kind": "attack",
+          "beats": 4
+        },
+        {
+          "id": "badcert",
+          "title": "신분증이 틀리면?",
+          "kind": "failure",
+          "beats": 7
+        },
+        {
+          "id": "revisit",
+          "title": "두 번째 방문 (재사용)",
+          "kind": "revisit",
+          "beats": 7
+        }
+      ],
+      "guest": "browser",
+      "values": [
+        "shop-web",
+        "guest-browser"
+      ]
     }
   ],
   "doors": [
@@ -321,6 +379,20 @@
     },
     {
       "from": {
+        "world": "http-https",
+        "actor": "shop"
+      },
+      "to": {
+        "world": "network-layers",
+        "actor": "server",
+        "event": null,
+        "name": "층층 우체국 빌딩"
+      },
+      "why": "가게 안의 7층 빌딩을 보러 간다",
+      "tone": "#a9d6a0"
+    },
+    {
+      "from": {
         "world": "eks-security",
         "actor": "ingress"
       },
@@ -348,6 +420,21 @@
       "why": "기록 금고 안은 데이터베이스 도서관에서",
       "generated": true,
       "tone": "#7cc6d8"
+    },
+    {
+      "from": {
+        "world": "network-layers",
+        "actor": "server"
+      },
+      "to": {
+        "world": "http-https",
+        "actor": "shop",
+        "event": null,
+        "name": "우편 도시: 주소 하나가 가게에 닿기까지"
+      },
+      "why": "가게 안의 7층 빌딩을 보러 간다",
+      "generated": true,
+      "tone": "#a9d6a0"
     }
   ]
 }

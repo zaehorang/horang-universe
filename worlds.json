@@ -82,6 +82,15 @@
         300
       ],
       "status": "verified"
+    },
+    {
+      "id": "http-https",
+      "region": "network",
+      "pos": [
+        410,
+        425
+      ],
+      "status": "verified"
     }
   ]
 }

@@ -1,0 +1,23 @@
+/* 우편 도시 전용 스타일 — 이 세계에만 있는 물체 */
+:root{--world-bg:#a9d6a0;--world-bg-deep:#8dbd6f;--world-texture:url(#tex-dots)}
+.envt{font:800 11.5px var(--mono);fill:#fff;text-anchor:middle;dominant-baseline:central}
+.sgn{font:800 13px var(--mono);fill:#fff;text-anchor:middle;dominant-baseline:central}
+.sgnq{font:900 16px var(--sans);fill:#fff;text-anchor:middle}
+.scrt{font:800 11px var(--mono);fill:#1d2b3a;text-anchor:middle}
+.shopt{font:900 16px var(--mono);fill:#1d2b3a;text-anchor:middle}
+.pct{font:600 12px var(--mono);fill:#1d2b3a}
+.hstst{font:800 13px var(--sans);fill:#78350f;text-anchor:middle;dominant-baseline:central}
+.bub .ok{fill:#16a34a;font-weight:700}
+.conn{fill:none;stroke:#64748b;stroke-width:6;stroke-linecap:round;stroke-dasharray:2 10;pointer-events:none}
+.conn.open{stroke:#b45309;stroke-dasharray:2 10}
+.conn.sealed{stroke:#eab308;stroke-dasharray:none;stroke-width:7;filter:drop-shadow(0 0 4px #facc15)}
+.bub .bad{fill:#dc2626;font-weight:700}
+.idt{font:800 11px var(--sans);fill:#78350f}
+.idl{font:600 10px var(--mono);fill:#1d2b3a}
+.idst{font:900 8.5px var(--sans);fill:#fff;text-anchor:middle}
+.idx{font:900 54px var(--sans);fill:var(--danger);text-anchor:middle;dominant-baseline:central}
+.warnt{font:900 18px var(--sans);fill:var(--danger);text-anchor:middle}
+.certx{font:900 20px var(--sans);fill:var(--danger);text-anchor:middle}
+.memot{font:800 12.5px var(--sans);fill:#78350f}
+.memol{font:600 11.5px var(--mono);fill:#92400e;opacity:.5}
+.memol.on{opacity:1;font-weight:800;fill:#78350f}
