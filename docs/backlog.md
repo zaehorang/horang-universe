@@ -19,6 +19,11 @@
 - 사건 `id` · `kind` 와 앵커 `#ev=&b=`
 - `document.title` 자동화
 
+## 공유
+
+- 세계별 공유 카드(og:title · og:image). 지금은 사이트 공통이 의도(engine-contract). 하려면 세계 index 를 "템플릿과 바이트 동일" 대신 "템플릿에서 meta 치환으로 파생" 으로 바꾸고 `build_world_index` · `check_world` · `check_all` 비교와 `new_world` 를 함께 맞춘다. 세계 페이지의 정적 `<title>` 도 같은 치환으로 고칠 수 있다
+- `assets/og.png` 는 허브 1200×630 화면이라 건물 이름표가 약 11px — 작은 썸네일용으로 글자를 키운 전용 그림을 만들지 검토
+
 ## 콘텐츠
 
 - CS 기초 지역(운영체제 · 프로세스 · 메모리). 비유 후보: 공장 · 공방

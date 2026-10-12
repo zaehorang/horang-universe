@@ -7,7 +7,9 @@ export function buildAtlas(){const reg=registry(),regions=reg.regions,worlds=[],
  for(const d of doors){ if(d.whyBack!==undefined&&!d.generated){ /* 역방향 생성 뒤 원본에서 제거 */ } }
  for(const d of [...doors]){const reverse=doors.some(x=>x.from.world===d.to.world&&x.from.actor===d.to.actor&&x.to.world===d.from.world&&x.to.actor===d.from.actor);if(!reverse)doors.push({from:{world:d.to.world,actor:d.to.actor},to:{world:d.from.world,actor:d.from.actor,event:null},why:d.whyBack||d.why,generated:true})}
  for(const d of doors){const w=worlds.find(x=>x.id===d.to.world);d.to.name=w?.title||d.to.world;d.tone=regions.find(r=>r.id===w?.region)?.tone||'#2563eb'}
- return {name:reg.name,hub:reg.hub,regions,worlds,doors};}
+ // archived 는 허브에 그리지 않고, 404.html 이 옛 주소를 합쳐진 세계로 보내는 데만 쓴다.
+ const archived=reg.worlds.filter(w=>w.status==='archived').map(w=>({id:w.id,redirect:w.redirect,title:worlds.find(x=>x.id===w.redirect)?.title||w.redirect}));
+ return {name:reg.name,hub:reg.hub,regions,worlds,doors,archived};}
 export function serialize(a){return JSON.stringify(a,null,2)+'\n'}
 export function writeAtlas(){const a=buildAtlas();writeFileSync(join(root,'atlas.json'),serialize(a));writeFileSync(join(root,'atlas.js'),'window.ATLAS = '+JSON.stringify(a)+';\n');return a}
 if(isMain(import.meta.url)){const a=writeAtlas();console.log(`OK atlas: 지역 ${a.regions.length}, 세계 ${a.worlds.length}, 문 ${a.doors.length}`)}

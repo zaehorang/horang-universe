@@ -1,6 +1,6 @@
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {join} from 'node:path';
-import {root,registry,isMain,substitute,assertPageRefs} from './lib.mjs';
+import {root,registry,isMain,substitute,assertPageRefs,siteImageStep} from './lib.mjs';
 
 // 세계 index 템플릿 치환은 이 함수 한 곳에서 관리한다. 공통 마크업은 엔진 index 가 정본이다.
 export function renderWorldTemplate(engineIndex){
@@ -11,6 +11,7 @@ export function renderWorldTemplate(engineIndex){
   ['src="content.js"','src="../../shared/values.js"></script>\n<script src="content.js"'],
   ['src="world.js"></script>','src="world.js"></script>\n<script src="../../atlas.js"></script>'],
   ['src="engine.js"','src="../../tooling/engine/engine.js"'],
+  siteImageStep(),
  ],'world-index.html');
  return assertPageRefs(html,'world-index.html',new Set(['world.css','content.js','world.js']));
 }

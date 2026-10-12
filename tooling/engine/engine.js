@@ -407,9 +407,20 @@ window.EXPLORER = {api:api, R:R, goBeat:goBeat, next:nextBeat, prev:prevBeat, cl
   events:function(){ return EVENTS.map(function(e){ return {id:e.id, beats:(e.beats || []).length, ready:e.ready !== false && !!(W.scenes && W.scenes[e.id])}; }); },
   state:function(){ return {event:EV && EV.id, beat:beatIdx, playing:!!(tl && tl.isActive()), actor:EV && beatIdx >= 0 ? EV.beats[beatIdx].actor : null}; }};
 if(W.ambient && !RM) W.ambient(api, R);
-var anchor = new URLSearchParams(location.hash.slice(1));
-if(anchor.has("ev")){
+/* 앵커 #ev=<id>&b=<n> — 로드 때와 같은 문서 안 해시 변경(주소창 붙여 넣기·링크) 때 같은 해석을 쓴다.
+   엔진이 장면 이동 때 쓰는 replaceState 는 hashchange 를 일으키지 않는다 */
+function openAnchor(){
+  var anchor = new URLSearchParams(location.hash.slice(1));
+  if(!anchor.has("ev")) return;
   var target = EVENTS.filter(function(e){ return e.id === anchor.get("ev") && e.ready !== false && W.scenes && W.scenes[e.id]; })[0];
-  if(target){ var beatNumber = Number(anchor.get("b")); if(!Number.isInteger(beatNumber) || beatNumber < 1) beatNumber = 1; $("intro").style.display = "none"; startEvent(target); goBeat(beatNumber - 1); }
+  if(!target) return;
+  var beatNumber = Number(anchor.get("b")); if(!Number.isInteger(beatNumber) || beatNumber < 1) beatNumber = 1;
+  beatNumber = Math.min(beatNumber, target.beats.length);
+  if(EV === target && beatIdx === beatNumber - 1) return;
+  $("intro").style.display = "none"; closePanel(); closeTip();
+  if(EV !== target) startEvent(target);
+  goBeat(beatNumber - 1);
 }
+openAnchor();
+window.addEventListener("hashchange", openAnchor);
 })();

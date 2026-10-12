@@ -1,6 +1,6 @@
 import {readFileSync,existsSync} from 'node:fs';
 import {join} from 'node:path';
-import {root,registry} from './lib.mjs';
+import {root,registry,shareImageProblems} from './lib.mjs';
 import {checkRegistry} from './check_registry.mjs';
 import {checkWorld} from './check_world.mjs';
 import {buildAtlas,serialize} from './build_atlas.mjs';
@@ -16,6 +16,8 @@ if(expectedTemplate!==null&&readFileSync(join(root,'tooling/templates/world-inde
 const hubPath=join(root,'worlds/hub/index.html');
 if(expectedHub!==null&&existsSync(hubPath)&&readFileSync(hubPath,'utf8')!==expectedHub)errors.push('허브 index.html 이 엔진 index 와 다름: build_hub_index.mjs 실행');
 const add=r=>{errors.push(...r.errors);warnings.push(...r.warnings)};
+// 루트 index.html 은 손으로 쓴 리다이렉트지만 공유 링크가 닿는 곳이라 공유 이미지를 같은 규칙으로 본다.
+try{errors.push(...shareImageProblems(readFileSync(join(root,'index.html'),'utf8'),'index.html'))}catch(e){errors.push(`index.html 공유 이미지 검사 실패 — ${e.message}`)}
 const registryResult=checkRegistry();add(registryResult);
 const invalidDrafts=registryResult.invalidDrafts||new Set();
 const withoutInvalidDrafts=atlas=>({...atlas,

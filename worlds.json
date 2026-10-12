@@ -1,6 +1,7 @@
 {
   "$schema": "./tooling/schemas/worlds.schema.json",
   "name": "Horang Universe",
+  "site": "https://zaehorang.github.io/horang-universe/",
   "regions": [
     {
       "id": "network",

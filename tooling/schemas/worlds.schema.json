@@ -4,6 +4,7 @@
   "type": "object",
   "required": [
     "name",
+    "site",
     "regions",
     "hub",
     "worlds"
@@ -15,6 +16,11 @@
     },
     "name": {
       "type": "string"
+    },
+    "site": {
+      "type": "string",
+      "pattern": "^https://\\S+/$",
+      "description": "공개 주소(끝 / 포함). 공유 미리보기 og:image 절대 주소의 유일한 출처"
     },
     "regions": {
       "type": "array",

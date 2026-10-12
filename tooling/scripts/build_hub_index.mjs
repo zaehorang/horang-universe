@@ -1,6 +1,6 @@
 import {readFileSync,writeFileSync} from 'node:fs';
 import {join} from 'node:path';
-import {root,isMain,substitute,assertPageRefs} from './lib.mjs';
+import {root,isMain,substitute,assertPageRefs,siteImageStep} from './lib.mjs';
 
 // 허브 전용 치환은 이 함수 한 곳에서 관리한다. 공통 마크업은 엔진 index 가 정본이다.
 export function renderHubIndex(engineIndex){
@@ -27,6 +27,7 @@ try {
   ['src="iso.js"','src="../../tooling/engine/iso.js"'],
   ['  <div class="topright">','  <div class="hub-search" role="search"><span aria-hidden="true">⌕</span><input id="hubSearch" type="search" disabled role="combobox" aria-expanded="false" aria-controls="hubResults" aria-autocomplete="list" autocomplete="off" spellcheck="false" aria-label="개념 검색" placeholder="사전을 여는 중…"><ul class="hub-results" id="hubResults" role="listbox" aria-label="검색 결과" hidden></ul><p class="sr-only" id="hubSearchStatus" role="status" aria-live="polite"></p></div>\n  <div class="hub-count" id="hubCount"></div>\n  <div class="topright">'],
   [scripts,loader],
+  siteImageStep(),
  ],'허브 index.html');
  return assertPageRefs(html,'허브 index.html',new Set(['world.css','./content.js','./world.js']));
 }

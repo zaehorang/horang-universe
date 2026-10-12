@@ -24,6 +24,19 @@ export function substitute(source,steps,label){
  }
  return out;
 }
+// 공유 미리보기: 엔진 index 의 상대 경로 og:image 를 등록부 site 기준 절대 주소로 바꾼다(크롤러는 절대 주소만 읽는다).
+export const OG_IMAGE='../../assets/og.png';
+export const siteImageStep=()=>[`content="${OG_IMAGE}"`,`content="${registry().site}assets/og.png"`];
+// 페이지의 og:image · twitter:image 가 등록부 site 아래 주소이고 저장소에 그 파일이 있는지 확인한다.
+export function shareImageProblems(html,label){
+ const site=registry().site,problems=[];
+ for(const m of html.matchAll(/<meta\s+(?:property|name)="(?:og:image|twitter:image)"\s+content="([^"]+)"/g)){
+  const url=m[1];
+  if(!site||!url.startsWith(site)){problems.push(`${label}: 공유 이미지 ${url} 가 등록부 site(${site}) 아래가 아님`);continue}
+  if(!existsSync(join(root,url.slice(site.length))))problems.push(`${label}: 공유 이미지 파일 없음 ${url.slice(site.length)}`);
+ }
+ return problems;
+}
 // worlds/<id>/ 에 놓일 페이지의 참조가 모두 실제 파일을 가리키는지 확인한다.
 // 세계 자신의 파일(local)과 생성물 atlas.* 는 존재 검사에서 뺀다(atlas 는 check_all 이 따로 본다).
 export function assertPageRefs(html,label,local){
@@ -35,6 +48,7 @@ export function assertPageRefs(html,label,local){
   if(/^\.\.\/\.\.\/atlas\.(?:js|json)$/.test(ref))continue;
   if(!existsSync(join(root,'worlds','_',ref)))problems.push(`참조 파일 없음 ${ref}`);
  }
+ problems.push(...shareImageProblems(html,label).map(p=>p.slice(label.length+2)));
  if(problems.length)throw Error(`${label}: ${problems.join(', ')}`);
  return html;
 }

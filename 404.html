@@ -1,1 +1,20 @@
-<!doctype html><html lang="ko"><meta charset="utf-8"><title>길을 잃었나요? · Horang Universe</title><link rel="icon" href="/horang-universe/assets/favicon.svg" type="image/svg+xml"><body style="font:16px sans-serif;text-align:center;padding:15vh 20px"><h1>길을 잃었나요?</h1><p>지도책으로 돌아가 다른 길을 찾아 보세요.</p><a id="home" href="/">허브로 돌아가기</a><script>document.getElementById('home').href=location.pathname.startsWith('/horang-universe/')?'/horang-universe/':'/';</script></body></html>
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>길을 잃었나요? · Horang Universe</title><body style="font:16px sans-serif;text-align:center;padding:15vh 20px"><h1 id="head">길을 잃었나요?</h1><p id="msg">지도책으로 돌아가 다른 길을 찾아 보세요.</p><a id="home" href="/">허브로 돌아가기</a>
+<script>
+/* 사이트 바탕 주소는 /worlds/ 앞부분(없으면 /horang-universe/ 또는 /)으로 정한다 — 도메인·저장소 이름을 박지 않는다 */
+(function(){
+  var path = location.pathname, cut = path.indexOf('/worlds/');
+  var base = cut >= 0 ? path.slice(0, cut + 1) : (path.indexOf('/horang-universe/') === 0 ? '/horang-universe/' : '/');
+  var icon = document.createElement('link'); icon.rel = 'icon'; icon.type = 'image/svg+xml'; icon.href = base + 'assets/favicon.svg'; document.head.appendChild(icon);
+  var home = document.getElementById('home'); home.href = base;
+  var m = /\/worlds\/([a-z0-9-]+)\/?/.exec(path); if(!m) return;
+  /* archived 세계(D17): 색인의 archived 목록에서 합쳐진 세계를 찾아 안내하고 옮겨 간다 */
+  fetch(base + 'atlas.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(atlas){
+    var hit = atlas && (atlas.archived || []).filter(function(a){ return a.id === m[1]; })[0]; if(!hit) return;
+    var to = base + 'worlds/' + encodeURIComponent(hit.redirect) + '/';
+    document.getElementById('head').textContent = '이 세계는 ' + hit.title + '(으)로 합쳐졌어요';
+    document.getElementById('msg').textContent = '잠시 뒤 그곳으로 옮겨 갑니다.';
+    home.textContent = hit.title + ' 바로 가기'; home.href = to;
+    setTimeout(function(){ location.replace(to); }, 1500);
+  }).catch(function(){});
+})();
+</script></body></html>

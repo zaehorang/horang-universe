@@ -8,7 +8,8 @@ const date=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!Number.isNaN(
 export function checkRegistry(){
  const errors=[],warnings=[],invalidDrafts=new Set(),err=x=>errors.push(x),warn=x=>warnings.push(x);let reg;
  try{reg=registry()}catch(e){return {errors:[`worlds.json: ${e.message}`],warnings}};
- keys(reg,['$schema','name','regions','hub','worlds'],'root',err);
+ keys(reg,['$schema','name','site','regions','hub','worlds'],'root',err);
+ if(typeof reg.site!=='string'||!/^https:\/\/\S+\/$/.test(reg.site))err('site: https:// 로 시작하고 / 로 끝나는 공개 주소 필요');
  if(typeof reg.name!=='string'||!Array.isArray(reg.regions)||!Array.isArray(reg.worlds)||!reg.hub||typeof reg.hub!=='object')return {errors:['worlds.json 필수 필드 형식 오류'],warnings};
  for(const f of ['index.html','404.html','worlds/hub/index.html','worlds/hub/content.js','worlds/hub/world.js','worlds/hub/world.css'])if(!existsSync(join(root,f)))err(`허브 파일 없음: ${f}`);
  keys(reg.hub,['id','status','sea','seaDeep','shore'],'hub',err);

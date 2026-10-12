@@ -453,5 +453,12 @@
       "generated": true,
       "tone": "#a9d6a0"
     }
+  ],
+  "archived": [
+    {
+      "id": "k8s-cluster-architecture",
+      "redirect": "k8s-harbor",
+      "title": "쿠버네티스 항구"
+    }
   ]
 }

@@ -5,9 +5,9 @@
 ```
 horang-universe/
   index.html              worlds/hub/ 로 보내는 리다이렉트
-  worlds.json             등록부 — 운영자가 관리하고 new_world 가 새 항목을 추가한다
+  worlds.json             등록부 — 운영자가 관리하고 new_world 가 새 항목을 추가한다. `site`(공개 주소)는 공유 이미지 절대 주소의 유일한 출처
   atlas.json · atlas.js   색인 두 형식 — build_atlas 가 함께 만든다. 직접 편집 금지
-  404.html                허브로 되돌려 보내는 페이지
+  404.html                허브로 되돌려 보내는 페이지. archived 옛 주소면 atlas `archived[]` 로 합쳐진 세계로 보낸다
   assets/                 favicon.svg(지도책 ◆) · og.png(공유 미리보기 1200×630, 허브 화면) — 엔진 index head 가 참조
   worlds/hub/             엔진 기반 허브 본체 (index.html · content.js · world.js · world.css)
   worlds/<id>/
