@@ -12,6 +12,7 @@
 | 사건 id | `deploy`, `request`, `scale-out`, `node-down` | 세계 안에서 고유 |
 | 개념 id | `tls`, `kube-apiserver`, `dns` | 공식 용어 소문자형. 표시명은 사전이 가진다 |
 | 예시 값 벌 | `shop-web`, `pay-app`, `guest-browser`, `guest-app` | `shared/values.js` 키 |
+| 공인 IP 배정 | `publicIps["ops-ingress"]` | `shared/values.js` 의 배정표. 값 벌이 아니라 `meta.values` 에 선언하지 않는다. 세계가 어느 키를 쓰는지는 content.js 상단 상수 이름으로 드러낸다 |
 
 문 참조: `<world>:<actor>` 또는 `<world>:<actor>@<event>`.
 앵커: `worlds/<id>/#ev=<event-id>&b=<n>` (n 은 1부터).
