@@ -203,7 +203,7 @@
 | **바다** | `#bg` 를 `--sea → --sea-deep` 세로 그라디언트. 잔물결은 허브 `world.css` 의 `--world-texture:url(#tex-waves)` 로 엔진 패턴(흰 물결선, 불투명도 .3)을 쓴다 | `#5fb0c8` → `#3f8fab`, 물결 `#ffffff` |
 | **섬(지역)** | `ISO.box` 두 겹: 바깥 모래 테(`--shore`), 안쪽 지역 톤. 높이 18의 단면이 "대지"로 보인다. 섬 윗면 질감은 `regions[].texture` 패턴을 불투명도 .5 오버레이로 덮는다 | 모래 `#efe2c0`, 윗면 `tone`, 측면 `tone-deep` |
 | **지역 이름** | 섬 위쪽에 `.lbl.big`(`--ink` 바탕 `--card` 글자 18px). 섬을 누르면 `hint` 가 지역 말풍선·패널에 나온다 | 바탕 `#1d2b3a`, 글자 `#fbfaf7` (13.79) |
-| **건물(세계)** | `ISO.box` 몸체와 지붕. 몸체는 `ISO.C.wall`, 지붕은 세계 `meta.hubColor` 또는 지역 `toneDeep` 색. 아래에 세계 이름 라벨을 둔다. `logo` 간판은 아직 없다 | 벽 `#eef2f6` 계열, 지붕은 세계·지역 색 |
+| **건물(세계)** | `ISO.box` 몸체와 지붕. 몸체는 `ISO.C.wall`, 지붕은 세계 `meta.hubColor` 또는 지역 `toneDeep` 색. 아래에 세계 이름 라벨을 둔다. `logo` 간판은 아직 없다 | 벽 `#eef2f6` 계열, 지붕은 세계·지역 색. 도서관(`db-library`) 지붕은 `#7f1d1d` 책등색(세계 상징색, content.js hubColor) |
 | **건물 hover** | `.hub-building:hover` 에 흰빛 드롭섀도를 준다. 엔진 `ISO.addHitAreas` 의 `.hit` 점선 테두리(`style.css` `.act:hover > .hit`)도 함께 보인다. hover 힌트 글은 아직 없다 | 빛 `#fff6b0` |
 | **길** | 지역 안 건물 사이: 점선 도로 `stroke #ffffff` 불투명도 .7, 폭 4. 지역 사이(문): 바다 위 **항로** 점선 `stroke-dasharray 2 10` 불투명도 .8, 양 끝에 작은 부표 원 `--acc` | 길 `#ffffff`, 부표 `#2563eb` |
 | **공사 중(draft)** | 건물 대신 `ISO.box` 높이 10의 해치 기초 블록, `ISO.person({hard:true})` 안전모 인물, `ISO.paper` 의 "공사" 표지판을 둔다. 점선 테두리와 별도 "준비 중" 배지는 아직 없다 | 해치 `#c8d0d8`/`#7a8794` |

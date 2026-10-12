@@ -35,7 +35,7 @@
 
 **완료 기준**: 공개 주소에 지역 셋만 보이는 허브가 뜬다. Actions 검사가 통과한다. universe 스킬로 빈 세계 하나를 등록·검사·삭제하는 연습이 된다. 임시 세계(서로 다른 kind 사건 3개)를 만들어 헤드리스 Chrome 에서 `EXPLORER.startEvent` 로 전 사건·전 장면, 유효·무효 `#ev=&b=` 앵커, ATLAS 없는 index 를 확인하고 삭제한다.
 
-로컬 완료 기준 확인: 빈 등록부에서 허브 지역 셋, Node 20.20.2 `check_all`, `new_world` 왕복, 임시 세계 사건 3개·장면 4개 헤드리스 재생, 유효·무효 앵커, ATLAS 없는 index, 데스크톱 `EWV.all()` 통과. 공개 주소·Actions 실주행은 배포 미요청으로 대기. 그 뒤 렌더 검증·`check_world` act 인식·`build_world_index` 재작성·엔진 `in-event` 를 더한 최종 상태는 2026-10-12 에 로컬 Node 26.9.0 으로 `check_all` 통과, 헤드리스 Chrome 허브 페이지에서 `in-event` 동안 길 표시 칩이 포커스를 받지 않음까지 확인했다. Node 20 재주행과 `verify_browser` 전 사건 재생은 이 최종 상태에서 다시 하지 않았다. 따라서 Phase 상태는 `doing`.
+로컬 완료 기준 확인: 빈 등록부에서 허브 지역 셋, Node 20.20.2 `check_all`, `new_world` 왕복, 임시 세계 사건 3개·장면 4개 헤드리스 재생, 유효·무효 앵커, ATLAS 없는 index, 데스크톱 `EWV.all()` 통과. 최종 상태(렌더 검증·`check_world` act 인식·`build_world_index`·엔진 `in-event` 포함)는 2026-10-12 로컬 Node 26.9.0 `check_all` 통과와 헤드리스 Chrome 에서 `in-event` 동안 길 표시 칩이 포커스를 받지 않음까지 확인. 배포 확인: Actions run 38224580300 success, 공개 주소 200, atlas 지역 3 · 세계 0. 최종 상태에서 Node 20 재주행과 `verify_browser` 전 사건 재생은 하지 않았다.
 
 ### 1-A 엔진 선행 손질 (`tooling/engine/`)
 - [x] `document.title` ← `CONTENT.title`

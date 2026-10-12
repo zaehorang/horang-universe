@@ -9,7 +9,7 @@ SKALA 쪽 폴더 삭제와 CLAUDE.md 수정은 사용자 승인 뒤에만.
 2. [ ] 원본의 `content.js` · `world.js` · `world.css` 내용을 생성된 폴더에 이관. 엔진 파일은 복사하지 않음
 3. [ ] `content.js` 에 `meta` 추가: concepts · guest · values · doors
 4. [ ] 모든 `events[]` 에 `id` · `kind` 부여 (world.js `scenes` 키와 같게)
-5. [ ] 세계 간 공유 값(도메인 · 손님 이름 · 공인 IP)만 `shared/values.js` 상수로 교체. 내부망 주소 · 바이트 수 · 세계 고유 값은 그대로
+5. [ ] 세계 간 공유 값(도메인 · 손님 이름 · 공인 IP)만 `shared/values.js` 상수로 교체. 서비스 벌의 연결 정보(appName · dbHost · dbUser)는 포함. 내부망 주소 · 바이트 수 · 세계 고유 값은 그대로
 6. [ ] `world.css` 를 `design.md` §7 의 세계별 표대로 옮기기: `--world-bg(-deep)` · `--world-texture`, 라벨 크기·`.iptag`·사건 패널 덮어쓰기 삭제, `#dc2626` 류 패널 글자색은 `--danger`. 지도 안(world.js) 의미색은 그대로. 세계가 바탕 그라디언트를 따로 만들어 `#bg` 를 덮어쓰지 않는다(엔진 `worldBgGrad` 가 `--world-bg` → `--world-bg-deep` 를 이미 그린다)
 7. [ ] `new_world` 가 추가한 등록부 항목의 region · pos · status `draft` 확인
 8. [ ] `check_registry` → `check_world <id> --draft` → `build_atlas` → `check_all` 통과
