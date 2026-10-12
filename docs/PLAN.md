@@ -107,9 +107,9 @@ Pretendard 1.3.9 dynamic-subset 500·700·800 굵기와 WOFF2 276개는 사용�
 - [x] 2-3 `k8s-harbor` — 먼저 `eks-security` 를 draft 로 생성하고 `ingress` actor 를 둔 뒤 `gate → eks-security:ingress` 문을 등록 (verified. 문은 상대 부재로 보류, 2-4 에서 복원)
 - [x] 2-4 `eks-security` — 내용 이관 후 문 둘 활성. **문 기능 첫 실사용 시험** (verified. 문 넷 양방향 브라우저 확인)
 - [x] 2-5 `http-https` — 작업 마무리 확인 후. 문 `shop → network-layers:server` (verified. 문 양방향 버튼 확인)
-- [ ] 2-6 `build_glossary`: 전 세계 `actors[].real` + `meta.concepts` → `shared/glossary.json` 초안, 비유 대응표 수동 보강(Ingress 둘 묶기 등)
-- [ ] 2-7 허브 검색칸 ↔ 사전 연결. 결과 → 건물 강조 → 앵커 이동
-- [ ] 2-8 전 세계 사건 유형 점검. 셋 미만인 세계 기록(verified 가능, 보강은 Phase 4; D27)
+- [x] 2-6 `build_glossary`: 전 세계 `actors[].real` + `meta.concepts` → `shared/glossary.json` 초안, 비유 대응표 수동 보강(Ingress 둘 묶기 등) (개념 53 · 묶이지 않은 actor 21. 손 보강은 `shared/glossary.overrides.json` 로 분리, `check_all` 에 stale·대상 검사)
+- [x] 2-7 허브 검색칸 ↔ 사전 연결. 결과 → 건물 강조 → 앵커 이동 (헤드리스 Chrome 확인: 키보드·마우스 선택 → 앵커 사건·장면 도착, 사전 없음 시 검색칸만 꺼짐)
+- [x] 2-8 전 세계 사건 유형 점검. 셋 미만인 세계 기록(verified 가능, 보강은 Phase 4; D27) (`backlog.md` 표. 셋 미만: db-library · network-layers · eks-security)
 
 ## Phase 3 · 흡수와 정리 — todo
 

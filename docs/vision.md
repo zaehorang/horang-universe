@@ -27,7 +27,7 @@
 4. **생성** — `worlds/<id>/` 에 content.js · world.js · world.css 와 얇은 index.html. 엔진 복사 없음.
 5. **내용 작성** — 인물, 사건(유형 7종 `normal` `failure` `scale` `attack` `recovery` `revisit` `tour` 중 셋 이상이 목표. 셋 미만은 경고만 남긴다, D27), 3겹 설명, 실제로는?. 공용 값은 shared 상수.
 6. **등록** — content.js `meta` 에 개념·문·손님 actor·예시 값 벌, `worlds.json` 에 지역·좌표·상태 `draft`.
-7. **검사** — `check_world`(세계 내부) + `check_registry`(등록부·문·`meta.concepts` 배열 형식) + `build_atlas`(색인 재생성) + `check_all`(전체·생성물 동기). 개념 id 의 사전 대조는 Phase 2 에 연결한다.
+7. **검사** — `check_world`(세계 내부) + `check_registry`(등록부·문·`meta.concepts` 배열 형식) + `build_atlas`(색인 재생성) + `check_all`(전체·생성물 동기). `build_glossary` 가 개념 id 를 사전에 모으고 `check_all` 이 사전 stale 과 손 보강 대상을 대조한다.
 8. **확인** — 로컬 서버로 허브에서 들어가 본다. 통과하면 `verified`.
 9. **공개** — push → Actions 검사 → Pages. `draft` 는 공사 중으로만 보인다.
 

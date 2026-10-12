@@ -1,0 +1,2075 @@
+{
+ "$generated": "tooling/scripts/build_glossary.mjs 생성물 — 직접 편집 금지. 손 보강은 shared/glossary.overrides.json",
+ "concepts": [
+  {
+   "id": "alb",
+   "label": "ALB",
+   "terms": [
+    "ALB (Application Load Balancer)"
+   ],
+   "aliases": [
+    "로드 밸런서",
+    "Application Load Balancer"
+   ],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "alb",
+     "name": "정문",
+     "real": "ALB (Application Load Balancer)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=2"
+    }
+   ]
+  },
+  {
+   "id": "arp",
+   "label": "ARP",
+   "terms": [
+    "Ethernet (L2 데이터 링크 계층)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "eth",
+     "name": "2층 데이터 링크",
+     "real": "Ethernet (L2 데이터 링크 계층)",
+     "scenes": [
+      {
+       "event": "arp",
+       "title": "옆 장비 MAC 찾기",
+       "beat": 2
+      },
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 5
+      },
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/network-layers/#ev=arp&b=2"
+    }
+   ]
+  },
+  {
+   "id": "btree",
+   "label": "B-tree",
+   "terms": [
+    "B-tree index"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "index",
+     "name": "색인 서랍",
+     "real": "B-tree index",
+     "scenes": [
+      {
+       "event": "select",
+       "title": "① 책 찾기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/db-library/#ev=select&b=4"
+    }
+   ]
+  },
+  {
+   "id": "certificate",
+   "label": "Certificate",
+   "terms": [
+    "Certificate (X.509 · TLS 인증서)"
+   ],
+   "aliases": [
+    "인증서",
+    "X.509"
+   ],
+   "places": [
+    {
+     "world": "http-https",
+     "actor": "cert",
+     "name": "가게 신분증",
+     "real": "Certificate (X.509 · TLS 인증서)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 5
+      },
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=5"
+    }
+   ]
+  },
+  {
+   "id": "certificate-authority",
+   "label": "Certificate Authority",
+   "terms": [
+    "CA (Certificate Authority)"
+   ],
+   "aliases": [
+    "인증 기관",
+    "CA"
+   ],
+   "places": [
+    {
+     "world": "http-https",
+     "actor": "ca",
+     "name": "신분증 발급소",
+     "real": "CA (Certificate Authority)",
+     "scenes": [
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/http-https/#ev=badcert&b=2"
+    }
+   ]
+  },
+  {
+   "id": "checkpoint",
+   "label": "Checkpoint",
+   "terms": [
+    "checkpointer"
+   ],
+   "aliases": [
+    "체크포인트"
+   ],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "checkpointer",
+     "name": "정리 담당",
+     "real": "checkpointer",
+     "scenes": [
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/db-library/#ev=update&b=5"
+    }
+   ]
+  },
+  {
+   "id": "cloudtrail",
+   "label": "CloudTrail",
+   "terms": [
+    "CloudWatch · CloudTrail · GuardDuty"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "watch",
+     "name": "보안 상황실",
+     "real": "CloudWatch · CloudTrail · GuardDuty",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 7
+      },
+      {
+       "event": "secret",
+       "title": "가게가 금고 열기",
+       "beat": 5
+      },
+      {
+       "event": "breach",
+       "title": "침입 시도 막기",
+       "beat": 5
+      },
+      {
+       "event": "deploy",
+       "title": "새 버전 배포하기",
+       "beat": 6
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=7"
+    }
+   ]
+  },
+  {
+   "id": "cni",
+   "label": "CNI",
+   "terms": [
+    "CNI plugin (Calico · Cilium · Flannel)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "cni",
+     "name": "배선",
+     "real": "CNI plugin (Calico · Cilium · Flannel)",
+     "scenes": [],
+     "href": "worlds/k8s-harbor/"
+    }
+   ]
+  },
+  {
+   "id": "control-plane",
+   "label": "Control Plane",
+   "terms": [
+    "Control Plane",
+    "EKS Control Plane (AWS 관리)"
+   ],
+   "aliases": [
+    "컨트롤 플레인"
+   ],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "hill",
+     "name": "관제 언덕",
+     "real": "Control Plane",
+     "scenes": [],
+     "href": "worlds/k8s-harbor/"
+    },
+    {
+     "world": "eks-security",
+     "actor": "cp",
+     "name": "관제탑",
+     "real": "EKS Control Plane (AWS 관리)",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "새 버전 배포하기",
+       "beat": 3
+      }
+     ],
+     "href": "worlds/eks-security/#ev=deploy&b=3"
+    }
+   ],
+   "note": "항구의 '관제 언덕'은 직접 운영하는 Control Plane, 공항의 '관제탑'은 AWS 가 운영하는 EKS Control Plane 이다."
+  },
+  {
+   "id": "crash-recovery",
+   "label": "Crash Recovery",
+   "terms": [
+    "startup process"
+   ],
+   "aliases": [
+    "복구"
+   ],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "startup",
+     "name": "복구 담당",
+     "real": "startup process",
+     "scenes": [
+      {
+       "event": "crash",
+       "title": "④ 정전 후 복구",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/db-library/#ev=crash&b=2"
+    }
+   ]
+  },
+  {
+   "id": "dns",
+   "label": "DNS",
+   "terms": [
+    "CoreDNS",
+    "Route 53",
+    "Resolver (재귀 DNS 리졸버)"
+   ],
+   "aliases": [
+    "도메인",
+    "CoreDNS"
+   ],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "booth",
+     "name": "안내소",
+     "real": "CoreDNS",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 보내기",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=request&b=5"
+    },
+    {
+     "world": "eks-security",
+     "actor": "route53",
+     "name": "안내 전광판",
+     "real": "Route 53",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=1"
+    },
+    {
+     "world": "http-https",
+     "actor": "resolver",
+     "name": "동네 안내소",
+     "real": "Resolver (재귀 DNS 리졸버)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=2"
+    }
+   ],
+   "note": "우편 도시의 '동네 안내소'는 바깥 DNS 리졸버, 항구의 '안내소'는 클러스터 안 이름을 푸는 CoreDNS, 공항의 '안내 전광판'은 Route 53 이다."
+  },
+  {
+   "id": "ecr",
+   "label": "ECR",
+   "terms": [
+    "ECR (Amazon ECR)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "ecr",
+     "name": "이미지 창고",
+     "real": "ECR (Amazon ECR)",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "새 버전 배포하기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/eks-security/#ev=deploy&b=2"
+    }
+   ]
+  },
+  {
+   "id": "eks",
+   "label": "EKS",
+   "terms": [
+    "EKS Control Plane (AWS 관리)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "cp",
+     "name": "관제탑",
+     "real": "EKS Control Plane (AWS 관리)",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "새 버전 배포하기",
+       "beat": 3
+      }
+     ],
+     "href": "worlds/eks-security/#ev=deploy&b=3"
+    }
+   ]
+  },
+  {
+   "id": "etcd",
+   "label": "etcd",
+   "terms": [
+    "etcd"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "vault",
+     "name": "금고 장부",
+     "real": "etcd",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "앱 배포하기",
+       "beat": 3
+      },
+      {
+       "event": "scale",
+       "title": "컨테이너 늘리기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=deploy&b=3"
+    }
+   ]
+  },
+  {
+   "id": "ethernet",
+   "label": "Ethernet",
+   "terms": [
+    "Ethernet (L2 데이터 링크 계층)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "eth",
+     "name": "2층 데이터 링크",
+     "real": "Ethernet (L2 데이터 링크 계층)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 5
+      },
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 5
+      },
+      {
+       "event": "arp",
+       "title": "옆 장비 MAC 찾기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/network-layers/#ev=request&b=5"
+    }
+   ]
+  },
+  {
+   "id": "hsts",
+   "label": "HSTS",
+   "terms": [
+    "Browser (웹 브라우저)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "http-https",
+     "actor": "browser",
+     "name": "내 브라우저",
+     "real": "Browser (웹 브라우저)",
+     "scenes": [
+      {
+       "event": "revisit",
+       "title": "두 번째 방문 (재사용)",
+       "beat": 1
+      },
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 1
+      },
+      {
+       "event": "http",
+       "title": "http 로 들어가면?",
+       "beat": 4
+      },
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/http-https/#ev=revisit&b=1"
+    }
+   ]
+  },
+  {
+   "id": "http",
+   "label": "HTTP",
+   "terms": [
+    "curl (HTTP 클라이언트 프로그램)",
+    "HTTP (L7 응용 계층)",
+    "TCP:80 (HTTP 포트)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "client",
+     "name": "요청 프로그램",
+     "real": "curl (HTTP 클라이언트 프로그램)",
+     "scenes": [],
+     "href": "worlds/network-layers/"
+    },
+    {
+     "world": "network-layers",
+     "actor": "app",
+     "name": "7층 응용",
+     "real": "HTTP (L7 응용 계층)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 1
+      },
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/network-layers/#ev=request&b=1"
+    },
+    {
+     "world": "http-https",
+     "actor": "door80",
+     "name": "80번 문",
+     "real": "TCP:80 (HTTP 포트)",
+     "scenes": [
+      {
+       "event": "http",
+       "title": "http 로 들어가면?",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/http-https/#ev=http&b=1"
+    }
+   ]
+  },
+  {
+   "id": "http-cache",
+   "label": "HTTP 캐시",
+   "terms": [
+    "nginx (웹 서버 + 앱)"
+   ],
+   "aliases": [
+    "캐시",
+    "Cache-Control"
+   ],
+   "places": [
+    {
+     "world": "http-https",
+     "actor": "shop",
+     "name": "my-shop 가게",
+     "real": "nginx (웹 서버 + 앱)",
+     "scenes": [
+      {
+       "event": "revisit",
+       "title": "두 번째 방문 (재사용)",
+       "beat": 6
+      },
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 7
+      }
+     ],
+     "href": "worlds/http-https/#ev=revisit&b=6"
+    }
+   ]
+  },
+  {
+   "id": "https",
+   "label": "HTTPS",
+   "terms": [
+    "TCP:443 (HTTPS 포트)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "http-https",
+     "actor": "door443",
+     "name": "443번 문",
+     "real": "TCP:443 (HTTPS 포트)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 3
+      },
+      {
+       "event": "revisit",
+       "title": "두 번째 방문 (재사용)",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=3"
+    }
+   ]
+  },
+  {
+   "id": "iam",
+   "label": "IAM",
+   "terms": [
+    "IAM (IRSA · Pod Identity)",
+    "운영자 (kubectl · IAM 사용자)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "iam",
+     "name": "출입증 발급소",
+     "real": "IAM (IRSA · Pod Identity)",
+     "scenes": [
+      {
+       "event": "secret",
+       "title": "가게가 금고 열기",
+       "beat": 2
+      },
+      {
+       "event": "breach",
+       "title": "침입 시도 막기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/eks-security/#ev=secret&b=2"
+    },
+    {
+     "world": "eks-security",
+     "actor": "ops",
+     "name": "운영자",
+     "real": "운영자 (kubectl · IAM 사용자)",
+     "scenes": [
+      {
+       "event": "breach",
+       "title": "침입 시도 막기",
+       "beat": 6
+      }
+     ],
+     "href": "worlds/eks-security/#ev=breach&b=6"
+    }
+   ]
+  },
+  {
+   "id": "ingress",
+   "label": "Ingress",
+   "terms": [
+    "Ingress Controller (ingress-nginx)"
+   ],
+   "aliases": [
+    "인그레스",
+    "ingress-nginx"
+   ],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "gate",
+     "name": "항구 정문",
+     "real": "Ingress Controller (ingress-nginx)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 보내기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=request&b=2"
+    },
+    {
+     "world": "eks-security",
+     "actor": "ingress",
+     "name": "안내 데스크",
+     "real": "Ingress Controller (ingress-nginx)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=4"
+    }
+   ],
+   "note": "같은 Ingress Controller 가 항구에서는 '항구 정문', 공항에서는 '안내 데스크'다. 공항의 '정문'은 그 앞의 ALB 다."
+  },
+  {
+   "id": "ip",
+   "label": "IP",
+   "terms": [
+    "IP (L3 네트워크 계층)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "ip",
+     "name": "3층 네트워크",
+     "real": "IP (L3 네트워크 계층)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 4
+      },
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 4
+      },
+      {
+       "event": "arp",
+       "title": "옆 장비 MAC 찾기",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/network-layers/#ev=request&b=4"
+    }
+   ]
+  },
+  {
+   "id": "irsa",
+   "label": "IRSA",
+   "terms": [
+    "IAM (IRSA · Pod Identity)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "iam",
+     "name": "출입증 발급소",
+     "real": "IAM (IRSA · Pod Identity)",
+     "scenes": [
+      {
+       "event": "secret",
+       "title": "가게가 금고 열기",
+       "beat": 2
+      },
+      {
+       "event": "breach",
+       "title": "침입 시도 막기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/eks-security/#ev=secret&b=2"
+    }
+   ]
+  },
+  {
+   "id": "kube-apiserver",
+   "label": "kube-apiserver",
+   "terms": [
+    "kube-apiserver"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "tower",
+     "name": "관제탑 접수 창구",
+     "real": "kube-apiserver",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "앱 배포하기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=deploy&b=2"
+    }
+   ]
+  },
+  {
+   "id": "kube-controller-manager",
+   "label": "kube-controller-manager",
+   "terms": [
+    "kube-controller-manager"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "robot",
+     "name": "순찰 로봇",
+     "real": "kube-controller-manager",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "앱 배포하기",
+       "beat": 4
+      },
+      {
+       "event": "scale",
+       "title": "컨테이너 늘리기",
+       "beat": 3
+      },
+      {
+       "event": "nodedown",
+       "title": "부두 하나 끄기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=deploy&b=4"
+    }
+   ]
+  },
+  {
+   "id": "kube-scheduler",
+   "label": "kube-scheduler",
+   "terms": [
+    "kube-scheduler"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "crane",
+     "name": "크레인 배치원",
+     "real": "kube-scheduler",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "앱 배포하기",
+       "beat": 5
+      },
+      {
+       "event": "scale",
+       "title": "컨테이너 늘리기",
+       "beat": 4
+      },
+      {
+       "event": "nodedown",
+       "title": "부두 하나 끄기",
+       "beat": 6
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=deploy&b=5"
+    }
+   ]
+  },
+  {
+   "id": "kubelet",
+   "label": "kubelet",
+   "terms": [
+    "kubelet"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "foreman",
+     "name": "부두 반장",
+     "real": "kubelet",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "앱 배포하기",
+       "beat": 6
+      },
+      {
+       "event": "scale",
+       "title": "컨테이너 늘리기",
+       "beat": 5
+      },
+      {
+       "event": "nodedown",
+       "title": "부두 하나 끄기",
+       "beat": 7
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=deploy&b=6"
+    }
+   ]
+  },
+  {
+   "id": "kubernetes",
+   "label": "Kubernetes",
+   "terms": [],
+   "aliases": [
+    "쿠버네티스",
+    "k8s"
+   ],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": null,
+     "name": null,
+     "real": null,
+     "scenes": [],
+     "href": "worlds/k8s-harbor/"
+    }
+   ]
+  },
+  {
+   "id": "mtls",
+   "label": "mTLS",
+   "terms": [
+    "Envoy sidecar (Istio)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "sidecar",
+     "name": "가게 경비원",
+     "real": "Envoy sidecar (Istio)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=5"
+    }
+   ]
+  },
+  {
+   "id": "mvcc",
+   "label": "MVCC",
+   "terms": [
+    "shared_buffers"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "buffer",
+     "name": "열람 책상",
+     "real": "shared_buffers",
+     "scenes": [
+      {
+       "event": "race",
+       "title": "③ 두 사람이 동시에",
+       "beat": 2
+      },
+      {
+       "event": "select",
+       "title": "① 책 찾기",
+       "beat": 5
+      },
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 2
+      },
+      {
+       "event": "crash",
+       "title": "④ 정전 후 복구",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/db-library/#ev=race&b=2"
+    }
+   ]
+  },
+  {
+   "id": "network-policy",
+   "label": "NetworkPolicy",
+   "terms": [
+    "NetworkPolicy"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "netpol",
+     "name": "구역 칸막이",
+     "real": "NetworkPolicy",
+     "scenes": [
+      {
+       "event": "breach",
+       "title": "침입 시도 막기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/eks-security/#ev=breach&b=2"
+    }
+   ]
+  },
+  {
+   "id": "osi",
+   "label": "OSI 7계층",
+   "terms": [
+    "L5·L6 (세션·표현 계층)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "upper56",
+     "name": "6층 표현 · 5층 세션",
+     "real": "L5·L6 (세션·표현 계층)",
+     "scenes": [
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 2
+      },
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 2
+      },
+      {
+       "event": "tls",
+       "title": "HTTPS로 봉인하기",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/network-layers/#ev=tour&b=2"
+    }
+   ]
+  },
+  {
+   "id": "pod",
+   "label": "Pod",
+   "terms": [
+    "Pending Pod (nodeName 없음)",
+    "Pod",
+    "order-api (다른 앱의 Pod)",
+    "shop-front (Pod)",
+    "order-api (Pod)"
+   ],
+   "aliases": [
+    "파드"
+   ],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "yard",
+     "name": "대기 구역",
+     "real": "Pending Pod (nodeName 없음)",
+     "scenes": [],
+     "href": "worlds/k8s-harbor/"
+    },
+    {
+     "world": "k8s-harbor",
+     "actor": "pod",
+     "name": "컨테이너 묶음",
+     "real": "Pod",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 보내기",
+       "beat": 7
+      },
+      {
+       "event": "nodedown",
+       "title": "부두 하나 끄기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=request&b=7"
+    },
+    {
+     "world": "k8s-harbor",
+     "actor": "orderapp",
+     "name": "주문 앱",
+     "real": "order-api (다른 앱의 Pod)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 보내기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=request&b=4"
+    },
+    {
+     "world": "eks-security",
+     "actor": "front",
+     "name": "쇼핑 가게",
+     "real": "shop-front (Pod)",
+     "scenes": [],
+     "href": "worlds/eks-security/"
+    },
+    {
+     "world": "eks-security",
+     "actor": "order",
+     "name": "주문 가게",
+     "real": "order-api (Pod)",
+     "scenes": [
+      {
+       "event": "secret",
+       "title": "가게가 금고 열기",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/eks-security/#ev=secret&b=1"
+    }
+   ]
+  },
+  {
+   "id": "pod-security-admission",
+   "label": "Pod Security Admission",
+   "terms": [
+    "Admission (Pod Security Admission)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "psa",
+     "name": "규칙 검사관",
+     "real": "Admission (Pod Security Admission)",
+     "scenes": [
+      {
+       "event": "deploy",
+       "title": "새 버전 배포하기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/eks-security/#ev=deploy&b=4"
+    }
+   ]
+  },
+  {
+   "id": "postgresql",
+   "label": "PostgreSQL",
+   "terms": [
+    "postmaster"
+   ],
+   "aliases": [
+    "Postgres"
+   ],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "gate",
+     "name": "정문 안내원",
+     "real": "postmaster",
+     "scenes": [
+      {
+       "event": "select",
+       "title": "① 책 찾기",
+       "beat": 1
+      },
+      {
+       "event": "crash",
+       "title": "④ 정전 후 복구",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/db-library/#ev=select&b=1"
+    }
+   ]
+  },
+  {
+   "id": "query-planner",
+   "label": "Query Planner",
+   "terms": [
+    "planner (optimizer)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "planner",
+     "name": "길 고르는 지도 테이블",
+     "real": "planner (optimizer)",
+     "scenes": [
+      {
+       "event": "select",
+       "title": "① 책 찾기",
+       "beat": 3
+      }
+     ],
+     "href": "worlds/db-library/#ev=select&b=3"
+    }
+   ]
+  },
+  {
+   "id": "rds",
+   "label": "RDS",
+   "terms": [
+    "RDS (Amazon RDS)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "rds",
+     "name": "기록 금고",
+     "real": "RDS (Amazon RDS)",
+     "scenes": [],
+     "href": "worlds/eks-security/"
+    }
+   ]
+  },
+  {
+   "id": "route53",
+   "label": "Route 53",
+   "terms": [
+    "Route 53"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "route53",
+     "name": "안내 전광판",
+     "real": "Route 53",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=1"
+    }
+   ]
+  },
+  {
+   "id": "row-level-lock",
+   "label": "row-level lock",
+   "terms": [
+    "row-level lock"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "lock",
+     "name": "잠금 표지판",
+     "real": "row-level lock",
+     "scenes": [
+      {
+       "event": "race",
+       "title": "③ 두 사람이 동시에",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/db-library/#ev=race&b=1"
+    }
+   ]
+  },
+  {
+   "id": "secrets-manager",
+   "label": "Secrets Manager",
+   "terms": [
+    "Secrets Manager"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "secrets",
+     "name": "열쇠 보관함",
+     "real": "Secrets Manager",
+     "scenes": [
+      {
+       "event": "secret",
+       "title": "가게가 금고 열기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/eks-security/#ev=secret&b=4"
+    }
+   ]
+  },
+  {
+   "id": "security-group",
+   "label": "Security Group",
+   "terms": [
+    "Security Group"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "sg",
+     "name": "금고 문지기",
+     "real": "Security Group",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 6
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=6"
+    }
+   ]
+  },
+  {
+   "id": "service",
+   "label": "Service",
+   "terms": [
+    "Service (ClusterIP)"
+   ],
+   "aliases": [
+    "서비스",
+    "ClusterIP"
+   ],
+   "places": [
+    {
+     "world": "k8s-harbor",
+     "actor": "mailbox",
+     "name": "고정 우편함",
+     "real": "Service (ClusterIP)",
+     "scenes": [
+      {
+       "event": "scale",
+       "title": "컨테이너 늘리기",
+       "beat": 6
+      },
+      {
+       "event": "nodedown",
+       "title": "부두 하나 끄기",
+       "beat": 3
+      }
+     ],
+     "href": "worlds/k8s-harbor/#ev=scale&b=6"
+    }
+   ]
+  },
+  {
+   "id": "shared-buffers",
+   "label": "shared_buffers",
+   "terms": [
+    "shared_buffers"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "buffer",
+     "name": "열람 책상",
+     "real": "shared_buffers",
+     "scenes": [
+      {
+       "event": "select",
+       "title": "① 책 찾기",
+       "beat": 5
+      },
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 2
+      },
+      {
+       "event": "race",
+       "title": "③ 두 사람이 동시에",
+       "beat": 2
+      },
+      {
+       "event": "crash",
+       "title": "④ 정전 후 복구",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/db-library/#ev=select&b=5"
+    }
+   ]
+  },
+  {
+   "id": "sni",
+   "label": "SNI",
+   "terms": [
+    "TLS 종료 (nginx ssl)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "http-https",
+     "actor": "guard",
+     "name": "문지기",
+     "real": "TLS 종료 (nginx ssl)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 4
+      },
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 3
+      },
+      {
+       "event": "revisit",
+       "title": "두 번째 방문 (재사용)",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=4"
+    }
+   ]
+  },
+  {
+   "id": "sql",
+   "label": "SQL",
+   "terms": [
+    "parser · analyzer"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "parser",
+     "name": "문장 검사 데스크",
+     "real": "parser · analyzer",
+     "scenes": [
+      {
+       "event": "select",
+       "title": "① 책 찾기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/db-library/#ev=select&b=2"
+    }
+   ]
+  },
+  {
+   "id": "tcp",
+   "label": "TCP",
+   "terms": [
+    "TCP (L4 전송 계층)",
+    "TCP:80 (HTTP 포트)",
+    "TCP:443 (HTTPS 포트)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "tcp",
+     "name": "4층 전송",
+     "real": "TCP (L4 전송 계층)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 3
+      },
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 3
+      },
+      {
+       "event": "handshake",
+       "title": "TCP 연결 맺기",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/network-layers/#ev=request&b=3"
+    },
+    {
+     "world": "http-https",
+     "actor": "door80",
+     "name": "80번 문",
+     "real": "TCP:80 (HTTP 포트)",
+     "scenes": [
+      {
+       "event": "http",
+       "title": "http 로 들어가면?",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/http-https/#ev=http&b=1"
+    },
+    {
+     "world": "http-https",
+     "actor": "door443",
+     "name": "443번 문",
+     "real": "TCP:443 (HTTPS 포트)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 3
+      },
+      {
+       "event": "revisit",
+       "title": "두 번째 방문 (재사용)",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=3"
+    }
+   ]
+  },
+  {
+   "id": "tcp-ip",
+   "label": "TCP/IP",
+   "terms": [],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": null,
+     "name": null,
+     "real": null,
+     "scenes": [],
+     "href": "worlds/network-layers/"
+    }
+   ]
+  },
+  {
+   "id": "tls",
+   "label": "TLS",
+   "terms": [
+    "L5·L6 (세션·표현 계층)",
+    "ALB (Application Load Balancer)",
+    "TLS 종료 (nginx ssl)",
+    "Certificate (X.509 · TLS 인증서)"
+   ],
+   "aliases": [
+    "SSL",
+    "암호화"
+   ],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "upper56",
+     "name": "6층 표현 · 5층 세션",
+     "real": "L5·L6 (세션·표현 계층)",
+     "scenes": [
+      {
+       "event": "tls",
+       "title": "HTTPS로 봉인하기",
+       "beat": 1
+      },
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 2
+      },
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/network-layers/#ev=tls&b=1"
+    },
+    {
+     "world": "eks-security",
+     "actor": "alb",
+     "name": "정문",
+     "real": "ALB (Application Load Balancer)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=2"
+    },
+    {
+     "world": "http-https",
+     "actor": "guard",
+     "name": "문지기",
+     "real": "TLS 종료 (nginx ssl)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 4
+      },
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 3
+      },
+      {
+       "event": "revisit",
+       "title": "두 번째 방문 (재사용)",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=4"
+    },
+    {
+     "world": "http-https",
+     "actor": "cert",
+     "name": "가게 신분증",
+     "real": "Certificate (X.509 · TLS 인증서)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 5
+      },
+      {
+       "event": "badcert",
+       "title": "신분증이 틀리면?",
+       "beat": 5
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=5"
+    }
+   ],
+   "note": "우편 도시에서는 문지기·신분증, 층층 우체국에서는 6층 봉인, 공항에서는 정문(ALB)이 TLS 를 맡는다."
+  },
+  {
+   "id": "transaction",
+   "label": "Transaction",
+   "terms": [
+    "row-level lock"
+   ],
+   "aliases": [
+    "트랜잭션"
+   ],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "lock",
+     "name": "잠금 표지판",
+     "real": "row-level lock",
+     "scenes": [
+      {
+       "event": "race",
+       "title": "③ 두 사람이 동시에",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/db-library/#ev=race&b=1"
+    }
+   ]
+  },
+  {
+   "id": "udp",
+   "label": "UDP",
+   "terms": [
+    "TCP (L4 전송 계층)",
+    "Resolver (재귀 DNS 리졸버)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "network-layers",
+     "actor": "tcp",
+     "name": "4층 전송",
+     "real": "TCP (L4 전송 계층)",
+     "scenes": [
+      {
+       "event": "tour",
+       "title": "빌딩 안 둘러보기",
+       "beat": 3
+      },
+      {
+       "event": "request",
+       "title": "웹 페이지 요청 한 번",
+       "beat": 3
+      },
+      {
+       "event": "handshake",
+       "title": "TCP 연결 맺기",
+       "beat": 1
+      }
+     ],
+     "href": "worlds/network-layers/#ev=tour&b=3"
+    },
+    {
+     "world": "http-https",
+     "actor": "resolver",
+     "name": "동네 안내소",
+     "real": "Resolver (재귀 DNS 리졸버)",
+     "scenes": [
+      {
+       "event": "https",
+       "title": "https 로 들어가기",
+       "beat": 2
+      }
+     ],
+     "href": "worlds/http-https/#ev=https&b=2"
+    }
+   ]
+  },
+  {
+   "id": "vpc",
+   "label": "VPC",
+   "terms": [
+    "VPC"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "vpc",
+     "name": "공항 울타리",
+     "real": "VPC",
+     "scenes": [],
+     "href": "worlds/eks-security/"
+    }
+   ]
+  },
+  {
+   "id": "waf",
+   "label": "WAF",
+   "terms": [
+    "WAF (AWS WAF)"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "eks-security",
+     "actor": "waf",
+     "name": "보안검색대",
+     "real": "WAF (AWS WAF)",
+     "scenes": [
+      {
+       "event": "request",
+       "title": "손님 요청 하나",
+       "beat": 3
+      }
+     ],
+     "href": "worlds/eks-security/#ev=request&b=3"
+    }
+   ]
+  },
+  {
+   "id": "wal",
+   "label": "WAL",
+   "terms": [
+    "WAL (pg_wal)",
+    "wal_buffers"
+   ],
+   "aliases": [],
+   "places": [
+    {
+     "world": "db-library",
+     "actor": "wal",
+     "name": "변경 일지",
+     "real": "WAL (pg_wal)",
+     "scenes": [
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 4
+      }
+     ],
+     "href": "worlds/db-library/#ev=update&b=4"
+    },
+    {
+     "world": "db-library",
+     "actor": "walbuf",
+     "name": "일지 바구니",
+     "real": "wal_buffers",
+     "scenes": [
+      {
+       "event": "update",
+       "title": "② 책 고치기",
+       "beat": 3
+      }
+     ],
+     "href": "worlds/db-library/#ev=update&b=3"
+    }
+   ]
+  }
+ ],
+ "loose": [
+  {
+   "world": "db-library",
+   "actor": "client",
+   "name": "손님",
+   "real": "Client (my-pay-app)",
+   "scenes": [
+    {
+     "event": "select",
+     "title": "① 책 찾기",
+     "beat": 6
+    }
+   ],
+   "href": "worlds/db-library/#ev=select&b=6"
+  },
+  {
+   "world": "db-library",
+   "actor": "backend",
+   "name": "전담 사서",
+   "real": "backend process",
+   "scenes": [
+    {
+     "event": "update",
+     "title": "② 책 고치기",
+     "beat": 1
+    },
+    {
+     "event": "race",
+     "title": "③ 두 사람이 동시에",
+     "beat": 5
+    }
+   ],
+   "href": "worlds/db-library/#ev=update&b=1"
+  },
+  {
+   "world": "db-library",
+   "actor": "heap",
+   "name": "서고 책장",
+   "real": "heap (data files)",
+   "scenes": [],
+   "href": "worlds/db-library/"
+  },
+  {
+   "world": "network-layers",
+   "actor": "phy",
+   "name": "1층 물리",
+   "real": "PHY (L1 물리 계층)",
+   "scenes": [
+    {
+     "event": "request",
+     "title": "웹 페이지 요청 한 번",
+     "beat": 6
+    },
+    {
+     "event": "tour",
+     "title": "빌딩 안 둘러보기",
+     "beat": 6
+    }
+   ],
+   "href": "worlds/network-layers/#ev=request&b=6"
+  },
+  {
+   "world": "network-layers",
+   "actor": "sw",
+   "name": "동네 분류소",
+   "real": "Switch (L2 스위치)",
+   "scenes": [
+    {
+     "event": "request",
+     "title": "웹 페이지 요청 한 번",
+     "beat": 7
+    },
+    {
+     "event": "arp",
+     "title": "옆 장비 MAC 찾기",
+     "beat": 3
+    }
+   ],
+   "href": "worlds/network-layers/#ev=request&b=7"
+  },
+  {
+   "world": "network-layers",
+   "actor": "router",
+   "name": "교차로 우체국",
+   "real": "Router (L3 라우터)",
+   "scenes": [
+    {
+     "event": "request",
+     "title": "웹 페이지 요청 한 번",
+     "beat": 8
+    },
+    {
+     "event": "arp",
+     "title": "옆 장비 MAC 찾기",
+     "beat": 4
+    },
+    {
+     "event": "tls",
+     "title": "HTTPS로 봉인하기",
+     "beat": 5
+    }
+   ],
+   "href": "worlds/network-layers/#ev=request&b=8"
+  },
+  {
+   "world": "network-layers",
+   "actor": "server",
+   "name": "my-shop 서버",
+   "real": "nginx (웹 서버 프로그램)",
+   "scenes": [
+    {
+     "event": "request",
+     "title": "웹 페이지 요청 한 번",
+     "beat": 9
+    },
+    {
+     "event": "tls",
+     "title": "HTTPS로 봉인하기",
+     "beat": 6
+    }
+   ],
+   "href": "worlds/network-layers/#ev=request&b=9"
+  },
+  {
+   "world": "k8s-harbor",
+   "actor": "office",
+   "name": "배포 사무소",
+   "real": "kubectl",
+   "scenes": [
+    {
+     "event": "deploy",
+     "title": "앱 배포하기",
+     "beat": 1
+    },
+    {
+     "event": "scale",
+     "title": "컨테이너 늘리기",
+     "beat": 1
+    }
+   ],
+   "href": "worlds/k8s-harbor/#ev=deploy&b=1"
+  },
+  {
+   "world": "k8s-harbor",
+   "actor": "pier",
+   "name": "부두",
+   "real": "Worker Node",
+   "scenes": [
+    {
+     "event": "nodedown",
+     "title": "부두 하나 끄기",
+     "beat": 1
+    }
+   ],
+   "href": "worlds/k8s-harbor/#ev=nodedown&b=1"
+  },
+  {
+   "world": "k8s-harbor",
+   "actor": "machine",
+   "name": "하역 기계",
+   "real": "containerd (컨테이너 런타임)",
+   "scenes": [],
+   "href": "worlds/k8s-harbor/"
+  },
+  {
+   "world": "k8s-harbor",
+   "actor": "ship",
+   "name": "이미지 저장소선",
+   "real": "Container Registry",
+   "scenes": [],
+   "href": "worlds/k8s-harbor/"
+  },
+  {
+   "world": "k8s-harbor",
+   "actor": "guest",
+   "name": "바깥 손님",
+   "real": "client (브라우저·curl)",
+   "scenes": [
+    {
+     "event": "request",
+     "title": "손님 요청 보내기",
+     "beat": 1
+    }
+   ],
+   "href": "worlds/k8s-harbor/#ev=request&b=1"
+  },
+  {
+   "world": "k8s-harbor",
+   "actor": "proxy",
+   "name": "길 안내판",
+   "real": "kube-proxy",
+   "scenes": [
+    {
+     "event": "request",
+     "title": "손님 요청 보내기",
+     "beat": 6
+    }
+   ],
+   "href": "worlds/k8s-harbor/#ev=request&b=6"
+  },
+  {
+   "world": "eks-security",
+   "actor": "user",
+   "name": "손님",
+   "real": "클라이언트 (브라우저)",
+   "scenes": [],
+   "href": "worlds/eks-security/"
+  },
+  {
+   "world": "eks-security",
+   "actor": "node",
+   "name": "터미널",
+   "real": "Worker Node (EC2)",
+   "scenes": [
+    {
+     "event": "breach",
+     "title": "침입 시도 막기",
+     "beat": 3
+    },
+    {
+     "event": "deploy",
+     "title": "새 버전 배포하기",
+     "beat": 5
+    }
+   ],
+   "href": "worlds/eks-security/#ev=breach&b=3"
+  },
+  {
+   "world": "eks-security",
+   "actor": "s3",
+   "name": "짐 창고",
+   "real": "S3 (Amazon S3)",
+   "scenes": [],
+   "href": "worlds/eks-security/"
+  },
+  {
+   "world": "eks-security",
+   "actor": "ci",
+   "name": "배포 로봇",
+   "real": "CI/CD (배포 파이프라인)",
+   "scenes": [
+    {
+     "event": "deploy",
+     "title": "새 버전 배포하기",
+     "beat": 1
+    }
+   ],
+   "href": "worlds/eks-security/#ev=deploy&b=1"
+  },
+  {
+   "world": "eks-security",
+   "actor": "attacker",
+   "name": "침입자",
+   "real": "공격자 (가정한 상황)",
+   "scenes": [
+    {
+     "event": "breach",
+     "title": "침입 시도 막기",
+     "beat": 1
+    }
+   ],
+   "href": "worlds/eks-security/#ev=breach&b=1"
+  },
+  {
+   "world": "http-https",
+   "actor": "namehall",
+   "name": "주소 관청 3곳",
+   "real": "Root·TLD·Authoritative (네임서버 3단)",
+   "scenes": [],
+   "href": "worlds/http-https/"
+  },
+  {
+   "world": "http-https",
+   "actor": "road",
+   "name": "공용 도로 · 중계소",
+   "real": "Internet (라우터 · ISP)",
+   "scenes": [],
+   "href": "worlds/http-https/"
+  },
+  {
+   "world": "http-https",
+   "actor": "snoop",
+   "name": "엿보는 사람",
+   "real": "eavesdropper (길 위의 도청자)",
+   "scenes": [
+    {
+     "event": "https",
+     "title": "https 로 들어가기",
+     "beat": 6
+    },
+    {
+     "event": "http",
+     "title": "http 로 들어가면?",
+     "beat": 2
+    },
+    {
+     "event": "badcert",
+     "title": "신분증이 틀리면?",
+     "beat": 1
+    }
+   ],
+   "href": "worlds/http-https/#ev=https&b=6"
+  }
+ ]
+}

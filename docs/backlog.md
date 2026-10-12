@@ -23,7 +23,21 @@
 
 - CS 기초 지역(운영체제 · 프로세스 · 메모리). 비유 후보: 공장 · 공방
 - 데이터 구역 확장 후보: 캐시(빠른 참고 열람실) · 메시지 큐(우체통 벨트) · Vector DB
-- 사건 유형 빈칸: 공격 사건은 공항에만, 복구는 도서관에만 (2-8 에서 측정)
+- 사건 유형 빈칸 (2-8 측정, 2026-10-12, 세계 다섯 · 사건 21). 셋 미만 세계 셋(`db-library` · `network-layers` · `eks-security`)은 D27 에 따라 verified 유지, 보강은 Phase 4
+
+  | 세계 | 사건 | normal | failure | scale | attack | recovery | revisit | tour | 유형 수 |
+  |---|---|---|---|---|---|---|---|---|---|
+  | `db-library` | 4 | 3 | · | · | · | 1 | · | · | 2 |
+  | `network-layers` | 5 | 4 | · | · | · | · | · | 1 | 2 |
+  | `k8s-harbor` | 4 | 2 | · | 1 | · | 1 | · | · | 3 |
+  | `eks-security` | 4 | 3 | · | · | 1 | · | · | · | 2 |
+  | `http-https` | 4 | 1 | 1 | · | 1 | · | 1 | · | 4 |
+  | 합계 | 21 | 13 | 1 | 1 | 2 | 2 | 1 | 1 | |
+
+  - 전체 21 중 normal 13(62%). failure · scale · revisit · tour 는 세계 하나씩뿐
+  - 공격은 공항 · 우편 도시 둘, 복구는 도서관 · 항구 둘(이전 메모 "공격은 공항에만, 복구는 도서관에만"은 틀림)
+  - 보강 후보: `db-library` 에 failure(잠금 대기 시간 초과·교착) 또는 scale, `network-layers` 에 failure(패킷 유실·재전송), `eks-security` 에 recovery 또는 failure(인증서 만료·IAM 거부)
+  - 다시 재기: `node --input-type=module` 로 `lib.mjs` 의 `content()` · `kinds` 를 써서 세계별 `events[].kind` 를 센다
 
 ## 열어 둔 질문
 

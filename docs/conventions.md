@@ -80,7 +80,7 @@ meta: {
 
 - 세계 폴더에는 `index.html` · `content.js` · `world.js` · `world.css` · 선택적 `NOTES.md` 만. macOS·Git 메타 파일 `.DS_Store` · `.gitkeep` 은 예외로 허용하며 `.env` 를 포함한 다른 점 파일과 엔진 파일은 금지한다.
 - 일반 세계 `index.html` 은 `tooling/templates/world-index.html` 복사본. `new_world` 가 만들고 엔진 변경 후 `build_world_index.mjs` 가 갱신하므로 손으로 고치지 않는다.
-- `atlas.json` · `atlas.js` · `worlds/hub/index.html` · `shared/glossary.json` 생성 부분은 스크립트만 쓴다. 허브 index 는 엔진 index 에서 `build_hub_index.mjs` 가 만든다.
+- `atlas.json` · `atlas.js` · `worlds/hub/index.html` · `shared/glossary.json` 은 스크립트만 쓴다. 사전 손 보강은 `shared/glossary.overrides.json` 에만 적는다. 허브 index 는 엔진 index 에서 `build_hub_index.mjs` 가 만든다.
 
 ## 글 분량 (범용 스킬 규칙 승계)
 

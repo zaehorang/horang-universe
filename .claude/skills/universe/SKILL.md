@@ -44,13 +44,14 @@ node tooling/scripts/new_world.mjs <id> --region <region-id>
 node tooling/scripts/check_registry.mjs
 node tooling/scripts/check_world.mjs <id> --draft
 node tooling/scripts/build_atlas.mjs
+node tooling/scripts/build_glossary.mjs
 node tooling/scripts/check_all.mjs
 # tooling/scripts/verify_browser.js 내용을 로컬 브라우저 콘솔에 실행한 뒤 await EWV.all()
 ```
 
 draft 의 `content.js` · `world.js` 내용 오류는 경고로 보고한다. 등록부 구조 오류·템플릿 동기 오류·허브 필수 파일 누락·세계 폴더 금지 파일은 draft 에서도 실패다. 사건 kind 셋 미만은 `verified` 에서도 경고이며 2-8 에 기록해 Phase 4 에 보강한다. `check_world` 는 일반 세계의 `world.css` 모든 규칙에서 허용 변수 다섯 밖의 키, `--acc` 색상 200–230° 밖, 엔진 클래스 선택자를 경고하고, 허브는 이 검사에서 제외한다.
 
-브라우저 확인까지 통과하고 내용 오류가 없으면 등록부 status 를 `verified` 로 바꾸고 `build_atlas` → `check_all` 을 다시 실행한다. verified 의 내용 오류는 실패다. 실패는 결과 그대로 보고하고 상태를 올리지 않는다.
+브라우저 확인까지 통과하고 내용 오류가 없으면 등록부 status 를 `verified` 로 바꾸고 `build_atlas` → `build_glossary` → `check_all` 을 다시 실행한다. verified 의 내용 오류는 실패다. 실패는 결과 그대로 보고하고 상태를 올리지 않는다.
 
 ## 5. 확인
 
@@ -70,4 +71,4 @@ draft 의 `content.js` · `world.js` 내용 오류는 경고로 보고한다. �
 
 ## 순서
 
-자리 찾기 → `new_world` 생성과 draft 등록 → 원본 스킬로 내용 작성 → `check_registry` · `check_world` → `build_atlas` → `check_all` → 브라우저 확인 → 통과 시 verified 등록 후 색인·전체 검사 재실행. 색인 두 형식(`atlas.json` · `atlas.js`)은 항상 `build_atlas` 로 함께 만든다. 허브는 JSON fetch, 세계는 JS 스크립트로 동기 로드한다.
+자리 찾기 → `new_world` 생성과 draft 등록 → 원본 스킬로 내용 작성 → `check_registry` · `check_world` → `build_atlas` → `build_glossary` → `check_all` → 브라우저 확인 → 통과 시 verified 등록 후 색인·전체 검사 재실행. 색인 두 형식(`atlas.json` · `atlas.js`)은 항상 `build_atlas` 로 함께 만든다. 허브는 JSON fetch, 세계는 JS 스크립트로 동기 로드한다.

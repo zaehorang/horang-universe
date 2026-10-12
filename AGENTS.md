@@ -15,7 +15,7 @@
 1. **자리 찾기**: `worlds.json` · `shared/values.js` · 이웃 세계 `content.js` 의 `meta` 를 읽고 지역 · 문 · 값 벌 · 비유 계열 · 사건 유형(셋 이상)을 정해 한 문단으로 보여 준다. 새 지역은 사용자 확인 뒤에만.
 2. **생성**: `node tooling/scripts/new_world.mjs <id> --region <region>`. 엔진 복사 없음.
 3. **내용 작성**: 범용 explorable-world 스킬 규칙(3겹 설명 · 이름 색 · 글 분량)을 따른다. `meta`(concepts · guest · values · doors)와 모든 `events[]` 의 `id` · `kind` 를 채운다.
-4. **검사**: `check_registry` → `check_world <id> --draft` → `build_atlas` → `check_all` → 로컬 `verify_browser`. 통과해야 등록부 status 를 `verified` 로. 실패는 결과 그대로 보고.
+4. **검사**: `check_registry` → `check_world <id> --draft` → `build_atlas` → `build_glossary` → `check_all` → 로컬 `verify_browser`. 통과해야 등록부 status 를 `verified` 로. 실패는 결과 그대로 보고.
 5. **확인**: `python3 -m http.server 8000` 로 허브 → 건물 → 전 사건 재생, 문 양방향.
 6. **배포**: 사용자 요청 시 커밋 · push. Actions 는 `check_all` 정적 검사를 돌리고 Pages 에 올린다. `verify_browser` 는 로컬 전용이다.
 

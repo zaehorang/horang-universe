@@ -45,7 +45,7 @@ SKALA 쪽 폴더 삭제와 CLAUDE.md 수정은 사용자 승인 뒤에만.
 ## 통일할 것
 
 - 도메인: `my-shop.example.com` / `my-shop.example` / `shop.example.com` → 대표 하나 + network-layers 예외.
-- Ingress 비유: "항구 정문"과 "안내 데스크". 바꾸지 않고 용어 사전에서 같은 개념으로 묶는다.
+- Ingress 비유: "항구 정문"과 "안내 데스크". 바꾸지 않고 용어 사전에서 같은 개념으로 묶는다(두 real 이 모두 Ingress Controller 라 자동 대응, `glossary.overrides.json` `notes.ingress` 에 대응 설명).
 - 손님 actor 키가 세계마다 다름(browser · client · guest · user). 키는 두고 `meta.guest` 로 가리킨다.
 
 ## 이관 후 SKALA 정리 (승인 필요)
