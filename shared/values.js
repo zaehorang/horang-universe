@@ -8,7 +8,7 @@
 
 /* 가게(서비스) 벌 — 손님 벌이 앱 이름을 여기서 읽는다 */
 var SHOPS = {
-  "shop-web": { name: "my-shop 가게", real: "my-shop (쇼핑 서비스)",
+  "shop-web": { name: "my-shop 가게", shortName: "my-shop", real: "my-shop (쇼핑 서비스)",
     domain: "my-shop.example.com", publicIp: "203.0.113.42",
     pods: { front: "shop-front", order: "order-api" },
     note: "우편 도시·항구·공항이 같은 가게를 본다. network-layers 만 my-shop.example 예외(D22)." },

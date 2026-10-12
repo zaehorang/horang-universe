@@ -44,7 +44,7 @@ python3 -m http.server 8000   # → http://127.0.0.1:8000/worlds/network-layers/
 
 MAC은 문서용 대역 `00:00:5e:00:53:xx`, 도메인은 `my-shop.example` 이다.
 
-`meta.values` 는 `shop-web` 이며 가게 이름은 `shared/values.js` 를 참조한다. 도메인은 바이트 수 보존을 위한 D22 예외로 유지하고, 내부망 주소·MAC·포트·바이트 수는 세계 고유 값으로 둔다. 문은 `http-https:shop` 쪽에서 선언하므로 이 세계의 `meta.doors` 는 빈 배열이다. 사건 유형은 정상 흐름(`normal`)과 둘러보기(`tour`) 두 종류이며, 셋 미만 보강은 D27에 따라 후속 단계에서 다룬다.
+`meta.values` 는 `shop-web` 이며 가게 이름은 `shared/values.js` 의 `shortName` 을 참조한다. 도메인은 바이트 수 보존을 위한 D22 예외로 유지하고(번들의 `domain`·`publicIp` 는 일부러 쓰지 않는다), `content.js` 가 예제 요청이 78바이트인지 단언해 어긋나면 콘솔 오류를 낸다. 허브 지붕색 `meta.hubColor` 는 우체국 지붕 `ISO.C.roofR` 윗면 `#e07a5f` 이다. 내부망 주소·MAC·포트·바이트 수는 세계 고유 값으로 둔다. 문은 `http-https:shop` 쪽에서 선언하므로 이 세계의 `meta.doors` 는 빈 배열이다. 사건 유형은 정상 흐름(`normal`)과 둘러보기(`tour`) 두 종류이며, 셋 미만 보강은 D27에 따라 후속 단계에서 다룬다.
 
 ### 일부러 단순화한 것
 
@@ -57,8 +57,8 @@ MAC은 문서용 대역 `00:00:5e:00:53:xx`, 도메인은 `my-shop.example` 이�
 
 ## 검증 상태 (2026-10-12, 사건 5개 기준)
 
-- 정적 검사(`check_world.mjs --draft`): 통과. 경고 10개는 전부 `actors.* 지도 클릭 물체 없음` 거짓 경고다.
-  - 검사기는 `ISO.act(` 호출만 세는데 이 세계는 `act = ISO.act` 별칭을 쓰고, 층은 `act(..., FLOOR_ACT[i])` 처럼 계산된 키로 만든다.
+- 정적 검사(`check_world.mjs`): 통과. 경고 2개는 둘 다 의도된 것이다.
+  - `world.js 계산된 actor 키 act 호출 2곳` — 층을 `act(..., FLOOR_ACT[i])` 처럼 계산된 키로 만들어 검사기가 문자열 리터럴로 근사 검사한다.
   - `client` 가 어느 장면의 주인공도 아님 — 의도한 것. 옥상의 curl은 소품이고 첫 자막에서 이름만 부른다.
 - 브라우저 자동 검사(rubric B, 헤드리스 Chrome): 1512x772 · 1120x700(iframe) 두 크기 모두 통과. 가장 작은 라벨 16.7px / 12.5px. 콘솔 에러 0. 전 사건 30장면 재생 확인.
   - 경고 `request#8`: 말풍선 꼬리가 주인공 근처가 아니라고 1512 폭에서만 나온다. 꼬리는 화면에서 nginx를 가리킨다.

@@ -4,7 +4,7 @@
 (function(){
 "use strict";
 var ISO = window.ISO;
-var SHOP_NAME = window.SHARED.shops["shop-web"].name.replace(/ 가게$/, "");
+var SHOP_NAME = window.SHARED.shops["shop-web"].shortName;
 var iso = ISO.iso, isoL = ISO.isoL, el = ISO.el, box = ISO.box, flat = ISO.flat, faceR = ISO.faceR, faceL = ISO.faceL, C = ISO.C, act = ISO.act;
 
 var FH = 40;   /* 층 높이 */

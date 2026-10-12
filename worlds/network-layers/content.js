@@ -7,9 +7,15 @@
 
 /* D22: 도메인 길이에 묶인 HTTP 78바이트 예제를 보존한다.
    shop-web의 도메인·공인 IP 대신 이 세계의 도메인과 내부망 주소를 쓴다. */
-var SHOP_NAME = window.SHARED.shops["shop-web"].name.replace(/ 가게$/, "");
+var SHOP_NAME = window.SHARED.shops["shop-web"].shortName;
 
 var REQ = "GET / HTTP/1.1<span class='c'>\\r\\n</span>\nHost: my-shop.example<span class='c'>\\r\\n</span>\nUser-Agent: curl/8.5.0<span class='c'>\\r\\n</span>\nAccept: */*<span class='c'>\\r\\n</span>\n<span class='c'>\\r\\n   ← 빈 줄 = 헤더 끝</span>";
+/* D22 단언: 화면의 요청 줄(\r\n 포함)이 78바이트여야 TCP·IP·프레임 길이(130 · 144)가 맞는다 */
+var REQ_BYTES = 78;
+(function(){
+  var raw = REQ.replace(/<span class='c'>\\r\\n[^<]*<\/span>\n?/g, "\r\n").replace(/<[^>]+>/g, "");
+  if(raw.length !== REQ_BYTES) console.error("network-layers: 예제 HTTP 요청이 " + raw.length + "바이트 — " + REQ_BYTES + "바이트여야 130 · 144 가 맞는다 (D22)");
+})();
 var DUMP_L = "<span class='k'>$ sudo tcpdump -i eth0 -n -e 'tcp port 80'</span>\n10:21:07.412893 00:00:5e:00:53:23 > 00:00:5e:00:53:01, ethertype IPv4 (0x0800), length 144: 10.0.1.23.51514 > 10.0.2.10.80: Flags [P.], seq 1:79, ack 1, win 502, options [nop,nop,TS val 3051624811 ecr 1923044210], length 78: HTTP: GET / HTTP/1.1";
 
 var ACTORS = {
@@ -219,6 +225,7 @@ window.CONTENT = {
     concepts:["osi", "tcp-ip", "http", "tcp", "udp", "ip", "ethernet", "arp", "tls"],
     guest:"client",
     values:["shop-web"],
+    hubColor:"#e07a5f",
     doors:[]
   },
   title:"층층 우체국 빌딩",
