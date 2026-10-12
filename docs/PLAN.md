@@ -102,7 +102,7 @@ Pretendard 1.3.9 dynamic-subset 500·700·800 굵기와 WOFF2 276개는 사용�
 - `tooling/engine/` · `tooling/scripts/`: 이관 작업자는 수정 금지. 엔진 버그를 찾으면 보고만 하고, 별도 작업자가 처리한다.
 - `docs/migration.md` 세계별 표: 자기 행만 갱신.
 
-- [ ] 2-1 `network-layers` — 절차 검증. 막힌 곳은 체크리스트에 반영
+- [x] 2-1 `network-layers` — 절차 검증. 막힌 곳은 체크리스트에 반영
 - [x] 2-2 `db-library` — `pay-app` · `guest-app` 벌 확정
 - [ ] 2-3 `k8s-harbor` — 먼저 `eks-security` 를 draft 로 생성하고 `ingress` actor 를 둔 뒤 `gate → eks-security:ingress` 문을 등록
 - [ ] 2-4 `eks-security` — 내용 이관 후 문 둘 활성. **문 기능 첫 실사용 시험**

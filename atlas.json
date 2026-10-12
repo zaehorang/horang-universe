@@ -104,6 +104,68 @@
         "pay-app",
         "guest-app"
       ]
+    },
+    {
+      "id": "network-layers",
+      "region": "network",
+      "pos": [
+        300,
+        465
+      ],
+      "status": "verified",
+      "since": "2026-10-12",
+      "title": "층층 우체국 빌딩",
+      "subtitle": "네트워크 계층: 편지 한 장이 봉투를 겹겹이 쓰고 벗기기까지",
+      "logo": "🏢",
+      "roof": "#8dbd6f",
+      "regionName": "네트워크 해안",
+      "concepts": [
+        "osi",
+        "tcp-ip",
+        "http",
+        "tcp",
+        "udp",
+        "ip",
+        "ethernet",
+        "arp",
+        "tls"
+      ],
+      "events": [
+        {
+          "id": "request",
+          "title": "웹 페이지 요청 한 번",
+          "kind": "normal",
+          "beats": 9
+        },
+        {
+          "id": "tour",
+          "title": "빌딩 안 둘러보기",
+          "kind": "tour",
+          "beats": 6
+        },
+        {
+          "id": "handshake",
+          "title": "TCP 연결 맺기",
+          "kind": "normal",
+          "beats": 4
+        },
+        {
+          "id": "arp",
+          "title": "옆 장비 MAC 찾기",
+          "kind": "normal",
+          "beats": 5
+        },
+        {
+          "id": "tls",
+          "title": "HTTPS로 봉인하기",
+          "kind": "normal",
+          "beats": 6
+        }
+      ],
+      "guest": "client",
+      "values": [
+        "shop-web"
+      ]
     }
   ],
   "doors": []

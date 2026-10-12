@@ -47,6 +47,7 @@
     "shore": "#efe2c0"
   },
   "worlds": [
-    { "id": "db-library", "region": "data", "pos": [1230, 510], "status": "verified", "since": "2026-10-12" }
+    { "id": "db-library", "region": "data", "pos": [1230, 510], "status": "verified", "since": "2026-10-12" },
+    { "id": "network-layers", "region": "network", "pos": [300, 465], "status": "verified", "since": "2026-10-12" }
   ]
 }

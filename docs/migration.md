@@ -10,7 +10,7 @@ SKALA 쪽 폴더 삭제와 CLAUDE.md 수정은 사용자 승인 뒤에만.
 3. [ ] `content.js` 에 `meta` 추가: concepts · guest · values · doors
 4. [ ] 모든 `events[]` 에 `id` · `kind` 부여 (world.js `scenes` 키와 같게)
 5. [ ] 세계 간 공유 값(도메인 · 손님 이름 · 공인 IP)만 `shared/values.js` 상수로 교체. 내부망 주소 · 바이트 수 · 세계 고유 값은 그대로
-6. [ ] `world.css` 를 `design.md` §7 의 세계별 표대로 옮기기: `--world-bg(-deep)` · `--world-texture`, 라벨 크기·`.iptag`·사건 패널 덮어쓰기 삭제, `#dc2626` 류 패널 글자색은 `--danger`. 지도 안(world.js) 의미색은 그대로
+6. [ ] `world.css` 를 `design.md` §7 의 세계별 표대로 옮기기: `--world-bg(-deep)` · `--world-texture`, 라벨 크기·`.iptag`·사건 패널 덮어쓰기 삭제, `#dc2626` 류 패널 글자색은 `--danger`. 지도 안(world.js) 의미색은 그대로. 세계가 바탕 그라디언트를 따로 만들어 `#bg` 를 덮어쓰지 않는다(엔진 `worldBgGrad` 가 `--world-bg` → `--world-bg-deep` 를 이미 그린다)
 7. [ ] `new_world` 가 추가한 등록부 항목의 region · pos · status `draft` 확인
 8. [ ] `check_registry` → `check_world <id> --draft` → `build_atlas` → `check_all` 통과
 9. [ ] 로컬 서버에서 허브 → 세계 진입 → 전 사건 재생. 이관 전후 스크린샷 비교
@@ -22,7 +22,7 @@ SKALA 쪽 폴더 삭제와 CLAUDE.md 수정은 사용자 승인 뒤에만.
 
 | 순서 | 세계 | 지역 | 손님 actor | 값 벌 | 문 | 메모 |
 |---|---|---|---|---|---|---|
-| 1 | `network-layers` | network | `client` | `shop-web`(도메인 예외) | → `http-https:shop` 반대편으로 자동 | 가장 작고 NOTES 있음. 절차 검증용. 도메인은 `my-shop.example` 유지(D22). 디자인: skyGrad 아랫단을 풀색 `#a9d6a0` 으로(땅이 지역색), `.events` 470px·2열 덮어쓰기 제거(엔진 규칙으로 승격) |
+| 1 | `network-layers` | network | `client` | `shop-web`(도메인 예외) | → `http-https:shop` 반대편으로 자동 | **verified (2026-10-12)**. 가장 작고 NOTES 있음. 절차 검증용. 도메인은 `my-shop.example` 유지(D22), 가게 이름만 `shop-web` 참조. 디자인: `--world-bg #dcebf5` · `--world-bg-deep` 풀색 `#a9d6a0`(땅이 지역색), 세계 `skyGrad`·`#bg` 덮어쓰기 제거(엔진 `worldBgGrad` 와 같음), `--world-texture:url(#tex-dots)`, `.events` 470px·2열·`.lbl` 크기 덮어쓰기 제거. 사건 유형 normal·tour 둘(셋 미만, D27 경고만). 등록부 pos `[300,465]` |
 | 2 | `db-library` | data | `client` | `pay-app` · `guest-app` | 없음(공항 쪽에서 들어옴) | **verified (2026-10-12)**. mina·joon·my-pay 유지(D23). 결제 벌 확정: `pay-app` 에 `appName` · `dbHost` · `dbUser` 추가, psql 줄머리까지 `PAY.db` 로 통일. 디자인: `api.bg.setAttribute(fill)` 리터럴 제거, 바탕 `#e3e8df`, `--world-texture:url(#tex-paper)`, `.lbl` 크기 삭제. 사건 유형 normal·recovery 둘(셋 미만, D27 경고만) |
 | 3 | `k8s-harbor` | ops | `guest` | `shop-web` · `guest-browser` | `gate` → `eks-security:ingress` | `shop.example.com` → `my-shop.example.com`. 173곳 my-shop 은 이미 일치. 디자인: seaGrad → `--world-bg/-deep`, `.iptag` 는 엔진 `.tag-dark` 로 승격 후 제거, `--world-texture:url(#tex-waves)` |
 | 4 | `eks-security` | ops | `user` | `shop-web` · `guest-browser` | `rds` → `db-library:gate` | 인물 23개로 최대. 도메인 통일. 디자인: **바탕 `#d9e8ef` → `#cfdde3` 콘크리트**(하늘색과 겹쳐 지역이 뒤바뀌어 보임), 바다 요소 없이 항만으로 읽히는지 확인(안 되면 가장자리 바다 띠), `.iptag` 제거 |
